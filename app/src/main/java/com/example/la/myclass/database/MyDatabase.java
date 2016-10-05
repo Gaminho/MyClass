@@ -69,7 +69,8 @@ public class MyDatabase extends SQLiteOpenHelper {
             + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_PUPIL_NAME + " TEXT NOT NULL, "
             + COL_DATE + " LONG, " + COL_DURATION + " INTEGER, "
             + COL_STATE + " INTEGER, " + COL_MONEY + " DOUBLE, "
-            + COL_THEME + " TEXT, " + COL_MEMO + " TEXT );";
+            + COL_THEME + " TEXT, " + COL_MEMO + " TEXT, "
+            + COL_PUPIL_ID + " INTEGER );";
 
     private static final String CREATE_COURSES_BDD_2 = "CREATE TABLE " + TABLE_COURSES_2 + " ("
             + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
