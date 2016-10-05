@@ -37,7 +37,7 @@ public class ActivityDevoir extends ActionBarActivity implements FragmentDetails
 
         mActionBar = C.setUpActionBar(getSupportActionBar(), this);
         ((TextView) mActionBar.getCustomView().findViewById(R.id.title)).setText("Devoir");
-        ((ImageView) mActionBar.getCustomView().findViewById(R.id.mainPix)).setImageDrawable(getResources().getDrawable(R.drawable.man));
+        ((ImageView) mActionBar.getCustomView().findViewById(R.id.mainPix)).setImageDrawable(getResources().getDrawable(R.drawable.ic_assignment_white_48dp));
         mActionBar.getCustomView().findViewById(R.id.mainPix).setVisibility(View.VISIBLE);
 
         Fragment fragment;

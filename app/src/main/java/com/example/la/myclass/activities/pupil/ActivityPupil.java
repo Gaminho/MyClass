@@ -46,7 +46,7 @@ public class ActivityPupil extends ActionBarActivity implements FragmentDetailsP
         mActionBar = C.setUpActionBar(getSupportActionBar(), this);
         mTVTitle = (TextView) mActionBar.getCustomView().findViewById(R.id.title);
         ((TextView) mActionBar.getCustomView().findViewById(R.id.title)).setText("Elèves");
-        ((ImageView) mActionBar.getCustomView().findViewById(R.id.mainPix)).setImageDrawable(getResources().getDrawable(R.drawable.ic_face_black_48dp));
+        ((ImageView) mActionBar.getCustomView().findViewById(R.id.mainPix)).setImageDrawable(getResources().getDrawable(R.drawable.ic_group_white_48dp));
         mActionBar.getCustomView().findViewById(R.id.mainPix).setVisibility(View.VISIBLE);
 
         Fragment fragment;
