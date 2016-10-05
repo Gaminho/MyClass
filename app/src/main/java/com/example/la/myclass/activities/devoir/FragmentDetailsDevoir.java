@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.la.myclass.C;
@@ -27,7 +26,7 @@ public class FragmentDetailsDevoir extends Fragment implements View.OnClickListe
 
 
     // Views
-    protected TextView mTextViewPupilName, mTextViewDate, mTextViewNote, mTextViewTheme, mTextViewMemo;
+    protected TextView mTVPupilName, mTVDate, mTVNote, mTVTheme, mTVMemo, mTVType;
     protected LinearLayout mLLEditDevoir;
     protected CardView mCVRemarque;
     protected View mRootView;
@@ -74,11 +73,12 @@ public class FragmentDetailsDevoir extends Fragment implements View.OnClickListe
 
     public void getAllViews(View view){
 
-        mTextViewPupilName = (TextView) view.findViewById(R.id.pupilName);
-        mTextViewDate = (TextView) view.findViewById(R.id.date);
-        mTextViewNote = (TextView) view.findViewById(R.id.note);
-        mTextViewTheme = (TextView) view.findViewById(R.id.theme);
-        mTextViewMemo = (TextView) view.findViewById(R.id.memo);
+        mTVPupilName = (TextView) view.findViewById(R.id.pupilName);
+        mTVDate = (TextView) view.findViewById(R.id.date);
+        mTVNote = (TextView) view.findViewById(R.id.note);
+        mTVMemo = (TextView) view.findViewById(R.id.memo);
+        mTVTheme = (TextView) view.findViewById(R.id.theme);
+        mTVType = (TextView) view.findViewById(R.id.bareme);
         mCVRemarque = (CardView) view.findViewById(R.id.remarquesCV);
         mLLEditDevoir = (LinearLayout) view.findViewById(R.id.edit);
         mLLEditDevoir.setOnClickListener(this);
@@ -86,27 +86,17 @@ public class FragmentDetailsDevoir extends Fragment implements View.OnClickListe
     }
 
     public void fillDevoirDetails(){
-        mTextViewPupilName.setText(mDevoir.getPupil().getFullName());
-        mTextViewDate.setText(C.formatDate(mDevoir.getDate(), C.DAY_DATE_D_MONTH_YEAR));
-        mTextViewTheme.setText(mDevoir.getTheme());
-        mTextViewMemo.setText(mDevoir.getCommentaire());
+        mTVPupilName.setText(mDevoir.getPupil().getFullName());
+        mTVDate.setText(C.formatDate(mDevoir.getDate(), C.DAY_DATE_D_MONTH_YEAR));
+        mTVTheme.setText(mDevoir.getTheme());
+        mTVMemo.setText(mDevoir.getCommentaire());
 
         if(mDevoir.getNote() > 0)
-            mTextViewNote.setText(String.format("%.2f/%02d", mDevoir.getNote(), mDevoir.getBarem()));
+            mTVNote.setText(String.format("%.2f/%02d", mDevoir.getNote(), mDevoir.getBarem()));
         else
-            mTextViewNote.setText(String.format("-/%02d", mDevoir.getBarem()));
+            mTVNote.setText(String.format("-/%02d", mDevoir.getBarem()));
 
-        switch(mDevoir.getType()){
-            case Devoir.DM:
-                ((RadioButton) mRootView.findViewById(R.id.rbDM)).setChecked(true);
-                break;
-            case Devoir.DST:
-                ((RadioButton) mRootView.findViewById(R.id.rbDST)).setChecked(true);
-                break;
-            default:
-                ((RadioButton) mRootView.findViewById(R.id.rbInterro)).setChecked(true);
-                break;
-        }
+        mTVType.setText(mDevoir.getTypeLabel(mDevoir.getType()));
 
     }
 

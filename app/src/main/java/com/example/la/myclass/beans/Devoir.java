@@ -11,7 +11,7 @@ public class Devoir {
     public static final int ALL_DEVOIRS = 2;
     public static final int DST = 0;
     public static final int DM = 1;
-    public static final int INTERRO = 3;
+    public static final int INTERRO = 2;
 
     protected int id;
     protected int pupilID;
@@ -112,6 +112,17 @@ public class Devoir {
 
     public void setPupil(Pupil pupil) {
         this.pupil = pupil;
+    }
+
+    public String getTypeLabel(int type){
+        switch(type){
+            case DM:
+                return "Devoir maison";
+            case INTERRO:
+                return "Interrogation";
+            default:
+                return "Devoir sur table";
+        }
     }
 
     public static String getStateLabel(int state){

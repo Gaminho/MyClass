@@ -197,36 +197,17 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="10dp"
                                 android:text="Type de devoir"
-                                android:textColor="@color/them700"/>
+                                android:textColor="@color/them700"
+                                android:id="@+id/textView2" />
 
-                            <RadioGroup
-                                android:id="@+id/rGroupTypeDevoir"
-                                android:layout_width="match_parent"
+                            <TextView
+                                android:id="@+id/bareme"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:textSize="16dp"
+                                android:text="Devoir sur table"
+                                android:textColor="@color/textColor"/>
 
-                                <RadioButton
-                                    android:id="@+id/rbDST"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="DST"/>
-
-                                <RadioButton
-                                    android:id="@+id/rbDM"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="DM"/>
-
-                                <RadioButton
-                                    android:id="@+id/rbInterro"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Interro"/>
-
-                            </RadioGroup>
 
                         </LinearLayout>
 

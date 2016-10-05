@@ -91,9 +91,6 @@ public class FragmentAddOrEditPupil extends FragmentAddOrEditDefault implements 
         View view = super.onCreateView(inflater, container, savedInstanceState);
         setContent(getActivity(), mScrollView);
 
-        ((RadioGroup) view.findViewById(R.id.rGroupSexe)).setOnCheckedChangeListener(this);
-        ((RadioGroup) view.findViewById(R.id.rGroupFrequency)).setOnCheckedChangeListener(this);
-        ((RadioGroup) view.findViewById(R.id.rGroupPaiementType)).setOnCheckedChangeListener(this);
         return view;
     }
 
@@ -167,6 +164,9 @@ public class FragmentAddOrEditPupil extends FragmentAddOrEditDefault implements 
         Spinner spinner =  (Spinner) view.findViewById(R.id.spinnerClass);
         setSpinnerContent(spinner, R.array.classes, this);
         view.findViewById(R.id.loadNewPix).setOnClickListener(this);
+        ((RadioGroup) view.findViewById(R.id.rGroupSexe)).setOnCheckedChangeListener(this);
+        ((RadioGroup) view.findViewById(R.id.rGroupFrequency)).setOnCheckedChangeListener(this);
+        ((RadioGroup) view.findViewById(R.id.rGroupPaiementType)).setOnCheckedChangeListener(this);
 
        if(mCurrentMod == EDITING) {
            spinner.setSelection(mPupil.getLevel());

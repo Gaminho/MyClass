@@ -12,7 +12,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -22,6 +25,7 @@ import com.example.la.myclass.C;
 import com.example.la.myclass.R;
 import com.example.la.myclass.activities.FragmentAddOrEditDefault;
 import com.example.la.myclass.adapters.SpinnerPupilWithPixAdapter;
+import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.beans.Devoir;
 import com.example.la.myclass.beans.Pupil;
 import com.example.la.myclass.database.DevoirBDD;
@@ -34,7 +38,7 @@ import java.util.List;
  * Created by Léa on 06/10/2015.
  */
 public class FragmentAddOrEditDevoir extends FragmentAddOrEditDefault implements View.OnClickListener,
-        DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener {
+        DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
 
     /**
      * BUNDLE VARIABLES
@@ -121,6 +125,7 @@ public class FragmentAddOrEditDevoir extends FragmentAddOrEditDefault implements
         View view = inflater.inflate(R.layout.adding_devoir, container, false);
         Spinner spinner = (Spinner) view.findViewById(R.id.spinnerPupils);
         fillSpinnerPupils(spinner, this, getResources().getColor(R.color.textColor));
+        ((RadioGroup) view.findViewById(R.id.rGroupTypeDevoir)).setOnCheckedChangeListener(this);
 
         if(mCurrentMod == EDITING) {
             spinner.setSelection(((SpinnerPupilWithPixAdapter) spinner.getAdapter()).getSelectionWithPupilID(mDevoir.getPupilID()));
@@ -132,6 +137,22 @@ public class FragmentAddOrEditDevoir extends FragmentAddOrEditDefault implements
 
             if(mDevoir.getNote()>0)
                 editText.setText(String.format("%.2f", mDevoir.getNote()));
+
+            editText = ((EditText) view.findViewById(R.id.bareme));
+            editText.setText(String.format("%2d", mDevoir.getBarem()));
+
+        }
+
+        switch(mDevoir.getType()){
+            case Devoir.DM:
+                ((RadioButton)view.findViewById(R.id.rbDM)).setChecked(true);
+                break;
+            case Devoir.INTERRO:
+                ((RadioButton)view.findViewById(R.id.rbInterro)).setChecked(true);
+                break;
+            default:
+                ((RadioButton)view.findViewById(R.id.rbDST)).setChecked(true);
+                break;
         }
 
         view.findViewById(R.id.pickDate).setOnClickListener(this);
@@ -233,6 +254,14 @@ public class FragmentAddOrEditDevoir extends FragmentAddOrEditDefault implements
         else
             mDevoir.setTheme(editText.getText().toString());
 
+        editText = ((EditText) mContentView.findViewById(R.id.bareme));
+        if("".equals(editText.getText().toString())) {
+            Toast.makeText(getActivity(), "Précisez le barême", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else
+            mDevoir.setBarem(Integer.parseInt(editText.getText().toString()));
+
         return true;
     }
 
@@ -314,6 +343,23 @@ public class FragmentAddOrEditDevoir extends FragmentAddOrEditDefault implements
     @Override
     public void onTimeSet(TimePicker timePicker, int i, int i1) {
 
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int radioButtonID) {
+        if(radioGroup.getId() == R.id.rGroupTypeDevoir){
+            switch(radioButtonID){
+                case R.id.rbInterro:
+                    mDevoir.setType(Devoir.INTERRO);
+                    break;
+                case R.id.rbDM:
+                    mDevoir.setType(Devoir.DM);
+                    break;
+                default:
+                    mDevoir.setType(Devoir.DST);
+                    break;
+            }
+        }
     }
 }
 

@@ -34,7 +34,7 @@ public class DevoirBDD {
     private static final int NUM_COL_STATE  = 5;
     public static final String COL_PUPIL_ID = "PUPIL_ID";
     private static final int NUM_COL_PUPIL_ID  = 6;
-    public static final String COL_TYPE = "BAREM";
+    public static final String COL_TYPE = "TYPE";
     private static final int NUM_COL_TYPE  = 7;
     public static final String COL_BAREM = "BAREM";
     private static final int NUM_COL_BAREM  = 8;
