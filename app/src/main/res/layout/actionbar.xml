@@ -10,13 +10,11 @@
 
     <ImageView
         android:id="@+id/icDrawer"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:src="@drawable/ic_drawer"
         android:tint="@color/unthem500"
-        android:paddingRight="5dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"/>
+        android:paddingRight="5dp"/>
 
     <ImageView
         android:id="@+id/mainPix"
