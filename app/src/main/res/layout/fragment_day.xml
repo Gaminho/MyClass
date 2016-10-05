@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/them100">
+
+    <!-- HEADER -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/them700"
+        android:gravity="center"
+        android:elevation="3dp"
+        android:layout_weight="1">
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/lastDay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textColor="@color/unthem300"
+            android:textSize="35dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="{fa-arrow-circle-left}"
+            android:layout_weight="2"/>
+
+
+        <TextView
+            android:id="@+id/actualDay"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:text="18/01/16 - 24/01/16"
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:layout_height="match_parent"
+            android:gravity="center"/>
+
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/nextDay"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:textColor="@color/unthem300"
+            android:textSize="35dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="{fa-arrow-circle-right}"
+            android:layout_weight="2"/>
+
+    </LinearLayout>
+
+
+    <!-- Informations -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8.5"
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+
+       <LinearLayout
+           android:id="@+id/hours"
+           android:layout_width="50dp"
+           android:layout_height="match_parent"
+           android:orientation="vertical"
+           android:weightSum="12">
+
+           <TextView
+               android:layout_width="50dp"
+               android:layout_height="0dp"
+               android:layout_weight="1"
+               android:text="10h"
+               android:gravity="center"
+               android:tag="h10Hour"
+               android:textColor="@color/black"/>
+
+           <TextView
+               android:layout_width="50dp"
+               android:layout_height="0dp"
+               android:layout_weight="1"
+               android:text="11h"
+               android:gravity="center"
+               android:tag="h11Hour"
+               android:textColor="@color/black"/>
+
+           <TextView
+               android:layout_width="50dp"
+               android:layout_height="0dp"
+               android:layout_weight="1"
+               android:text="12h"
+               android:gravity="center"
+               android:tag="h12Hour"
+               android:textColor="@color/black"/>
+
+           <TextView
+               android:layout_width="50dp"
+               android:layout_height="0dp"
+               android:layout_weight="1"
+               android:text="13h"
+               android:gravity="center"
+               android:tag="h13Hour"
+               android:textColor="@color/black"/>
+
+           <TextView
+               android:layout_width="50dp"
+               android:layout_height="0dp"
+               android:layout_weight="1"
+               android:text="14h"
+               android:gravity="center"
+               android:tag="h14Hour"
+               android:textColor="@color/black"/>
+
+           <TextView
+               android:layout_width="50dp"
+               android:layout_height="0dp"
+               android:layout_weight="1"
+               android:text="15h"
+               android:gravity="center"
+               android:tag="h15Hour"
+               android:textColor="@color/black"/>
+
+           <TextView
+               android:layout_width="50dp"
+               android:layout_height="0dp"
+               android:layout_weight="1"
+               android:text="16h"
+               android:gravity="center"
+               android:tag="h16Hour"
+               android:textColor="@color/black"/>
+
+           <TextView
+               android:layout_width="50dp"
+               android:layout_height="0dp"
+               android:layout_weight="1"
+               android:text="17h"
+               android:gravity="center"
+               android:tag="h17Hour"
+               android:textColor="@color/black"/>
+
+           <TextView
+               android:layout_width="50dp"
+               android:layout_height="0dp"
+               android:layout_weight="1"
+               android:text="18h"
+               android:gravity="center"
+               android:tag="h18Hour"
+               android:textColor="@color/black"/>
+
+           <TextView
+               android:layout_width="50dp"
+               android:layout_height="0dp"
+               android:layout_weight="1"
+               android:text="19h"
+               android:gravity="center"
+               android:tag="h19Hour"
+               android:textColor="@color/black"/>
+
+           <TextView
+               android:layout_width="50dp"
+               android:layout_height="0dp"
+               android:layout_weight="1"
+               android:text="20h"
+               android:gravity="center"
+               android:tag="h20Hour"
+               android:textColor="@color/black"/>
+
+           <TextView
+               android:layout_width="50dp"
+               android:layout_height="0dp"
+               android:layout_weight="1"
+               android:text="21h"
+               android:gravity="center"
+               android:tag="h21Hour"
+               android:textColor="@color/black"/>
+
+
+       </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/timeline"
+            android:layout_toRightOf="@+id/hours"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"/>
+
+        <com.joanzapata.iconify.widget.IconTextView
+            style="@style/IconButtonYellow"
+            android:id="@+id/addACourse"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="{fa-plus}"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

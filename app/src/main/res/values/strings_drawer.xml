@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="drawer_sections">
+        <item>Accueil</item>
+        <item>Elèves</item>
+        <item>Cours</item>
+        <item>Devoirs</item>
+        <item>Suivi</item>
+        <item>Semaine</item>
+        <item>Argent</item>
+        <item>Statistiques</item>
+        <item>Paramètres</item>
+    </string-array>
+
+    <string-array name="drawer_sections0">
+        <item>{fa-home};Accueil</item>
+        <item>{fa-users};Elèves</item>
+        <item>{fa-book};Cours</item>
+        <item>{fa-file-text};Devoirs</item>
+        <item>{fa-line-chart};Suivi</item>
+        <item>{fa-calendar};Semaine</item>
+        <item>{fa-eur};Argent</item>
+        <item>{fa-bar-chart};Statistiques</item>
+        <item>{fa-wrench};Paramètres</item>
+    </string-array>
+</resources>

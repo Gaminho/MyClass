@@ -1,0 +1,24 @@
+<set xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- Before rotating, immediately set the alpha to 0. -->
+    <alpha
+        android:valueFrom="1.0"
+        android:valueTo="0.0"
+        android:propertyName="alpha"
+        android:duration="0" />
+
+    <!-- Rotate. -->
+    <rotate
+        android:valueFrom="-180"
+        android:valueTo="0"
+        android:propertyName="rotationY"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+        android:duration="800"/>
+
+    <!-- Half-way through the rotation (see startOffset), set the alpha to 1. -->
+    <alpha
+        android:valueFrom="0.0"
+        android:valueTo="1.0"
+        android:startOffset="400"
+        android:duration="1" />
+</set>

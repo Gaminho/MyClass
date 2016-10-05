@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <string-array name="states">
+        <item>Validé</item>
+        <item>A venir</item>
+        <item>En attente</item>
+    </string-array>
+
+
+    <string-array name="durations">
+        <item>1h00</item>
+        <item>1h30</item>
+        <item>2h00</item>
+    </string-array>
+
+</resources>

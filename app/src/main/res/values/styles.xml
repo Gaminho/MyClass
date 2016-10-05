@@ -1,0 +1,91 @@
+<resources><!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:activatedBackgroundIndicator">@drawable/drawer_selector</item>
+        <item name="colorPrimary">@color/them800</item>
+        <item name="colorPrimaryDark">@color/them900</item>
+        <item name="colorAccent">@color/unthem500</item>
+        <item name="actionBarSize">50dp</item>
+    </style>
+
+    <style name="IconButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">25dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="IconButtonBlue" parent="IconButton">
+        <item name="android:background">@drawable/button_blue_background</item>
+    </style>
+
+    <style name="IconButtonRed" parent="IconButton">
+        <item name="android:background">@drawable/button_red_background</item>
+    </style>
+
+    <style name="IconButtonGreen" parent="IconButton">
+        <item name="android:background">@drawable/button_green_background</item>
+    </style>
+
+    <style name="IconButtonGrey" parent="IconButton">
+        <item name="android:background">@drawable/button_grey_background</item>
+    </style>
+
+
+    <style name="IconButtonYellow" parent="IconButton">
+        <item name="android:background">@drawable/button_yellow_background</item>
+        <item name="android:elevation">6dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+
+    <style name="SpinnerStyle" parent="Base.Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:popupBackground">@drawable/spinner_dropdown</item>
+        <item name="android:background">@drawable/spinner_dropdown</item>
+    </style>
+
+    <style name="HomeSectionsLayout">
+        <item name="android:background">@drawable/oval_shape</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <style name="HomeSectionsLayoutText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">17dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="HomeSectionsLayoutLabel">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="FragmentListTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:textSize">25dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/them800</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
+</resources>

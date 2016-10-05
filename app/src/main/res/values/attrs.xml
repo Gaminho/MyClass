@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PieChart">
+        <attr name="autoCenterPointerInSlice" format="boolean"/>
+        <attr name="highlightStrength" format="float"/>
+        <attr name="labelColor" format="color"/>
+        <attr name="labelHeight" format="dimension"/>
+        <attr name="labelPosition" format="enum">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+        </attr>
+        <attr name="labelWidth" format="dimension"/>
+        <attr name="labelY" format="dimension"/>
+        <attr name="pieRotation" format="integer"/>
+        <attr name="pointerRadius" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="Podium">
+        <attr name="goldColor" format="color"/>
+        <attr name="silverColor" format="color"/>
+        <attr name="bronzeColor" format="color"/>
+        <attr name="textLabelColor" format="color"/>
+        <attr name="textSubtitleColor" format="color"/>
+        <attr name="textDetailsColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="Podium2">
+        <attr name="titlePosition" format="enum">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+        </attr>
+        <attr name="titlePadding" format="dimension"/>
+        <attr name="showTitle" format="boolean"/>
+        <attr name="titlePodium" format="string"/>
+        <attr name="showLabel" format="boolean"/>
+        <attr name="showSubtitle" format="boolean"/>
+        <attr name="showDetails" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="GraphicView">
+        <attr name="dataType" format="enum">
+            <enum name="months" value="0"/>
+            <enum name="weeks" value="1"/>
+            <enum name="years" value="2"/>
+            <enum name="devoirs" value="3"/>
+        </attr>
+        <attr name="colorLeftLegend" format="color"/>
+        <attr name="colorRightLegend" format="color"/>
+        <attr name="colorBackground" format="color"/>
+        <attr name="legendSteps" format="integer"/>
+        <attr name="showLeftLegend" format="boolean"/>
+        <attr name="showRightLegend" format="boolean"/>
+        <attr name="enableNavigation" format="boolean"/>
+        <attr name="enableSwitchMod" format="boolean"/>
+        <attr name="nbItem" format="integer"/>
+    </declare-styleable>
+
+</resources>

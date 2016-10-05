@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="classes">
+        <item>Classe</item>
+        <item>Sixième</item>
+        <item>Cinquième</item>
+        <item>Quatrième</item>
+        <item>Troisième</item>
+        <item>Seconde</item>
+        <item>Première</item>
+        <item>Terminale</item>
+        <item>Prépa</item>
+    </string-array>
+
+    <string-array name="frequencies">
+        <item>Régulier</item>
+        <item>Occasionnel</item>
+        <item>Temporaire</item>
+    </string-array>
+
+    <string-array name="types">
+        <item>Déclaré</item>
+        <item>Non déclaré</item>
+    </string-array>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="filter_classe">
+        <item>Toutes</item>
+        <item>Sixième</item>
+        <item>Cinquième</item>
+        <item>Quatrième</item>
+        <item>Troisième</item>
+        <item>Seconde</item>
+        <item>Première</item>
+        <item>Terminale</item>
+        <item>Prépa</item>
+    </string-array>
+
+    <string-array name="filter_frequency">
+        <item>Toutes</item>
+        <item>Régulier</item>
+        <item>Occasionnel</item>
+        <item>Temporaire</item>
+    </string-array>
+
+    <string-array name="filter_paiement_type">
+        <item>Tous</item>
+        <item>Declaré</item>
+        <item>Non declaré</item>
+    </string-array>
+
+    <string-array name="filter_cours">
+        <item>Tous</item>
+        <item>Cours à venir</item>
+        <item>Cours validés</item>
+        <item>Cours en attente de validation</item>
+    </string-array>
+
+    <string-array name="filter_devoirs">
+        <item>Tous</item>
+        <item>Devoirs en préparation</item>
+        <item>Devoirs terminés</item>
+    </string-array>
+
+</resources>
