@@ -31,7 +31,6 @@ public class MyDatabase extends SQLiteOpenHelper {
 
 
     private static final String TABLE_COURSES = "courses_table";
-    private static final String TABLE_COURSES_2 = "courses_table_2";
     private static final String COL_PUPIL_NAME = "PUPIL_NAME";
     private static final String COL_DATE = "DATE";
     private static final String COL_DURATION = "DURATION";
@@ -73,23 +72,11 @@ public class MyDatabase extends SQLiteOpenHelper {
             + COL_THEME + " TEXT, " + COL_MEMO + " TEXT, "
             + COL_PUPIL_ID + " INTEGER );";
 
-    private static final String CREATE_COURSES_BDD_2 = "CREATE TABLE " + TABLE_COURSES_2 + " ("
-            + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + COL_DATE + " LONG, " + COL_DURATION + " INTEGER, "
-            + COL_STATE + " INTEGER, " + COL_MONEY + " DOUBLE, "
-            + COL_THEME + " TEXT, " + COL_MEMO + " TEXT, "
-            + COL_PUPIL_ID + " INTEGER );";
-
     private static final String CREATE_DEVOIRS_BDD = "CREATE TABLE " + TABLE_DEVOIRS + " ("
             + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_THEME + " TEXT NOT NULL, "
             + COL_DATE + " LONG, " + COL_NOTE + " DOUBLE, " + COL_COMMENTAIRE + " TEXT, "
             + COL_STATE + " INTEGER DEFAULT 0, " + COL_PUPIL_ID + " INTEGER, "
             + COL_BAREM + " INTEGER DEFAULT 20, " + COL_TYPE + " INTEGER DEFAULT 0 );";
-
-    private static final String CREATE_DEVOIRS_BDD_2 = "CREATE TABLE " + TABLE_DEVOIRS_2 + " ("
-            + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_THEME + " TEXT NOT NULL, "
-            + COL_DATE + " LONG, " + COL_NOTE + " DOUBLE, " + COL_COMMENTAIRE + " TEXT, "
-            + COL_STATE + " INTEGER DEFAULT 0, " + COL_PUPIL_ID + " INTEGER );";
 
     public MyDatabase(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

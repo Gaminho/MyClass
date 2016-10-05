@@ -62,9 +62,9 @@ public class RecyclerViewDevoirs extends RecyclerView.Adapter<RecyclerViewDevoir
         personViewHolder.devoirThem.setText(devoir.getTheme());
         personViewHolder.devoirPupil.setText(devoir.getPupil().getFullName());
         if(devoir.getNote() > 0)
-            personViewHolder.mark.setText(devoir.getNote()+"/20");
+            personViewHolder.mark.setText(String.format("%.2f/%d", devoir.getNote(),devoir.getBarem()));
         else
-            personViewHolder.mark.setText("-/20");
+            personViewHolder.mark.setText(String.format("-/%d",devoir.getBarem()));
 
         personViewHolder.row.setOnClickListener(new View.OnClickListener() {
             @Override

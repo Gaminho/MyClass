@@ -282,7 +282,7 @@ public class FragmentAddOrEditDevoir extends FragmentAddOrEditDefault implements
 
         editText = (EditText)mContentView.findViewById(R.id.note);
         if(!editText.getText().toString().equals(""))
-            mDevoir.setNote(Double.parseDouble(editText.getText().toString()));
+            mDevoir.setNote(Double.parseDouble(editText.getText().toString().replace(",",".")));
 
         return mDevoir;
 
