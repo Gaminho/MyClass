@@ -86,17 +86,15 @@
 
             </LinearLayout>
 
-            <com.joanzapata.iconify.widget.IconTextView
-                android:id="@+id/state"
+            <ImageView
+                android:id="@+id/imageState"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="{fa-hourglass-2}"
                 android:layout_marginRight="5dp"
-                android:gravity="center"
-                android:textColor="@color/unthem300"
-                android:textSize="25dp"/>
+                android:src="@drawable/ic_schedule_white_48dp"
+                android:tint="@color/unthem600"/>
 
         </RelativeLayout>
 

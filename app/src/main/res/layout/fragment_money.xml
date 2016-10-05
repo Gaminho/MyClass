@@ -83,6 +83,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
+                            android:textColor="@color/green500"
                             android:text="3099,00€"/>
 
 
@@ -113,6 +114,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
+                            android:textColor="@color/them700"
                             android:text="0,00€"/>
 
                     </LinearLayout>
@@ -142,7 +144,38 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
+                            android:textColor="@color/unthem600"
                             android:text="35,00€"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Cours annulés"/>
+
+                        <TextView
+                            android:id="@+id/nbCoursesCanceled"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="5dp"
+                            android:textColor="@color/them500"
+                            android:textSize="10dp"
+                            android:text="(1)"/>
+
+                        <TextView
+                            android:id="@+id/canceled"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:textColor="@color/red500"
+                            android:text="0,00€"/>
 
                     </LinearLayout>
 
@@ -171,6 +204,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
+                            android:textColor="@color/textColor"
+                            android:textStyle="bold"
                             android:text="3134,00€"/>
 
                     </LinearLayout>

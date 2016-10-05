@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -84,16 +85,20 @@ public class RecyclerViewCourses extends RecyclerView.Adapter<RecyclerViewCourse
 
         switch(mCourse.getState()){
             case Course.FORESEEN :
-                personViewHolder.state.setText(FA_CLOSE);
-                personViewHolder.state.setTextColor(mContext.getResources().getColor(R.color.red500));
+                personViewHolder.imageState.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_schedule_white_48dp));
+                personViewHolder.imageState.setColorFilter(mContext.getResources().getColor(R.color.unthem600));
                 break;
             case Course.WAITING_FOT_VALIDATION :
-                personViewHolder.state.setText(FA_HOURGLASS);
-                personViewHolder.state.setTextColor(mContext.getResources().getColor(R.color.them700));
+                personViewHolder.imageState.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_done_black_48dp));
+                personViewHolder.imageState.setColorFilter(mContext.getResources().getColor(R.color.them700));
+                break;
+            case Course.CANCELED :
+                personViewHolder.imageState.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_clear_white_48dp));
+                personViewHolder.imageState.setColorFilter(mContext.getResources().getColor(R.color.red500));
                 break;
             case Course.VALIDATED :
-                personViewHolder.state.setText(FA_CHECK);
-                personViewHolder.state.setTextColor(mContext.getResources().getColor(R.color.green500));
+                personViewHolder.imageState.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_done_all_white_48dp));
+                personViewHolder.imageState.setColorFilter(mContext.getResources().getColor(R.color.green500));
                 break;
         }
 
@@ -105,7 +110,8 @@ public class RecyclerViewCourses extends RecyclerView.Adapter<RecyclerViewCourse
     }
 
     public class PersonViewHolder extends RecyclerView.ViewHolder {
-        TextView coursesPupil, coursesHours, dayNumber, dayMonth, dayLabel, state;
+        TextView coursesPupil, coursesHours, dayNumber, dayMonth, dayLabel;
+        ImageView imageState;
         LinearLayout dateLayout;
         RelativeLayout row;
 
@@ -117,10 +123,9 @@ public class RecyclerViewCourses extends RecyclerView.Adapter<RecyclerViewCourse
             dayLabel = (TextView) rowView.findViewById(R.id.dayLabel);
             coursesPupil = (TextView) rowView.findViewById(R.id.coursesPupil);
             coursesHours = (TextView) rowView.findViewById(R.id.coursesHours);
-            state = (TextView) rowView.findViewById(R.id.state);
             row = (RelativeLayout) rowView.findViewById(R.id.row);
             dateLayout = (LinearLayout) rowView.findViewById(R.id.dateLayout);
-
+            imageState = (ImageView) rowView.findViewById(R.id.imageState);
         }
     }
 

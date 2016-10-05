@@ -213,10 +213,11 @@ public class FragmentAddOrEditCourse extends FragmentAddOrEditDefault implements
         Toast.makeText(getActivity(), "Cours mis à jour", Toast.LENGTH_SHORT).show();
     }
 
-    public void removeCourse(int id){
+    public void removeCourse(Course course){
         CoursesBDD coursesBDD = new CoursesBDD(getActivity());
         coursesBDD.open();
-        coursesBDD.removeCourseWithID(id);
+        course.setState(Course.CANCELED);
+        coursesBDD.updateCourse(course.getId(), course);
         coursesBDD.close();
         mListener.goBack();
     }
@@ -238,7 +239,7 @@ public class FragmentAddOrEditCourse extends FragmentAddOrEditDefault implements
         createDialog.findViewById(R.id.valid).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                removeCourse(mCourse.getId());
+                removeCourse(mCourse);
                 createDialog.dismiss();
             }
         });

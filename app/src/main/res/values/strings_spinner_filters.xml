@@ -31,6 +31,7 @@
         <item>Cours à venir</item>
         <item>Cours validés</item>
         <item>Cours en attente de validation</item>
+        <item>Cours annulés</item>
     </string-array>
 
     <string-array name="filter_devoirs">

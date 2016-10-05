@@ -29,8 +29,8 @@ public class FragmentMoney extends Fragment {
 
     //Views
     protected View mRootView;
-    protected TextView mTextViewTotal, mTextViewForeseen, mTextViewDone, mTextViewWaiting;
-    protected TextView mTextViewNbTotal, mTextViewNbForeseen, mTextViewNbDone, mTextViewNbWaiting;
+    protected TextView mTVTotal, mTVForeseen, mTVDone,mTVWaiting, mTVCanceled;
+    protected TextView mTVNbTotal, mTVNbForeseen, mTVNbDone, mTVNbWaiting, mTVNbCanceled;
 
 
     // Fragment life cycle
@@ -52,24 +52,30 @@ public class FragmentMoney extends Fragment {
         List<Course> list = coursesBDD.getAllCourses();
         coursesBDD.close();
 
-        double total = 0, foressen = 0, done = 0, waitingForValidation = 0;
-        int nbForeseen = 0, nbDone = 0, nbWaiting = 0;
+        double total = 0, foressen = 0, done = 0, waitingForValidation = 0, canceled = 0;
+        int nbForeseen = 0, nbDone = 0, nbWaiting = 0, nbCanceled = 0;
         for (Course course : list) {
             total = total + course.getMoney();
 
             if (course.getState() == Course.VALIDATED) {
                 done = done + course.getMoney();
-                nbDone = nbDone +1;
+                nbDone += 1;
             }
 
             else if(course.getState() == Course.FORESEEN) {
                 foressen = foressen + course.getMoney();
-                nbForeseen = nbForeseen +1;
+                nbForeseen += 1;
             }
 
             else if(course.getState() == Course.WAITING_FOT_VALIDATION) {
                 waitingForValidation = waitingForValidation + course.getMoney();
-                nbWaiting = nbWaiting +1;
+                nbWaiting += 1;
+            }
+
+            else if(course.getState() == Course.CANCELED){
+                canceled = canceled + course.getMoney();
+                total -= course.getMoney();
+                nbCanceled += 1;
             }
         }
 
@@ -77,15 +83,17 @@ public class FragmentMoney extends Fragment {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(firstCourse.getDate());
 
-        mTextViewTotal.setText(String.format("%2.2f €", total));
-        mTextViewForeseen.setText(String.format("%2.2f €", foressen));
-        mTextViewDone.setText(String.format("%2.2f €", done));
-        mTextViewWaiting.setText(String.format("%2.2f €", waitingForValidation));
+        mTVTotal.setText(String.format("%2.2f €", total));
+        mTVForeseen.setText(String.format("%2.2f €", foressen));
+        mTVDone.setText(String.format("%2.2f €", done));
+        mTVWaiting.setText(String.format("%2.2f €", waitingForValidation));
+        mTVCanceled.setText(String.format("%2.2f €", canceled));
 
-        mTextViewNbForeseen.setText(String.format("(%d)", nbForeseen));
-        mTextViewNbWaiting.setText(String.format("(%d)", nbWaiting));
-        mTextViewNbDone.setText(String.format("(%d)", nbDone));
-        mTextViewNbTotal.setText(String.format("(%d)", list.size()));
+        mTVNbForeseen.setText(String.format("(%d)", nbForeseen));
+        mTVNbWaiting.setText(String.format("(%d)", nbWaiting));
+        mTVNbDone.setText(String.format("(%d)", nbDone));
+        mTVNbCanceled.setText(String.format("(%d)", nbCanceled));
+        mTVNbTotal.setText(String.format("(%d)", list.size()));
 
         setBestPupilsView(getBestPupils());
         setBestMonthsView(getBestMonths());
@@ -98,15 +106,17 @@ public class FragmentMoney extends Fragment {
     // Utils
 
     public void getAllViews(View view){
-        mTextViewTotal = (TextView) view.findViewById(R.id.total);
-        mTextViewDone = (TextView) view.findViewById(R.id.validated);
-        mTextViewForeseen = (TextView) view.findViewById(R.id.foreseen);
-        mTextViewWaiting = (TextView) view.findViewById(R.id.waitingForValidation);
+        mTVTotal = (TextView) view.findViewById(R.id.total);
+        mTVDone = (TextView) view.findViewById(R.id.validated);
+        mTVForeseen = (TextView) view.findViewById(R.id.foreseen);
+        mTVWaiting = (TextView) view.findViewById(R.id.waitingForValidation);
+        mTVCanceled = (TextView) view.findViewById(R.id.canceled);
 
-        mTextViewNbWaiting = (TextView) view.findViewById(R.id.nbCoursesWaiting);
-        mTextViewNbDone = (TextView) view.findViewById(R.id.nbCoursesValidated);
-        mTextViewNbForeseen = (TextView) view.findViewById(R.id.nbCoursesForeseen);
-        mTextViewNbTotal = (TextView) view.findViewById(R.id.nbCoursesTotal);
+        mTVNbWaiting = (TextView) view.findViewById(R.id.nbCoursesWaiting);
+        mTVNbDone = (TextView) view.findViewById(R.id.nbCoursesValidated);
+        mTVNbForeseen = (TextView) view.findViewById(R.id.nbCoursesForeseen);
+        mTVNbTotal = (TextView) view.findViewById(R.id.nbCoursesTotal);
+        mTVNbCanceled = (TextView) view.findViewById(R.id.nbCoursesCanceled);
     }
 
     public List<Item> getBestPupils(){

@@ -13,6 +13,7 @@ public class Course {
     public static final int FORESEEN = 0;
     public static final int VALIDATED = 1;
     public static final int WAITING_FOT_VALIDATION = 2;
+    public static final int CANCELED = 3;
     public static final int ALL_COURSES = 3;
     public static final int DURATION_1H30 = 90;
     public static final int DURATION_1H = 60;
@@ -143,6 +144,8 @@ public class Course {
                 return "A venir";
             case WAITING_FOT_VALIDATION:
                 return "En attente";
+            case CANCELED:
+                return "Annulé";
             default:
                 return "Validé";
         }
