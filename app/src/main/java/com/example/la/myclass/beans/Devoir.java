@@ -137,6 +137,8 @@ public class Devoir {
                 ", theme='" + theme + '\'' +
                 ", commentaire='" + commentaire + '\'' +
                 ", state=" + state +
+                ", barem=" + barem +
+                ", type=" + type +
                 '}';
     }
 }

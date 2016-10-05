@@ -83,7 +83,8 @@ public class MyDatabase extends SQLiteOpenHelper {
     private static final String CREATE_DEVOIRS_BDD = "CREATE TABLE " + TABLE_DEVOIRS + " ("
             + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_THEME + " TEXT NOT NULL, "
             + COL_DATE + " LONG, " + COL_NOTE + " DOUBLE, " + COL_COMMENTAIRE + " TEXT, "
-            + COL_STATE + " INTEGER DEFAULT 0, " + COL_PUPIL_ID + " INTEGER );";
+            + COL_STATE + " INTEGER DEFAULT 0, " + COL_PUPIL_ID + " INTEGER, "
+            + COL_BAREM + " INTEGER DEFAULT 20, " + COL_PUPIL_ID + " INTEGER DEFAULT 0 );";
 
     private static final String CREATE_DEVOIRS_BDD_2 = "CREATE TABLE " + TABLE_DEVOIRS_2 + " ("
             + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_THEME + " TEXT NOT NULL, "

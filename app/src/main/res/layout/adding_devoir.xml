@@ -123,6 +123,30 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"/>
 
+            <!-- Chapitre -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="2dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10dp"
+                    android:text="Chapitre"
+                    android:textColor="@color/them700"/>
+
+                <EditText
+                    android:id="@+id/theme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:hint="Chapitre"/>
+
+            </LinearLayout>
+
             <!-- Type de devoir -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -182,30 +206,6 @@
                     android:gravity="center"
                     android:textSize="16dp"
                     android:text="20"/>
-
-            </LinearLayout>
-
-            <!-- Chapitre -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="2dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="10dp"
-                    android:text="Chapitre"
-                    android:textColor="@color/them700"/>
-
-                <EditText
-                    android:id="@+id/theme"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16dp"
-                    android:inputType="textCapSentences|textMultiLine"
-                    android:hint="Chapitre"/>
 
             </LinearLayout>
 
