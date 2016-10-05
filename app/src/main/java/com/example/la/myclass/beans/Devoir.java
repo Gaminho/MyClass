@@ -9,6 +9,9 @@ public class Devoir {
     public static final int STATE_PREPARATING = 0;
     public static final int STATE_DONE = 1;
     public static final int ALL_DEVOIRS = 2;
+    public static final int DST = 0;
+    public static final int DM = 1;
+    public static final int INTERRO = 3;
 
     protected int id;
     protected int pupilID;
@@ -18,6 +21,7 @@ public class Devoir {
     protected String commentaire;
     protected int state;
     protected Pupil pupil;
+    protected int barem, type;
 
     public Devoir() {
     }
@@ -86,6 +90,22 @@ public class Devoir {
         this.state = state;
     }
 
+    public int getBarem() {
+        return barem;
+    }
+
+    public void setBarem(int barem) {
+        this.barem = barem;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     public Pupil getPupil() {
         return pupil;
     }
@@ -104,6 +124,8 @@ public class Devoir {
                 return "";
         }
     }
+
+
 
     @Override
     public String toString() {

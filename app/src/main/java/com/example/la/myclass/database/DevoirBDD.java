@@ -34,6 +34,12 @@ public class DevoirBDD {
     private static final int NUM_COL_STATE  = 5;
     public static final String COL_PUPIL_ID = "PUPIL_ID";
     private static final int NUM_COL_PUPIL_ID  = 6;
+    public static final String COL_TYPE = "BAREM";
+    private static final int NUM_COL_TYPE  = 7;
+    public static final String COL_BAREM = "BAREM";
+    private static final int NUM_COL_BAREM  = 8;
+    public static final String[] DEVOIR_FIELDS = {COL_ID, COL_THEME, COL_DATE, COL_NOTE, COL_COMMENTAIRE, COL_STATE, COL_PUPIL_ID,COL_TYPE,COL_BAREM};
+
 
 
     private SQLiteDatabase bdd;
@@ -64,6 +70,8 @@ public class DevoirBDD {
         values.put(COL_COMMENTAIRE, devoir.getCommentaire());
         values.put(COL_STATE, devoir.getState());
         values.put(COL_PUPIL_ID, devoir.getPupilID());
+        values.put(COL_TYPE, devoir.getType());
+        values.put(COL_BAREM, devoir.getBarem());
 
         return bdd.insert(TABLE_DEVOIRS, null, values);
     }
@@ -77,6 +85,8 @@ public class DevoirBDD {
         values.put(COL_COMMENTAIRE, devoir.getCommentaire());
         values.put(COL_STATE, devoir.getState());
         values.put(COL_PUPIL_ID, devoir.getPupilID());
+        values.put(COL_TYPE, devoir.getType());
+        values.put(COL_BAREM, devoir.getBarem());
 
         return bdd.update(TABLE_DEVOIRS, values, COL_ID + " = " + id, null);
     }
@@ -88,12 +98,12 @@ public class DevoirBDD {
 
 
     public Devoir getDevoirWithId(int id) {
-        Cursor c = bdd.query(TABLE_DEVOIRS, new String[]{COL_ID, COL_THEME, COL_DATE, COL_NOTE, COL_COMMENTAIRE, COL_STATE, COL_PUPIL_ID}, COL_ID + " = " + id, null, null, null, null);
+        Cursor c = bdd.query(TABLE_DEVOIRS, DEVOIR_FIELDS, COL_ID + " = " + id, null, null, null, null);
         return cursorToDevoir(c);
     }
 
     public List<Devoir> getDevoirWithCriteria(String criteria) {
-        Cursor c = bdd.query(TABLE_DEVOIRS, new String[]{COL_ID, COL_THEME, COL_DATE, COL_NOTE, COL_COMMENTAIRE, COL_STATE, COL_PUPIL_ID}, criteria, null, null, null, COL_DATE + " DESC");
+        Cursor c = bdd.query(TABLE_DEVOIRS, DEVOIR_FIELDS, criteria, null, null, null, COL_DATE + " DESC");
         return cursorToListDevoirs(c);
     }
 
@@ -115,6 +125,8 @@ public class DevoirBDD {
         devoir.setPupilID(c.getInt(NUM_COL_PUPIL_ID));
         Cursor c0 = bdd.query(PupilsBDD.TABLE_PUPILS, new String[]{COL_ID, PupilsBDD.COL_NAME, PupilsBDD.COL_SEX, PupilsBDD.COL_CLASS, PupilsBDD.COL_TYPE, PupilsBDD.COL_FREQUENCE, PupilsBDD.COL_ADRESS, PupilsBDD.COL_PRICE, PupilsBDD.COL_DATE_SINCE, PupilsBDD.COL_TEL_1, PupilsBDD.COL_TEL_2, PupilsBDD.COL_IMG_PATH}, COL_ID + " = " + c.getInt(NUM_COL_PUPIL_ID), null, null, null, null);
         devoir.setPupil(PupilsBDD.cursorToPupil(c0));
+        devoir.setBarem(c.getInt(NUM_COL_BAREM));
+        devoir.setType(c.getInt(NUM_COL_TYPE));
         c0.close();
 
         c.close();
@@ -140,6 +152,8 @@ public class DevoirBDD {
             devoir.setPupilID(c.getInt(NUM_COL_PUPIL_ID));
             Cursor c0 = bdd.query(PupilsBDD.TABLE_PUPILS, new String[]{COL_ID, PupilsBDD.COL_NAME, PupilsBDD.COL_SEX, PupilsBDD.COL_CLASS, PupilsBDD.COL_TYPE, PupilsBDD.COL_FREQUENCE, PupilsBDD.COL_ADRESS, PupilsBDD.COL_PRICE, PupilsBDD.COL_DATE_SINCE, PupilsBDD.COL_TEL_1, PupilsBDD.COL_TEL_2, PupilsBDD.COL_IMG_PATH}, COL_ID + " = " + c.getInt(NUM_COL_PUPIL_ID), null, null, null, null);
             devoir.setPupil(PupilsBDD.cursorToPupil(c0));
+            devoir.setBarem(c.getInt(NUM_COL_BAREM));
+            devoir.setType(c.getInt(NUM_COL_TYPE));
             c0.close();
             list.add(devoir);
             c.moveToNext();
@@ -151,7 +165,7 @@ public class DevoirBDD {
     }
 
     public List<Devoir> getAllDevoirs(){
-        Cursor c = bdd.query(TABLE_DEVOIRS, new String[]{COL_ID, COL_THEME, COL_DATE, COL_NOTE, COL_COMMENTAIRE, COL_STATE, COL_PUPIL_ID}, null, null, null, null, COL_DATE + " DESC");
+        Cursor c = bdd.query(TABLE_DEVOIRS, DEVOIR_FIELDS, null, null, null, null, COL_DATE + " DESC");
         return cursorToListDevoirs(c);
     }
 
@@ -161,18 +175,18 @@ public class DevoirBDD {
     }
 
     public List<Devoir> getDevoirsWithState(int state) {
-        Cursor c = bdd.query(TABLE_DEVOIRS, new String[]{COL_ID, COL_THEME, COL_DATE, COL_NOTE, COL_COMMENTAIRE, COL_STATE, COL_PUPIL_ID}, COL_STATE + " = " + state, null, null, null, COL_DATE + " DESC");
+        Cursor c = bdd.query(TABLE_DEVOIRS, DEVOIR_FIELDS, COL_STATE + " = " + state, null, null, null, COL_DATE + " DESC");
         return cursorToListDevoirs(c);
     }
 
     public List<Devoir> getDevoirsWithPupilID(int pupilID) {
-        Cursor c = bdd.query(TABLE_DEVOIRS, new String[]{COL_ID, COL_THEME, COL_DATE, COL_NOTE, COL_COMMENTAIRE, COL_STATE, COL_PUPIL_ID}, COL_PUPIL_ID + " = " + pupilID + " AND " + COL_STATE + " != " + Devoir.STATE_PREPARATING, null, null, null, COL_DATE + " ASC");
+        Cursor c = bdd.query(TABLE_DEVOIRS, DEVOIR_FIELDS, COL_PUPIL_ID + " = " + pupilID + " AND " + COL_STATE + " != " + Devoir.STATE_PREPARATING, null, null, null, COL_DATE + " ASC");
         return cursorToListDevoirs(c);
     }
 
     public List<Devoir> getDevoirsBetweenTwoDates(long start, long end){
 
-        Cursor c = bdd.query(TABLE_DEVOIRS, new String[]{COL_ID, COL_THEME, COL_DATE, COL_NOTE, COL_COMMENTAIRE, COL_STATE, COL_PUPIL_ID}, null, null, null, null, null);
+        Cursor c = bdd.query(TABLE_DEVOIRS, DEVOIR_FIELDS, null, null, null, null, null);
         List<Devoir> list = new ArrayList<>();
         if (c.getCount() == 0)
             return list;
@@ -192,6 +206,8 @@ public class DevoirBDD {
                 devoir.setPupilID(c.getInt(NUM_COL_PUPIL_ID));
                 Cursor c0 = bdd.query(PupilsBDD.TABLE_PUPILS, new String[]{COL_ID, PupilsBDD.COL_NAME, PupilsBDD.COL_SEX, PupilsBDD.COL_CLASS, PupilsBDD.COL_TYPE, PupilsBDD.COL_FREQUENCE, PupilsBDD.COL_ADRESS, PupilsBDD.COL_PRICE, PupilsBDD.COL_DATE_SINCE, PupilsBDD.COL_TEL_1, PupilsBDD.COL_TEL_2, PupilsBDD.COL_IMG_PATH}, COL_ID + " = " + c.getInt(NUM_COL_PUPIL_ID), null, null, null, null);
                 devoir.setPupil(PupilsBDD.cursorToPupil(c0));
+                devoir.setBarem(c.getInt(NUM_COL_BAREM));
+                devoir.setType(c.getInt(NUM_COL_TYPE));
                 c0.close();
                 list.add(devoir);
             }

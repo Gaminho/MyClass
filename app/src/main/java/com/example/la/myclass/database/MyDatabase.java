@@ -12,7 +12,7 @@ import java.util.Date;
  */
 public class MyDatabase extends SQLiteOpenHelper {
 
-    public static final int VERSION_BDD = 25;
+    public static final int VERSION_BDD = 26;
     public static final String DB_NAME = "myclassdb";
     private static final String TABLE_PUPILS = "pupils_table";
     private static final String TABLE_PUPILS_2 = "pupils_table_2";
@@ -45,6 +45,7 @@ public class MyDatabase extends SQLiteOpenHelper {
     private static final String TABLE_DEVOIRS_2 = "devoirs_table_2";
     private static final String COL_NOTE = "NOTE";
     private static final String COL_COMMENTAIRE = "COMMENTAIRE";
+    private static final String COL_BAREM = "BAREM";
 
 
     private static final String CREATE_PUPILS_BDD = "CREATE TABLE " + TABLE_PUPILS + " ("
@@ -105,7 +106,8 @@ public class MyDatabase extends SQLiteOpenHelper {
         //db.execSQL("DROP TABLE " + TABLE_PUPILS + ";");
         //if you need to add a new column
         if(newVersion > oldVersion) {
-            //db.execSQL("ALTER TABLE " + TABLE_PUPILS + " ADD COLUMN " + COL_DATE_SINCE + " LONG DEFAULT " + new Date().getTime());
+            db.execSQL("ALTER TABLE " + TABLE_DEVOIRS + " ADD COLUMN " + COL_BAREM + " INT DEFAULT 20");
+            db.execSQL("ALTER TABLE " + TABLE_DEVOIRS + " ADD COLUMN " + COL_TYPE + " INT DEFAULT 0");
             //db.execSQL("ALTER TABLE " + TABLE_PUPILS + " ADD COLUMN " + COL_TEL_1 + " LONG DEFAULT 0");
             //db.execSQL("ALTER TABLE " + TABLE_PUPILS + " ADD COLUMN " + COL_TEL_2 + " LONG DEFAULT 0");
             //db.execSQL("ALTER TABLE " + TABLE_PUPILS + " ADD COLUMN " + COL_NB_COURSES + " INTEGER DEFAULT 0");
@@ -117,6 +119,8 @@ public class MyDatabase extends SQLiteOpenHelper {
             /**
              * Algorithme pour supprimer une colonne
              */
+
+            /*
             db.execSQL(CREATE_DEVOIRS_BDD_2);
             db.execSQL("INSERT INTO " + TABLE_DEVOIRS_2 + " SELECT " + COL_ID + "," + COL_THEME + "," + COL_DATE + ","
                     + COL_NOTE + "," + COL_COMMENTAIRE + "," + COL_STATE + "," + COL_PUPIL_ID + " FROM " + TABLE_DEVOIRS);
@@ -126,6 +130,7 @@ public class MyDatabase extends SQLiteOpenHelper {
                     + COL_NOTE + "," + COL_COMMENTAIRE + "," + COL_STATE + "," + COL_PUPIL_ID + " FROM " + TABLE_DEVOIRS_2);
             db.execSQL("DROP TABLE " + TABLE_DEVOIRS_2);
             Log.e("BDD", "OK");
+            */
 
         }
         //onCreate(db);
