@@ -226,7 +226,7 @@ public class CoursesBDD {
         int weekNumber = -1;
         int nbWeeks = 0;
         for(Course course : list){
-            if(course.getState() != Course.FORESEEN){
+            if (course.getState() != Course.FORESEEN && course.getState() != Course.CANCELED) {
                 calendar.setTimeInMillis(course.getDate());
                 int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
                 if(weekOfYear != weekNumber) {
@@ -250,7 +250,7 @@ public class CoursesBDD {
             double money = 0;
 
             for (Course course : list) {
-                if (course.getState() != Course.FORESEEN) {
+                if (course.getState() != Course.FORESEEN && course.getState() != Course.CANCELED) {
                     calendar.setTimeInMillis(course.getDate());
                     int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
                     if (weekNumber != weekOfYear) {
@@ -299,7 +299,7 @@ public class CoursesBDD {
             double money = 0;
 
             for (Course course : list) {
-                if (course.getState() != Course.FORESEEN) {
+                if (course.getState() != Course.FORESEEN && course.getState() != Course.CANCELED) {
                     calendar.setTimeInMillis(course.getDate());
                     int monthOfYear = calendar.get(Calendar.MONTH);
                     if (monthNumber != monthOfYear) {
@@ -351,7 +351,7 @@ public class CoursesBDD {
             int nbCourse = 1;
             double money = course0.getMoney();
             for(Course course : list) {
-                if (course.getState() != Course.FORESEEN) {
+                if (course.getState() != Course.FORESEEN && course.getState() != Course.CANCELED) {
                     calendar.setTimeInMillis(course.getDate());
                     if (calendar.get(Calendar.MONTH) > Calendar.JULY && calendar.get(Calendar.YEAR) > year) {
                         yearList.add(new Year(label, money, nbCourse));
@@ -378,7 +378,7 @@ public class CoursesBDD {
         int monthNumber = -1;
         int nbMonths = 0;
         for(Course course : list){
-            if(course.getState() != Course.FORESEEN){
+            if (course.getState() != Course.FORESEEN && course.getState() != Course.CANCELED) {
                 calendar.setTimeInMillis(course.getDate());
                 int monthOfYear = calendar.get(Calendar.MONTH)+1;
                 if(monthOfYear != monthNumber) {

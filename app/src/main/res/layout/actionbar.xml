@@ -22,6 +22,7 @@
         android:layout_height="40dp"
         android:src="@drawable/ic_database_grey600_48dp"
         android:paddingRight="5dp"
+        android:paddingLeft="5dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:tint="@color/white"/>
