@@ -3,7 +3,7 @@ package com.example.la.myclass.activities.stats;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.example.la.myclass.beans.PeriodicItem;
+import com.example.la.myclass.beans.periodic.PeriodicItem;
 import com.example.la.myclass.database.CoursesBDD;
 
 import java.util.ArrayList;

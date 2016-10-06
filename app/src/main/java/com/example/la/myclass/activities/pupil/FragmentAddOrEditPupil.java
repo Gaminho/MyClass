@@ -185,9 +185,11 @@ public class FragmentAddOrEditPupil extends AbstractFragmentAddOrEdit implements
            }
 
            editText = ((EditText) view.findViewById(R.id.tel1));
-           editText.setText(String.format("%010d", mPupil.getTel1()));
+           if(mPupil.getTel1() > 0)
+               editText.setText(String.format("%010d", mPupil.getTel1()));
            editText = ((EditText) view.findViewById(R.id.tel2));
-           editText.setText(String.format("%010d", mPupil.getTel2()));
+           if(mPupil.getTel2() > 0)
+            editText.setText(String.format("%010d", mPupil.getTel2()));
            editText = ((EditText) view.findViewById(R.id.adress));
            editText.setText(mPupil.getAdress());
            editText = ((EditText) view.findViewById(R.id.price));
@@ -262,10 +264,11 @@ public class FragmentAddOrEditPupil extends AbstractFragmentAddOrEdit implements
         Toast.makeText(getActivity(), "Elève mis à jour", Toast.LENGTH_SHORT).show();
     }
 
-    public void removePupil(int pupilID){
+    public void removePupil(Pupil pupil, int pupilID){
         PupilsBDD pupilsBDD = new PupilsBDD(getActivity());
         pupilsBDD.open();
-        pupilsBDD.removePupilWithID(pupilID);
+        pupil.setState(Pupil.DESACTIVE);
+        pupilsBDD.updatePupil(pupilID, pupil);
         pupilsBDD.close();
         mListener.goBack();
     }
@@ -287,7 +290,7 @@ public class FragmentAddOrEditPupil extends AbstractFragmentAddOrEdit implements
         createDialog.findViewById(R.id.valid).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                removePupil(mPupil.getId());
+                removePupil(mPupil, mPupil.getId());
                 createDialog.dismiss();
             }
         });
@@ -318,20 +321,20 @@ public class FragmentAddOrEditPupil extends AbstractFragmentAddOrEdit implements
             mPupil.setPrice(Double.parseDouble(editText.getText().toString().replace(",",".")));
 
         editText = ((EditText) mContentView.findViewById(R.id.tel1));
-        if(!editText.getText().toString().equals("")) {
-            if( editText.getText().length() != 10)
-                toast = "Téléphone personnel incorrect";
-            else
-                mPupil.setTel1(Long.parseLong(editText.getText().toString()));
-        }
+        if(!editText.getText().toString().equals("") && editText.getText().length() != 10)
+            toast = "Téléphone personnel incorrect";
+        else if("".equals(editText.getText().toString()))
+            mPupil.setTel1(0);
+        else
+            mPupil.setTel1(Long.parseLong(editText.getText().toString()));
 
         editText = ((EditText) mContentView.findViewById(R.id.tel2));
-        if(!editText.getText().toString().equals("")) {
-            if( editText.getText().length() != 10)
+        if(!editText.getText().toString().equals("") && editText.getText().length() != 10)
                 toast = "Téléphone des parents incorrect";
-            else
-                mPupil.setTel2(Long.parseLong(editText.getText().toString()));
-        }
+        else if("".equals(editText.getText().toString()))
+            mPupil.setTel2(0);
+        else
+            mPupil.setTel2(Long.parseLong(editText.getText().toString()));
 
         editText = ((EditText) mContentView.findViewById(R.id.firstname));
         editText1 = ((EditText) mContentView.findViewById(R.id.lastname));

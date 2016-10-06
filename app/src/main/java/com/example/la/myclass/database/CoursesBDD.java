@@ -4,18 +4,20 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.example.la.myclass.beans.Course;
-import com.example.la.myclass.beans.Month;
-import com.example.la.myclass.beans.PeriodicItem;
-import com.example.la.myclass.beans.Week;
-import com.example.la.myclass.beans.Year;
+import com.example.la.myclass.beans.Devoir;
+import com.example.la.myclass.beans.periodic.Month;
+import com.example.la.myclass.beans.periodic.PeriodicItem;
+import com.example.la.myclass.beans.periodic.Week;
+import com.example.la.myclass.beans.periodic.Year;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+
+import static com.example.la.myclass.database.PupilsBDD.PUPILS_FIELDS;
 
 /**
  * Created by Léa on 01/10/2015.
@@ -134,7 +136,7 @@ public class CoursesBDD {
         course.setTheme(c.getString(NUM_COL_THEME));
         course.setMemo(c.getString(NUM_COL_MEMO));
         course.setPupilID(c.getInt(NUM_COL_PUPIL_ID));
-        Cursor c0 = bdd.query(PupilsBDD.TABLE_PUPILS, new String[]{COL_ID, PupilsBDD.COL_NAME, PupilsBDD.COL_SEX, PupilsBDD.COL_CLASS, PupilsBDD.COL_TYPE, PupilsBDD.COL_FREQUENCE, PupilsBDD.COL_ADRESS, PupilsBDD.COL_PRICE, PupilsBDD.COL_DATE_SINCE, PupilsBDD.COL_TEL_1, PupilsBDD.COL_TEL_2, PupilsBDD.COL_IMG_PATH}, COL_ID + " = " + c.getInt(NUM_COL_PUPIL_ID), null, null, null, null);
+        Cursor c0 = bdd.query(PupilsBDD.TABLE_PUPILS, PupilsBDD.PUPILS_FIELDS, COL_ID + " = " + c.getInt(NUM_COL_PUPIL_ID), null, null, null, null);
         course.setPupil(PupilsBDD.cursorToPupil(c0));
         c0.close();
 
@@ -158,7 +160,7 @@ public class CoursesBDD {
             course.setTheme(c.getString(NUM_COL_THEME));
             course.setMemo(c.getString(NUM_COL_MEMO));
             course.setPupilID(c.getInt(NUM_COL_PUPIL_ID));
-            Cursor c0 = bdd.query(PupilsBDD.TABLE_PUPILS, new String[]{COL_ID, PupilsBDD.COL_NAME, PupilsBDD.COL_SEX, PupilsBDD.COL_CLASS, PupilsBDD.COL_TYPE, PupilsBDD.COL_FREQUENCE, PupilsBDD.COL_ADRESS, PupilsBDD.COL_PRICE, PupilsBDD.COL_DATE_SINCE, PupilsBDD.COL_TEL_1, PupilsBDD.COL_TEL_2, PupilsBDD.COL_IMG_PATH}, COL_ID + " = " + c.getInt(NUM_COL_PUPIL_ID), null, null, null, null);
+            Cursor c0 = bdd.query(PupilsBDD.TABLE_PUPILS, PupilsBDD.PUPILS_FIELDS, COL_ID + " = " + c.getInt(NUM_COL_PUPIL_ID), null, null, null, null);
             course.setPupil(PupilsBDD.cursorToPupil(c0));
             c0.close();
 
@@ -173,6 +175,11 @@ public class CoursesBDD {
 
     public List<Course> getAllCourses(){
         Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, null, null, null, null, COL_DATE + " DESC");
+        return cursorToListCourses(c);
+    }
+
+    public List<Course> getActiveCourses(){
+        Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, CoursesBDD.COL_STATE + " != " + Course.CANCELED, null, null, null, COL_DATE + " DESC");
         return cursorToListCourses(c);
     }
 
@@ -218,7 +225,7 @@ public class CoursesBDD {
                 course.setTheme(c.getString(NUM_COL_THEME));
                 course.setMemo(c.getString(NUM_COL_MEMO));
                 course.setPupilID(c.getInt(NUM_COL_PUPIL_ID));
-                Cursor c0 = bdd.query(PupilsBDD.TABLE_PUPILS, new String[]{COL_ID, PupilsBDD.COL_NAME, PupilsBDD.COL_SEX, PupilsBDD.COL_CLASS, PupilsBDD.COL_TYPE, PupilsBDD.COL_FREQUENCE, PupilsBDD.COL_ADRESS, PupilsBDD.COL_PRICE, PupilsBDD.COL_DATE_SINCE, PupilsBDD.COL_TEL_1, PupilsBDD.COL_TEL_2, PupilsBDD.COL_IMG_PATH}, COL_ID + " = " + course.getPupilID(), null, null, null, null);
+                Cursor c0 = bdd.query(PupilsBDD.TABLE_PUPILS, PupilsBDD.PUPILS_FIELDS, COL_ID + " = " + course.getPupilID(), null, null, null, null);
                 course.setPupil(PupilsBDD.cursorToPupil(c0));
                 c0.close();
                 list.add(course);

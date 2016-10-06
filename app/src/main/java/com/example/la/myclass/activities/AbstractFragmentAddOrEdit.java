@@ -91,7 +91,7 @@ public abstract class AbstractFragmentAddOrEdit extends Fragment implements View
     public void fillSpinnerPupils(final Spinner spinner, AdapterView.OnItemSelectedListener listener, int textColor){
         PupilsBDD pupilsBDD = new PupilsBDD(getActivity());
         pupilsBDD.open();
-        List<Pupil> listPupils = pupilsBDD.getAllPupils();
+        List<Pupil> listPupils = pupilsBDD.getActivePupils();
         pupilsBDD.close();
         spinner.setAdapter(new SpinnerPupilWithPixAdapter(getActivity(), listPupils, true, textColor));
         spinner.setOnItemSelectedListener(listener);

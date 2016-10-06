@@ -8,10 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.la.myclass.R;
-import com.example.la.myclass.beans.Month;
-import com.example.la.myclass.beans.PeriodicItem;
+import com.example.la.myclass.beans.periodic.PeriodicItem;
 import com.example.la.myclass.beans.Pupil;
-import com.example.la.myclass.beans.Week;
 import com.example.la.myclass.database.CoursesBDD;
 import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.database.PupilsBDD;

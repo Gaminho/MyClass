@@ -8,6 +8,7 @@ public class Devoir {
     // Static
     public static final int STATE_PREPARATING = 0;
     public static final int STATE_DONE = 1;
+    public static final int STATE_CANCELED = 2;
     public static final int ALL_DEVOIRS = 2;
     public static final int DST = 0;
     public static final int DM = 1;

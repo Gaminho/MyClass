@@ -1,4 +1,6 @@
-package com.example.la.myclass.beans;
+package com.example.la.myclass.beans.periodic;
+
+import com.example.la.myclass.beans.Course;
 
 import java.util.Calendar;
 import java.util.Date;

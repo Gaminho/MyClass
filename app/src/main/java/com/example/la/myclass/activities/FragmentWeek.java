@@ -14,7 +14,7 @@ import com.example.la.myclass.R;
 import com.example.la.myclass.adapters.RecyclerViewWeek;
 import com.example.la.myclass.database.CoursesBDD;
 import com.example.la.myclass.beans.Course;
-import com.example.la.myclass.beans.Week;
+import com.example.la.myclass.beans.periodic.Week;
 
 import java.util.List;
 

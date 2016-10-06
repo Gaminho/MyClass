@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -61,10 +62,6 @@ public class RecyclerViewDevoirs extends RecyclerView.Adapter<RecyclerViewDevoir
         personViewHolder.dayMonth.setText(month);
         personViewHolder.devoirThem.setText(devoir.getTheme());
         personViewHolder.devoirPupil.setText(devoir.getPupil().getFullName());
-        if(devoir.getNote() > 0)
-            personViewHolder.mark.setText(String.format("%.2f/%d", devoir.getNote(),devoir.getBarem()));
-        else
-            personViewHolder.mark.setText(String.format("-/%d",devoir.getBarem()));
 
         personViewHolder.row.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +72,21 @@ public class RecyclerViewDevoirs extends RecyclerView.Adapter<RecyclerViewDevoir
             }
         });
 
+        switch(devoir.getState()){
+            case Devoir.STATE_PREPARATING :
+                personViewHolder.imageState.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_schedule_white_48dp));
+                personViewHolder.imageState.setColorFilter(mContext.getResources().getColor(R.color.unthem600));
+                break;
+            case Devoir.STATE_CANCELED :
+                personViewHolder.imageState.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_clear_white_48dp));
+                personViewHolder.imageState.setColorFilter(mContext.getResources().getColor(R.color.red500));
+                break;
+            case Devoir.STATE_DONE :
+                personViewHolder.imageState.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_done_all_white_48dp));
+                personViewHolder.imageState.setColorFilter(mContext.getResources().getColor(R.color.green500));
+                break;
+        }
+
     }
 
     @Override
@@ -83,8 +95,9 @@ public class RecyclerViewDevoirs extends RecyclerView.Adapter<RecyclerViewDevoir
     }
 
     public class PersonViewHolder extends RecyclerView.ViewHolder {
-        TextView devoirThem, devoirPupil, dayNumber, dayMonth, dayLabel, mark;
+        TextView devoirThem, devoirPupil, dayNumber, dayMonth, dayLabel;
         RelativeLayout row;
+        ImageView imageState;
 
         PersonViewHolder(View rowView) {
             super(rowView);
@@ -94,8 +107,8 @@ public class RecyclerViewDevoirs extends RecyclerView.Adapter<RecyclerViewDevoir
             dayLabel = (TextView) rowView.findViewById(R.id.dayLabel);
             devoirThem = (TextView) rowView.findViewById(R.id.devoirThem);
             devoirPupil = (TextView) rowView.findViewById(R.id.devoirPupil);
-            mark = (TextView) rowView.findViewById(R.id.mark);
             row = (RelativeLayout) rowView.findViewById(R.id.row);
+            imageState = (ImageView) rowView.findViewById(R.id.imageState);
 
         }
     }

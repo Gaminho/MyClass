@@ -1,15 +1,18 @@
 package com.example.la.myclass.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +20,7 @@ import com.example.la.myclass.C;
 import com.example.la.myclass.R;
 import com.example.la.myclass.activities.pupil.ActivityPupil;
 import com.example.la.myclass.beans.Pupil;
+import com.example.la.myclass.database.PupilsBDD;
 
 import java.io.File;
 import java.util.List;
@@ -33,7 +37,6 @@ public class RecyclerViewPupil extends RecyclerView.Adapter<RecyclerViewPupil.Pe
     static final int ADDING = 0;
     static final int SEEING = 1;
 
-    static String PATH = Environment.getExternalStorageDirectory() + C.PATH_PHOTOS_FOLDER;
 
 
     List<Pupil> mLisPupils;
@@ -52,7 +55,7 @@ public class RecyclerViewPupil extends RecyclerView.Adapter<RecyclerViewPupil.Pe
     }
 
     @Override
-    public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
+    public void onBindViewHolder(final PersonViewHolder personViewHolder, int i) {
 
         final Pupil pupil = mLisPupils.get(i);
         personViewHolder.personName.setText(pupil.getFullName());
@@ -98,6 +101,11 @@ public class RecyclerViewPupil extends RecyclerView.Adapter<RecyclerViewPupil.Pe
             }
         });
 
+        personViewHolder.tvUnactive.setVisibility(View.GONE);
+        if(pupil.getState() == Pupil.DESACTIVE)
+            personViewHolder.tvUnactive.setVisibility(View.VISIBLE);
+
+
     }
 
     @Override
@@ -111,6 +119,7 @@ public class RecyclerViewPupil extends RecyclerView.Adapter<RecyclerViewPupil.Pe
         TextView personClass;
         TextView call, goTo;
         ImageView personPhoto;
+        TextView tvUnactive;
 
         PersonViewHolder(View itemView) {
             super(itemView);
@@ -120,6 +129,7 @@ public class RecyclerViewPupil extends RecyclerView.Adapter<RecyclerViewPupil.Pe
             personPhoto = (ImageView)itemView.findViewById(R.id.avatar);
             call = (TextView) itemView.findViewById(R.id.call);
             goTo = (TextView) itemView.findViewById(R.id.goTo);
+            tvUnactive = (TextView) itemView.findViewById(R.id.unActive);
         }
     }
 

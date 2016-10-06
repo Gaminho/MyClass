@@ -16,6 +16,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -49,7 +51,8 @@ import java.util.List;
 public abstract class AbstractFragmentList extends Fragment implements Animation.AnimationListener,
         View.OnClickListener,
         RadioGroup.OnCheckedChangeListener,
-        DatePickerDialog.OnDateSetListener{
+        DatePickerDialog.OnDateSetListener,
+        CompoundButton.OnCheckedChangeListener{
 
 
     protected static final String FILTERG_WEEK = "Cette semaine";
@@ -71,6 +74,7 @@ public abstract class AbstractFragmentList extends Fragment implements Animation
     protected DatePickerDialog mDatePickerDialog;
     protected LinearLayout mCustomDateLayout;
     protected CardView mCVRemoveFilters;
+    protected CheckBox mCBHide;
 
     /**
      * Manage animations to show / hide filters' layout
@@ -96,6 +100,11 @@ public abstract class AbstractFragmentList extends Fragment implements Animation
      * Default value for filtering dates
      */
     protected long mFilterDateValue =-1, mFilterBetweenDate = -1;
+
+    /**
+     * Used to hide/show old items
+     */
+    protected boolean mDisplayOldItems = false;
 
     /**
      * Default value for filtering criteria
@@ -173,6 +182,8 @@ public abstract class AbstractFragmentList extends Fragment implements Animation
         mCVRemoveFilters = (CardView) view.findViewById(R.id.removeFilter);
         mCVRemoveFilters.setOnClickListener(this);
         mCVRemoveFilters.setVisibility(View.GONE);
+        mCBHide = (CheckBox) view.findViewById(R.id.hideOldItems);
+        mCBHide.setOnCheckedChangeListener(this);
     }
 
     public void manageListView(List<?> list, RecyclerView listView, TextView textView){
@@ -415,4 +426,12 @@ public abstract class AbstractFragmentList extends Fragment implements Animation
         mDatePickerDialog.dismiss();
     }
 
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if (compoundButton.getId() == R.id.hideOldItems) {
+            mDisplayOldItems = b;
+            mList = getFilterList();
+            manageListView(mList, mListView, mTextViewNoItem);
+        }
+    }
 }

@@ -45,6 +45,12 @@ public class PupilsBDD {
     private static final int NUM_COL_TEL_2 = 10;
     public static final String COL_IMG_PATH = "IMG_PATH";
     private static final int NUM_COL_IMG_PATH = 11;
+    public static final String COL_STATE = "STATE";
+    private static final int NUM_COL_STATE = 12;
+
+    public static final String[] PUPILS_FIELDS = new String[]{COL_ID, COL_NAME, COL_SEX, COL_CLASS,
+                    COL_TYPE, COL_FREQUENCE, COL_ADRESS,COL_PRICE, COL_DATE_SINCE, COL_TEL_1,
+                    COL_TEL_2, COL_IMG_PATH, COL_STATE};
 
     private SQLiteDatabase bdd;
 
@@ -79,6 +85,7 @@ public class PupilsBDD {
         values.put(COL_TEL_1, pupil.getTel1());
         values.put(COL_TEL_2, pupil.getTel2());
         values.put(COL_IMG_PATH, pupil.getImgPath());
+        values.put(COL_STATE, pupil.getState());
 
         return bdd.insert(TABLE_PUPILS, null, values);
     }
@@ -96,6 +103,7 @@ public class PupilsBDD {
         values.put(COL_FREQUENCE, pupil.getFrequency());
         values.put(COL_DATE_SINCE, pupil.getSinceDate());
         values.put(COL_IMG_PATH, pupil.getImgPath());
+        values.put(COL_STATE, pupil.getState());
 
         return bdd.update(TABLE_PUPILS, values, COL_ID + " = " + id, null);
     }
@@ -108,18 +116,13 @@ public class PupilsBDD {
         return bdd.delete(TABLE_PUPILS, COL_NAME + " LIKE \"" + name + "\"", null);
     }
 
-    public Pupil getPupilWithName(String name) {
-        Cursor c = bdd.query(TABLE_PUPILS, new String[]{COL_ID, COL_NAME, COL_SEX, COL_CLASS, COL_TYPE, COL_FREQUENCE, COL_ADRESS, COL_PRICE, COL_DATE_SINCE, COL_TEL_1, COL_TEL_2, COL_IMG_PATH}, COL_NAME + " LIKE \"" + name + "\"", null, null, null, null);
-        return cursorToPupil(c);
-    }
-
     public Pupil getPupilWithId(int id) {
-        Cursor c = bdd.query(TABLE_PUPILS, new String[]{COL_ID, COL_NAME, COL_SEX, COL_CLASS, COL_TYPE, COL_FREQUENCE, COL_ADRESS, COL_PRICE, COL_DATE_SINCE, COL_TEL_1, COL_TEL_2, COL_IMG_PATH}, COL_ID + " = " + id, null, null, null, null);
+        Cursor c = bdd.query(TABLE_PUPILS, PUPILS_FIELDS, COL_ID + " = " + id, null, null, null, null);
         return cursorToPupil(c);
     }
 
     public List<Pupil> getPupilsWithCriteria(String criteria) {
-        Cursor c = bdd.query(TABLE_PUPILS, new String[]{COL_ID, COL_NAME, COL_SEX, COL_CLASS, COL_TYPE, COL_FREQUENCE, COL_ADRESS, COL_PRICE, COL_DATE_SINCE, COL_TEL_1, COL_TEL_2, COL_IMG_PATH}, criteria, null, null, null, COL_CLASS);
+        Cursor c = bdd.query(TABLE_PUPILS, PUPILS_FIELDS, criteria, null, null, null, COL_CLASS);
         return cursorToListPupils(c);
     }
 
@@ -144,6 +147,7 @@ public class PupilsBDD {
             pupil.setTel1(c.getLong(NUM_COL_TEL_1));
             pupil.setTel2(c.getLong(NUM_COL_TEL_2));
             pupil.setImgPath(c.getString(NUM_COL_IMG_PATH));
+            pupil.setState(c.getInt(NUM_COL_STATE));
 
             list.add(pupil);
             c.moveToNext();
@@ -171,6 +175,7 @@ public class PupilsBDD {
         pupil.setTel1(c.getLong(NUM_COL_TEL_1));
         pupil.setTel2(c.getLong(NUM_COL_TEL_2));
         pupil.setImgPath(c.getString(NUM_COL_IMG_PATH));
+        pupil.setState(c.getInt(NUM_COL_STATE));
 
         c.close();
 
@@ -178,7 +183,12 @@ public class PupilsBDD {
     }
 
     public List<Pupil> getAllPupils(){
-        Cursor c = bdd.query(TABLE_PUPILS, new String[]{COL_ID, COL_NAME, COL_SEX, COL_CLASS, COL_TYPE, COL_FREQUENCE, COL_ADRESS, COL_PRICE, COL_DATE_SINCE, COL_TEL_1, COL_TEL_2, COL_IMG_PATH}, null, null, null, null, COL_CLASS);
+        Cursor c = bdd.query(TABLE_PUPILS, PUPILS_FIELDS, null, null, null, null, COL_CLASS);
+        return cursorToListPupils(c);
+    }
+
+    public List<Pupil> getActivePupils(){
+        Cursor c = bdd.query(TABLE_PUPILS, PUPILS_FIELDS, PupilsBDD.COL_STATE + " != " + Pupil.DESACTIVE, null, null, null, COL_CLASS);
         return cursorToListPupils(c);
     }
 

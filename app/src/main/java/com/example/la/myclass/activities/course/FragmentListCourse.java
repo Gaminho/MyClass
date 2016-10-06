@@ -126,6 +126,7 @@ public class FragmentListCourse extends AbstractFragmentList implements AdapterV
         View view = inflater.inflate(R.layout.filters_courses, container, false);
         fillSpinnerPupils((Spinner) view.findViewById(R.id.spinnerPupils), this);
         setSpinnerContent((Spinner) view.findViewById(R.id.spinnerStates), R.array.filter_cours, this);
+        mCBHide.setText("Afficher les cours annulés");
         view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         return view;
     }
@@ -152,6 +153,9 @@ public class FragmentListCourse extends AbstractFragmentList implements AdapterV
         }
         else
             mFilteringLabels.set(2, "");
+
+        if (!mDisplayOldItems)
+            criteria += " AND " + CoursesBDD.COL_STATE + " != " + Course.CANCELED;
 
         Log.e("Criteria", criteria);
         return coursesBDD.getCourseWithCriteria(criteria);

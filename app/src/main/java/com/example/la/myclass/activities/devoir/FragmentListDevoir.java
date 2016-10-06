@@ -100,6 +100,7 @@ public class FragmentListDevoir extends AbstractFragmentList implements AdapterV
         View view = inflater.inflate(R.layout.filters_courses, container, false);
         fillSpinnerPupils((Spinner) view.findViewById(R.id.spinnerPupils), this);
         setSpinnerContent((Spinner) view.findViewById(R.id.spinnerStates), R.array.filter_devoirs, this);
+        mCBHide.setText("Afficher les devoirs annulés");
         view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         return view;
     }
@@ -125,6 +126,9 @@ public class FragmentListDevoir extends AbstractFragmentList implements AdapterV
         }
         else
             mFilteringLabels.set(2, "");
+
+        if (!mDisplayOldItems)
+            criteria += " AND " + DevoirBDD.COL_STATE + " != " + Devoir.STATE_CANCELED;
 
         Log.e("Criteria", criteria);
         return devoirBDD.getDevoirWithCriteria(criteria);

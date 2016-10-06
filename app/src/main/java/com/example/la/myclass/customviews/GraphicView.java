@@ -16,10 +16,7 @@ import android.view.View;
 import com.example.la.myclass.C;
 import com.example.la.myclass.R;
 import com.example.la.myclass.beans.Devoir;
-import com.example.la.myclass.beans.Month;
-import com.example.la.myclass.beans.PeriodicItem;
-import com.example.la.myclass.beans.Week;
-import com.example.la.myclass.beans.Year;
+import com.example.la.myclass.beans.periodic.PeriodicItem;
 
 import java.util.ArrayList;
 import java.util.List;

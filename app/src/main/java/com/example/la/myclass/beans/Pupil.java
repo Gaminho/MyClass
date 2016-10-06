@@ -14,9 +14,11 @@ public class Pupil {
     public static final int OCCASIONALY = 1;
     public static final int TEMPORALY = 2;
 
-
     public static final int AGENCY = 0;
     public static final int BLACK = 1;
+
+    public static final int ACTIVE = 0;
+    public static final int DESACTIVE = 1;
 
     protected int id;
     protected String name;
@@ -26,6 +28,7 @@ public class Pupil {
     protected int type;
     protected int sex;
     protected int frequency;
+    protected int state;
     protected String adress;
     protected double price;
     protected long sinceDate;
@@ -80,6 +83,22 @@ public class Pupil {
         this.type = type;
         this.sex = sex;
         this.frequency = frequency;
+        this.adress = adress;
+        this.price = price;
+        this.sinceDate = sinceDate;
+        this.tel1 = tel1;
+        this.tel2 = tel2;
+        this.imgPath = imgPath;
+    }
+
+    public Pupil(int id, String name, int level, int type, int sex, int frequency, int state, String adress, double price, long sinceDate, long tel1, long tel2, String imgPath) {
+        this.id = id;
+        this.name = name;
+        this.level = level;
+        this.type = type;
+        this.sex = sex;
+        this.frequency = frequency;
+        this.state = state;
         this.adress = adress;
         this.price = price;
         this.sinceDate = sinceDate;
@@ -189,6 +208,23 @@ public class Pupil {
         this.price = price;
     }
 
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public String getStateLabel(int state){
+        switch (state){
+            case ACTIVE:
+                return "Actif";
+            default:
+                return "Inactif";
+        }
+    }
+
     // METHODES
 
     @Override
@@ -200,6 +236,7 @@ public class Pupil {
                 ", type=" + type +
                 ", sex=" + sex +
                 ", frequency=" + frequency +
+                ", state=" + state +
                 ", adress='" + adress + '\'' +
                 ", price=" + price +
                 ", sinceDate=" + sinceDate +

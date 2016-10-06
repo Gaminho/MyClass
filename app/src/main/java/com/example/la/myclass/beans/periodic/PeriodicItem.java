@@ -1,4 +1,4 @@
-package com.example.la.myclass.beans;
+package com.example.la.myclass.beans.periodic;
 
 /**
  * Created by ariche on 06/10/2016.

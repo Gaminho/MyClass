@@ -1,12 +1,15 @@
 package com.example.la.myclass.activities.pupil;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 import com.example.la.myclass.C;
 import com.example.la.myclass.R;
 import com.example.la.myclass.activities.MainActivity;
+import com.example.la.myclass.adapters.RecyclerViewPupil;
 import com.example.la.myclass.database.PupilsBDD;
 import com.example.la.myclass.beans.Pupil;
 
@@ -37,9 +41,8 @@ public class FragmentDetailsPupil extends Fragment implements View.OnClickListen
     protected TextView mTextViewSince, mTextViewTel1, mTextViewTel2;
     protected LinearLayout mButtonEdit, mButtonSuivi;
     protected ImageView mImageViewAvatar;
-
+    protected CardView mCVActivePupil;
     protected TextView mTextViewCall1, mTextViewCall2, mTextViewGoTo, mTextViewCall, mTextViewResults;
-
 
     //Interface
     protected PupilDetailsInterface mListener;
@@ -131,6 +134,9 @@ public class FragmentDetailsPupil extends Fragment implements View.OnClickListen
         mTextViewType = (TextView) view.findViewById(R.id.type);
         mTextViewFrequency = (TextView) view.findViewById(R.id.frequency);
         mTextViewPrice = (TextView) view.findViewById(R.id.price);
+
+        mCVActivePupil = (CardView) view.findViewById(R.id.isActive);
+        mCVActivePupil.setOnClickListener(this);
     }
 
     public void fillPupilDetails(){
@@ -151,12 +157,12 @@ public class FragmentDetailsPupil extends Fragment implements View.OnClickListen
 
         if(mPupil.getTel1() != 0) {
             mTextViewTel1.setVisibility(View.VISIBLE);
-            mTextViewTel1.setText("0" + mPupil.getTel1());
+            mTextViewTel1.setText(String.format("%010d",mPupil.getTel1()));
         }
 
         if(mPupil.getTel2() != 0) {
             mTextViewTel2.setVisibility(View.VISIBLE);
-            mTextViewTel2.setText("0" + mPupil.getTel2());
+            mTextViewTel2.setText(String.format("%010d",mPupil.getTel2()));
         }
 
         mTextViewAdress.setText(mPupil.getAdress());
@@ -164,6 +170,10 @@ public class FragmentDetailsPupil extends Fragment implements View.OnClickListen
         mTextViewType.setText(getActivity().getResources().getStringArray(R.array.types)[mPupil.getType()]);
         mTextViewFrequency.setText(getActivity().getResources().getStringArray(R.array.frequencies)[mPupil.getFrequency()]);
         mTextViewPrice.setText(String.format("%.2f €", mPupil.getPrice()));
+
+
+        if(mPupil.getState() == Pupil.DESACTIVE)
+            mCVActivePupil.setBackgroundColor(getResources().getColor(R.color.red500));
 
     }
 
@@ -175,39 +185,79 @@ public class FragmentDetailsPupil extends Fragment implements View.OnClickListen
         return pupil;
     }
 
-    public void removePupil(String name){
-        PupilsBDD pupilsBDD = new PupilsBDD(getActivity());
-        pupilsBDD.open();
-        pupilsBDD.removePupilWithName(name);
-        pupilsBDD.close();
-    }
+    public void setDialogDeleteDevoir(final Pupil pupil) {
 
+        LayoutInflater factory = LayoutInflater.from(getActivity());
+        final View adv = factory.inflate(R.layout.dialog_delete, null);
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
+        adb.setView(adv);
+
+        final AlertDialog createDialog = adb.create();
+        createDialog.show();
+
+        String message = "";
+        int color=0;
+
+        if(pupil.getState() == Pupil.ACTIVE) {
+            mPupil.setState(Pupil.DESACTIVE);
+            color = getActivity().getResources().getColor(R.color.red500);
+            message = "En désactivant cet élève, vous ne pourrez plus le sélectionner lors de l'ajout de cours.";
+        }
+
+        else {
+            mPupil.setState(Pupil.ACTIVE);
+            color = getActivity().getResources().getColor(R.color.green500);
+            message = "En réactivant cet élève, vous pourrez à nouveau le sélectionner lors de l'ajout de cours.";
+        }
+
+        final int finalColor = color;
+        createDialog.findViewById(R.id.valid).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PupilsBDD pupilsBDD = new PupilsBDD(getActivity());
+                pupilsBDD.open();
+                pupilsBDD.updatePupil(mPupil.getId(),mPupil);
+                pupilsBDD.close();
+                mCVActivePupil.setBackgroundColor(finalColor);
+                createDialog.dismiss();
+            }
+        });
+
+        createDialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createDialog.dismiss();
+            }
+        });
+
+        ((TextView) createDialog.findViewById(R.id.messageDialog)).setText(message);
+
+    }
 
     // Interface
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.removePupil :
-                //removePupil(mPupil.getName());
-                mListener.goBack();
+            case R.id.isActive:
+                setDialogDeleteDevoir(mPupil);
                 break;
             case R.id.cancel :
                 mListener.goBack();
                 break;
             case R.id.edit :
-                //getFragmentManager().beginTransaction().replace(R.id.default_container, FragmentEditingPupil.newInstance(mPupil.getId())).commit();
                 getFragmentManager().beginTransaction().replace(R.id.default_container, FragmentAddOrEditPupil.newInstance(mPupil.getId())).commit();
                 break;
             case R.id.suivi :
-                Intent intent0 = new Intent(getActivity(), MainActivity.class);
-                intent0.putExtra(MainActivity.NAVIGATION_POSITION,4);
-                intent0.putExtra(MainActivity.PUPIL_ID, mPupil.getId());
-                startActivity(intent0);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra(MainActivity.NAVIGATION_POSITION,4);
+                intent.putExtra(MainActivity.PUPIL_ID, mPupil.getId());
+                startActivity(intent);
                 getActivity().finish();
                 break;
             case R.id.call1 :
-                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:"+mTextViewTel1.getText().toString()));
                 startActivity(intent);
                 break;

@@ -202,10 +202,11 @@ public class FragmentAddOrEditDevoir extends AbstractFragmentAddOrEdit implement
         Toast.makeText(getActivity(), "Devoir mis à jour", Toast.LENGTH_SHORT).show();
     }
 
-    public void removeCourse(int id){
+    public void removeCourse(Devoir devoir){
         DevoirBDD devoirBDD = new DevoirBDD(getActivity());
         devoirBDD.open();
-        devoirBDD.removeDevoirWithID(id);
+        devoir.setState(Devoir.STATE_CANCELED);
+        devoirBDD.updateDevoir(devoir.getId(), devoir);
         devoirBDD.close();
         mListener.goBack();
     }
@@ -227,7 +228,7 @@ public class FragmentAddOrEditDevoir extends AbstractFragmentAddOrEdit implement
         createDialog.findViewById(R.id.valid).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                removeCourse(mDevoir.getId());
+                removeCourse(mDevoir);
                 createDialog.dismiss();
             }
         });

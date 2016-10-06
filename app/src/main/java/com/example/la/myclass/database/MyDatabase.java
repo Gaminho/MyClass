@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.la.myclass.beans.Pupil;
+
 import java.util.Date;
 
 /**
@@ -12,7 +14,7 @@ import java.util.Date;
  */
 public class MyDatabase extends SQLiteOpenHelper {
 
-    public static final int VERSION_BDD = 26;
+    public static final int VERSION_BDD = 27;
     public static final String DB_NAME = "myclassdb";
     private static final String TABLE_PUPILS = "pupils_table";
     private static final String TABLE_PUPILS_2 = "pupils_table_2";
@@ -54,7 +56,7 @@ public class MyDatabase extends SQLiteOpenHelper {
             + COL_ADRESS + " TEXT NOT NULL, " + COL_PRICE + " DOUBLE, "
             + COL_DATE_SINCE + " LONG DEFAULT " + new Date().getTime() + ", "
             + COL_TEL_1 + " LONG DEFAULT 0, " + COL_TEL_2 + " LONG DEFAULT 0, "
-            + COL_IMG_PATH + " TEXT );";
+            + COL_IMG_PATH + " TEXT, " + COL_STATE + " INTEGER DEFAULT " + Pupil.ACTIVE+ ");";
 
     private static final String CREATE_PUPILS_BDD_2 = "CREATE TABLE " + TABLE_PUPILS_2 + " ("
             + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NAME + " TEXT NOT NULL, "
@@ -94,8 +96,8 @@ public class MyDatabase extends SQLiteOpenHelper {
         //db.execSQL("DROP TABLE " + TABLE_PUPILS + ";");
         //if you need to add a new column
         if(newVersion > oldVersion) {
-            db.execSQL("ALTER TABLE " + TABLE_DEVOIRS + " ADD COLUMN " + COL_BAREM + " INT DEFAULT 20");
-            db.execSQL("ALTER TABLE " + TABLE_DEVOIRS + " ADD COLUMN " + COL_TYPE + " INT DEFAULT 0");
+            db.execSQL("ALTER TABLE " + TABLE_PUPILS + " ADD COLUMN " + COL_STATE + " INT DEFAULT " + Pupil.ACTIVE);
+            //db.execSQL("ALTER TABLE " + TABLE_DEVOIRS + " ADD COLUMN " + COL_TYPE + " INT DEFAULT 0");
             //db.execSQL("ALTER TABLE " + TABLE_PUPILS + " ADD COLUMN " + COL_TEL_1 + " LONG DEFAULT 0");
             //db.execSQL("ALTER TABLE " + TABLE_PUPILS + " ADD COLUMN " + COL_TEL_2 + " LONG DEFAULT 0");
             //db.execSQL("ALTER TABLE " + TABLE_PUPILS + " ADD COLUMN " + COL_NB_COURSES + " INTEGER DEFAULT 0");

@@ -9,13 +9,11 @@ import android.widget.TextView;
 
 import com.example.la.myclass.C;
 import com.example.la.myclass.R;
-import com.example.la.myclass.beans.PeriodicItem;
+import com.example.la.myclass.beans.periodic.PeriodicItem;
 import com.example.la.myclass.customviews.GraphicView;
-import com.example.la.myclass.customviews.Podium;
 import com.example.la.myclass.customviews.Podium2;
 import com.example.la.myclass.database.CoursesBDD;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;

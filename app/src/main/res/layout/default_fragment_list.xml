@@ -255,7 +255,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"/>
 
-
+        <CheckBox
+            android:id="@+id/hideOldItems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Afficher les cours annulés"
+            android:textColor="@color/white"/>
 
 
     </LinearLayout>

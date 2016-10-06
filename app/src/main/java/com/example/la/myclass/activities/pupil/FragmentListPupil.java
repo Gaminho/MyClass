@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -97,7 +99,7 @@ public class FragmentListPupil extends AbstractFragmentList implements AdapterVi
         setSpinnerContent((Spinner) view.findViewById(R.id.spinnerClass), R.array.filter_classe, this);
         setSpinnerContent((Spinner) view.findViewById(R.id.spinnerPaiementType), R.array.filter_paiement_type, this);
         setSpinnerContent((Spinner) view.findViewById(R.id.spinnerFrequency), R.array.filter_frequency, this);
-
+        mCBHide.setText("Afficher les anciens élèves");
         view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         return view;
     }
@@ -129,6 +131,9 @@ public class FragmentListPupil extends AbstractFragmentList implements AdapterVi
             criteria += " AND " + PupilsBDD.COL_CLASS + " = " + mFilterClassValue;
             mFilteringLabels.set(1, getResources().getStringArray(R.array.filter_classe)[mFilterClassValue]);
         }
+
+        if (!mDisplayOldItems)
+            criteria += " AND " + PupilsBDD.COL_STATE + " != " + Pupil.DESACTIVE;
 
         Log.e("Criteria", criteria);
         return pupilsBDD.getPupilsWithCriteria(criteria);
@@ -189,4 +194,5 @@ public class FragmentListPupil extends AbstractFragmentList implements AdapterVi
                 break;
         }
     }
+
 } //203 -> 161
