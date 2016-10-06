@@ -7,7 +7,7 @@
     android:background="@color/them100"
     android:orientation="vertical">
 
-    <!-- NB WEEKS -->
+    <!-- NB MONTHS -->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/nbWeeks"
+                    android:id="@+id/nbItems"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -44,9 +44,10 @@
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/typeItems"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="semaines depuis le "/>
+                        android:text="mois depuis le "/>
 
                     <TextView
                         android:id="@+id/firstCourse"
@@ -63,7 +64,7 @@
 
     </android.support.v7.widget.CardView>
 
-    <!-- THREE BEST WEEKS -->
+    <!-- THREE BEST MONTHS   -->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,7 +85,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="4"
                 android:layout_height="100dp"
-                custom:titlePodium="Meilleures semaines"/>
+                custom:titlePodium="Meilleurs mois"/>
 
         </LinearLayout>
 
@@ -98,11 +99,12 @@
         android:layout_margin="8dp">
 
         <com.example.la.myclass.customviews.GraphicView
-            android:id="@+id/graph"
+            android:id="@+id/graphic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            custom:legendSteps="8"
+            custom:legendSteps="10"
             custom:nbItem="10"/>
+
 
     </android.support.v7.widget.CardView>
 

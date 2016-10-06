@@ -1,6 +1,5 @@
 package com.example.la.myclass.activities.pupil;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;

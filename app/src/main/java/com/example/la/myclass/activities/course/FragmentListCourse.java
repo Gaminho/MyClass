@@ -15,7 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.la.myclass.R;
-import com.example.la.myclass.activities.FragmentListDefault;
+import com.example.la.myclass.activities.AbstractFragmentList;
 import com.example.la.myclass.adapters.RecyclerViewCourses;
 import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.beans.Pupil;
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Created by Léa on 27/09/2015.
  */
-public class FragmentListCourse extends FragmentListDefault implements AdapterView.OnItemSelectedListener {
+public class FragmentListCourse extends AbstractFragmentList implements AdapterView.OnItemSelectedListener {
 
 
     /**
@@ -91,7 +91,7 @@ public class FragmentListCourse extends FragmentListDefault implements AdapterVi
 
 
     /**
-     * Implementing abstracts functions from FragmentListDefault
+     * Implementing abstracts functions from AbstractFragmentList
      */
     @Override
     protected void fillListView(RecyclerView recyclerView, TextView textViewNoItem) {

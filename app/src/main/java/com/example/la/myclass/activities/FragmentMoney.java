@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.la.myclass.R;
 import com.example.la.myclass.beans.Month;
+import com.example.la.myclass.beans.PeriodicItem;
 import com.example.la.myclass.beans.Pupil;
 import com.example.la.myclass.beans.Week;
 import com.example.la.myclass.database.CoursesBDD;
@@ -149,12 +150,12 @@ public class FragmentMoney extends Fragment {
     public List<Item> getBestWeeks(){
         CoursesBDD coursesBDD = new CoursesBDD(getActivity());
         coursesBDD.open();
-        List<Week> list = coursesBDD.getAllWeeks();
+        List<PeriodicItem> list = coursesBDD.getAllWeeks();
         coursesBDD.close();
 
         List<Item> itemList = new ArrayList<>();
-        for(Week week : list)
-            itemList.add(new Item(week.getLabel(), week.getMoney(), week.getNbOfCourses()));
+        for(PeriodicItem week : list)
+            itemList.add(new Item(week.getLabel(), week.getMoney(), week.getNbCourse()));
 
         Collections.sort(itemList, new Comparator<Item>() {
             public int compare(Item it1, Item it2) {
@@ -170,12 +171,12 @@ public class FragmentMoney extends Fragment {
     public List<Item> getBestMonths(){
         CoursesBDD coursesBDD = new CoursesBDD(getActivity());
         coursesBDD.open();
-        List<Month> list = coursesBDD.getAllMonths();
+        List<PeriodicItem> list = coursesBDD.getAllMonths();
         coursesBDD.close();
 
         List<Item> itemList = new ArrayList<>();
-        for(Month month : list)
-            itemList.add(new Item(month.getLabel(), month.getMoney(), month.getNbOfCourses()));
+        for(PeriodicItem month : list)
+            itemList.add(new Item(month.getLabel(), month.getMoney(), month.getNbCourse()));
 
         Collections.sort(itemList, new Comparator<Item>() {
             public int compare(Item it1, Item it2) {

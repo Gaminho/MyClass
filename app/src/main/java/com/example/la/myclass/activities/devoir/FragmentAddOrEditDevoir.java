@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,21 +22,19 @@ import android.widget.Toast;
 
 import com.example.la.myclass.C;
 import com.example.la.myclass.R;
-import com.example.la.myclass.activities.FragmentAddOrEditDefault;
+import com.example.la.myclass.activities.AbstractFragmentAddOrEdit;
 import com.example.la.myclass.adapters.SpinnerPupilWithPixAdapter;
-import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.beans.Devoir;
 import com.example.la.myclass.beans.Pupil;
 import com.example.la.myclass.database.DevoirBDD;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by Léa on 06/10/2015.
  */
-public class FragmentAddOrEditDevoir extends FragmentAddOrEditDefault implements View.OnClickListener,
+public class FragmentAddOrEditDevoir extends AbstractFragmentAddOrEdit implements View.OnClickListener,
         DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
 
     /**
@@ -117,7 +114,7 @@ public class FragmentAddOrEditDevoir extends FragmentAddOrEditDefault implements
     }
 
     /**
-     * Implementing abstracts functions from FragmentListDefault
+     * Implementing abstracts functions from AbstractFragmentList
      */
     @Override
     protected View setContent(Context context, ViewGroup container) {

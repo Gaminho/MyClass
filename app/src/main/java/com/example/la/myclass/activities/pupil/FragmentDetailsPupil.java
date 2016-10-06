@@ -4,33 +4,23 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.la.myclass.C;
 import com.example.la.myclass.R;
-import com.example.la.myclass.activities.FragmentSuivi;
 import com.example.la.myclass.activities.MainActivity;
-import com.example.la.myclass.activities.devoir.ActivityDevoir;
-import com.example.la.myclass.database.CoursesBDD;
 import com.example.la.myclass.database.PupilsBDD;
 import com.example.la.myclass.beans.Pupil;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Léa on 28/09/2015.

@@ -17,6 +17,7 @@ import com.example.la.myclass.C;
 import com.example.la.myclass.R;
 import com.example.la.myclass.beans.Devoir;
 import com.example.la.myclass.beans.Month;
+import com.example.la.myclass.beans.PeriodicItem;
 import com.example.la.myclass.beans.Week;
 import com.example.la.myclass.beans.Year;
 
@@ -536,13 +537,12 @@ public class GraphicView extends View {
     }
 
 
-    public void setListWeeks(List<Week> listData){
-        for(Week week : listData){
+    public void setListWeeks(List<PeriodicItem> listData){
+        for(PeriodicItem week : listData){
             mData.add(new Item(
                     week.getMoney(),
                     week.getLabel(),
-                    week.getNbOfCourses()));
-            Log.e("YEAR", week.toString());
+                    week.getNbCourse()));
         }
         if(mNbOfItemsToDisplay > mData.size() && mData.size() > 0)
             mNbOfItemsToDisplay = mData.size();
@@ -550,12 +550,12 @@ public class GraphicView extends View {
         invalidate();
     }
 
-    public void setListMonths(List<Month> listData){
-        for(Month month : listData){
+    public void setListMonths(List<PeriodicItem> listData){
+        for(PeriodicItem month : listData){
             mData.add(new Item(
                     month.getMoney(),
                     month.getLabel(),
-                    month.getNbOfCourses()));
+                    month.getNbCourse()));
         }
         if(mNbOfItemsToDisplay > mData.size() && mData.size() > 0)
             mNbOfItemsToDisplay = mData.size();
@@ -563,12 +563,12 @@ public class GraphicView extends View {
         invalidate();
     }
 
-    public void setListYears(List<Year> listData){
-        for(Year year : listData){
+    public void setListYears(List<PeriodicItem> listData){
+        for(PeriodicItem year : listData){
             mData.add(new Item(
                     year.getMoney(),
                     year.getLabel(),
-                    year.getNbOfCourses()));
+                    year.getNbCourse()));
         }
         if(mNbOfItemsToDisplay > mData.size() && mData.size() > 0)
             mNbOfItemsToDisplay = mData.size();

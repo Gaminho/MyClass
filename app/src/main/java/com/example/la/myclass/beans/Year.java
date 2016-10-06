@@ -3,12 +3,9 @@ package com.example.la.myclass.beans;
 /**
  * Created by Gaminho on 26/09/2016.
  */
-public class Year {
+public class Year extends PeriodicItem {
 
     protected long beginning;
-    protected String label;
-    protected double money;
-    protected int nbOfCourses;
 
 
     // Constructeurs
@@ -19,14 +16,14 @@ public class Year {
     public Year(String label, double money, int nbOfCourses) {
         this.label = label;
         this.money = money;
-        this.nbOfCourses = nbOfCourses;
+        this.nbCourse = nbOfCourses;
     }
 
     public Year(long beginning, String label, double money, int nbOfCourses) {
         this.beginning = beginning;
         this.label = label;
         this.money = money;
-        this.nbOfCourses = nbOfCourses;
+        this.nbCourse = nbOfCourses;
     }
 
 
@@ -40,31 +37,6 @@ public class Year {
         this.beginning = beginning;
     }
 
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public double getMoney() {
-        return money;
-    }
-
-    public void setMoney(double money) {
-        this.money = money;
-    }
-
-    public int getNbOfCourses() {
-        return nbOfCourses;
-    }
-
-    public void setNbOfCourses(int nbOfCourses) {
-        this.nbOfCourses = nbOfCourses;
-    }
-
-
     // Utils
 
     @Override
@@ -73,7 +45,7 @@ public class Year {
                 "beginning=" + beginning +
                 ", label='" + label + '\'' +
                 ", money=" + money +
-                ", nbOfCourses=" + nbOfCourses +
+                ", nbOfCourses=" + nbCourse +
                 '}';
     }
 }

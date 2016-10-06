@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.beans.Month;
+import com.example.la.myclass.beans.PeriodicItem;
 import com.example.la.myclass.beans.Week;
 import com.example.la.myclass.beans.Year;
 
@@ -85,8 +86,6 @@ public class CoursesBDD {
         values.put(COL_MEMO, course.getMemo());
         values.put(COL_PUPIL_ID, course.getPupilID());
 
-        Log.e("DEBUG404", "updateCourse " + course.toString());
-
         return bdd.update(TABLE_COURSES, values, COL_ID + " = " + id, null);
     }
 
@@ -95,17 +94,29 @@ public class CoursesBDD {
     }
 
     public Course getCourseWithId(int id) {
-        Cursor c = bdd.query(TABLE_COURSES, new String[]{COL_ID, COL_DATE, COL_DURATION, COL_STATE, COL_MONEY, COL_THEME, COL_MEMO, COL_PUPIL_ID}, COL_ID + " = " + id, null, null, null, null);
+        Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, COL_ID + " = " + id, null, null, null, null);
         return cursorToCourse(c);
     }
 
+    public Course getFirstCourse(){
+        Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, null, null, null, null, COL_DATE);
+        if (c.getCount() == 0)
+            return null;
+
+        c.moveToFirst();
+        Course course = new Course();
+        course = cursorToCourse(c);
+        c.close();
+        return course;
+    }
+
     public List<Course> getCourseWithPupilId(int pupilId) {
-        Cursor c = bdd.query(TABLE_COURSES, new String[]{COL_ID, COL_DATE, COL_DURATION, COL_STATE, COL_MONEY, COL_THEME, COL_MEMO, COL_PUPIL_ID}, COL_PUPIL_ID + " = " + pupilId, null, null, null, COL_DATE + " DESC");
+        Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, COL_PUPIL_ID + " = " + pupilId, null, null, null, COL_DATE + " DESC");
         return cursorToListCourses(c);
     }
 
     public List<Course> getCourseWithCriteria(String criteria) {
-        Cursor c = bdd.query(TABLE_COURSES, new String[]{COL_ID, COL_DATE, COL_DURATION, COL_STATE, COL_MONEY, COL_THEME, COL_MEMO, COL_PUPIL_ID}, criteria, null, null, null, COL_DATE + " DESC");
+        Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, criteria, null, null, null, COL_DATE + " DESC");
         return cursorToListCourses(c);
     }
 
@@ -161,7 +172,7 @@ public class CoursesBDD {
     }
 
     public List<Course> getAllCourses(){
-        Cursor c = bdd.query(TABLE_COURSES, new String[]{COL_ID, COL_DATE, COL_DURATION, COL_STATE, COL_MONEY, COL_THEME, COL_MEMO, COL_PUPIL_ID}, null, null, null, null, COL_DATE + " DESC");
+        Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, null, null, null, null, COL_DATE + " DESC");
         return cursorToListCourses(c);
     }
 
@@ -176,18 +187,18 @@ public class CoursesBDD {
         if (state == Course.FORESEEN)
             orderBy = COL_DATE + " ASC";
 
-        Cursor c = bdd.query(TABLE_COURSES, new String[]{COL_ID, COL_DATE, COL_DURATION, COL_STATE, COL_MONEY, COL_THEME, COL_MEMO, COL_PUPIL_ID}, COL_STATE + " = " + state, null, null, null, orderBy);
+        Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, COL_STATE + " = " + state, null, null, null, orderBy);
         return cursorToListCourses(c);
     }
 
     public int getNbCoursesWithPupilID(int pupilID) {
 
-        Cursor c = bdd.query(TABLE_COURSES, new String[]{COL_ID, COL_DATE, COL_DURATION, COL_STATE, COL_MONEY, COL_THEME, COL_MEMO, COL_PUPIL_ID}, COL_PUPIL_ID + " = " + pupilID + " AND " + COL_STATE + " != " + Course.FORESEEN, null, null, null, null);
+        Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, COL_PUPIL_ID + " = " + pupilID + " AND " + COL_STATE + " != " + Course.FORESEEN, null, null, null, null);
         return c.getCount();
     }
 
     public List<Course> getCoursesBetweenTwoDates(long start, long end){
-        Cursor c = bdd.query(TABLE_COURSES, new String[]{COL_ID, COL_DATE, COL_DURATION, COL_STATE, COL_MONEY, COL_THEME, COL_MEMO, COL_PUPIL_ID}, null, null, null, null, COL_DATE + " ASC");
+        Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, null, null, null, null, COL_DATE + " ASC");
 
         List<Course> list = new ArrayList<>();
         if (c.getCount() == 0)
@@ -238,8 +249,8 @@ public class CoursesBDD {
         return nbWeeks;
     }
 
-    public List<Week> getAllWeeks(){
-        List<Week> weekList = new ArrayList<>();
+    public List<PeriodicItem> getAllWeeks(){
+        List<PeriodicItem> weekList = new ArrayList<>();
         List<Course> list = getAllCourses();
 
         if(list != null) {
@@ -287,8 +298,8 @@ public class CoursesBDD {
         return weekList;
     }
 
-    public List<Month> getAllMonths(){
-        List<Month> monthList = new ArrayList<>();
+    public List<PeriodicItem> getAllMonths(){
+        List<PeriodicItem> monthList = new ArrayList<>();
         List<Course> list = getAllCourses();
 
         if(list != null) {
@@ -337,8 +348,8 @@ public class CoursesBDD {
         return monthList;
     }
 
-    public List<Year> getAllYears(){
-        List<Year> yearList = new ArrayList<>();
+    public List<PeriodicItem> getAllYears(){
+        List<PeriodicItem> yearList = new ArrayList<>();
         List<Course> list = getAllCourses();
 
         if(list != null) {

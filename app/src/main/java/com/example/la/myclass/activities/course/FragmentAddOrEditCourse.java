@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.example.la.myclass.C;
 import com.example.la.myclass.R;
-import com.example.la.myclass.activities.FragmentAddOrEditDefault;
+import com.example.la.myclass.activities.AbstractFragmentAddOrEdit;
 import com.example.la.myclass.adapters.SpinnerPupilWithPixAdapter;
 import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.beans.Pupil;
@@ -35,7 +35,7 @@ import java.util.Date;
 /**
  * Created by Léa on 28/09/2015.
  */
-public class FragmentAddOrEditCourse extends FragmentAddOrEditDefault implements View.OnClickListener,
+public class FragmentAddOrEditCourse extends AbstractFragmentAddOrEdit implements View.OnClickListener,
         DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener,
         RadioGroup.OnCheckedChangeListener, AdapterView.OnItemSelectedListener {
@@ -131,7 +131,7 @@ public class FragmentAddOrEditCourse extends FragmentAddOrEditDefault implements
     }
 
     /**
-     * Implementing abstracts functions from FragmentListDefault
+     * Implementing abstracts functions from AbstractFragmentList
      */
     @Override
     protected View setContent(Context context, ViewGroup container) {

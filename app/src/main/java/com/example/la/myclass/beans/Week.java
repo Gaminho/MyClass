@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Léa on 03/10/2015.
  */
-public class Week {
+public class Week extends PeriodicItem{
 
     static final String FORMAT = "%02d/%02d/%02d";
     public static final int MOD_NEXT = 0;
@@ -15,9 +15,6 @@ public class Week {
 
     protected long beginning;
     protected long ending;
-    protected String label;
-    protected double money;
-    protected int nbOfCourses;
 
     public Week() {
 
@@ -44,7 +41,7 @@ public class Week {
 
     public Week(int nbCourse, double money, long beginning){
         this.beginning = beginning;
-        this.nbOfCourses = nbCourse;
+        this.nbCourse = nbCourse;
         this.money = money;
 
         Calendar calendar = Calendar.getInstance();
@@ -95,34 +92,15 @@ public class Week {
         this.ending = ending;
     }
 
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public double getMoney() {
-        return money;
-    }
-
-    public int getNbOfCourses() {
-        return nbOfCourses;
-    }
 
     public String toString(){
         return "Label : " + this.label
                 +"\nDébut : " + new Date(beginning).toString()
                 + "\nFin : " + new Date(ending).toString()
                 + "\nArgent : " + money
-                + "\nCours : " + nbOfCourses;
+                + "\nCours : " + nbCourse;
     }
 
-    public String toString2(){
-        return toString()
-                + "\nArgent : " + this.money + "\nCours : " + this.nbOfCourses;
-    }
 
 
 

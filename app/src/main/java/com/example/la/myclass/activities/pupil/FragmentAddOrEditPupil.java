@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +25,8 @@ import android.widget.Toast;
 
 import com.example.la.myclass.C;
 import com.example.la.myclass.R;
-import com.example.la.myclass.activities.FragmentAddOrEditDefault;
-import com.example.la.myclass.activities.course.FragmentDetailsCourse;
+import com.example.la.myclass.activities.AbstractFragmentAddOrEdit;
 import com.example.la.myclass.adapters.AdapterSpinner;
-import com.example.la.myclass.adapters.SpinnerPupilWithPixAdapter;
 import com.example.la.myclass.beans.Pupil;
 import com.example.la.myclass.database.PupilsBDD;
 
@@ -39,7 +36,7 @@ import java.io.IOException;
 /**
  * Created by Léa on 28/09/2015.
  */
-public class FragmentAddOrEditPupil extends FragmentAddOrEditDefault implements View.OnClickListener,
+public class FragmentAddOrEditPupil extends AbstractFragmentAddOrEdit implements View.OnClickListener,
         RadioGroup.OnCheckedChangeListener, AdapterView.OnItemSelectedListener {
     // 01h25
 
@@ -155,7 +152,7 @@ public class FragmentAddOrEditPupil extends FragmentAddOrEditDefault implements 
     }
 
     /**
-     * Implementing abstracts functions from FragmentListDefault
+     * Implementing abstracts functions from AbstractFragmentList
      */
    @Override
     protected View setContent(Context context, ViewGroup container) {

@@ -35,7 +35,7 @@ import java.util.List;
 /**
  * Created by Gaminho on 02/10/2016.
  */
-public abstract class FragmentAddOrEditDefault extends Fragment implements View.OnClickListener,
+public abstract class AbstractFragmentAddOrEdit extends Fragment implements View.OnClickListener,
         DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     /**

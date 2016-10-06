@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,6 @@ import com.example.la.myclass.C;
 import com.example.la.myclass.R;
 import com.example.la.myclass.database.CoursesBDD;
 import com.example.la.myclass.beans.Course;
-
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Léa on 01/10/2015.

@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.la.myclass.R;
-import com.example.la.myclass.activities.FragmentListDefault;
+import com.example.la.myclass.activities.AbstractFragmentList;
 import com.example.la.myclass.adapters.RecyclerViewDevoirs;
 import com.example.la.myclass.beans.Devoir;
 import com.example.la.myclass.beans.Pupil;
@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Created by Léa on 02/10/2015.
  */
-public class FragmentListDevoir extends FragmentListDefault implements AdapterView.OnItemSelectedListener {
+public class FragmentListDevoir extends AbstractFragmentList implements AdapterView.OnItemSelectedListener {
 
     /**
      * Constantes du bundle
@@ -67,7 +67,7 @@ public class FragmentListDevoir extends FragmentListDefault implements AdapterVi
     }
 
     /**
-     * Implementing abstracts functions from FragmentListDefault
+     * Implementing abstracts functions from AbstractFragmentList
      */
     @Override
     protected void fillListView(RecyclerView recyclerView, TextView textViewNoItem) {

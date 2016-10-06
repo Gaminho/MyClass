@@ -46,7 +46,7 @@ import java.util.List;
 /**
  * Created by Gaminho on 29/09/2016.
  */
-public abstract class FragmentListDefault extends Fragment implements Animation.AnimationListener,
+public abstract class AbstractFragmentList extends Fragment implements Animation.AnimationListener,
         View.OnClickListener,
         RadioGroup.OnCheckedChangeListener,
         DatePickerDialog.OnDateSetListener{

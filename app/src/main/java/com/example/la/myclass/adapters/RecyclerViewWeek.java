@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.example.la.myclass.R;
 import com.example.la.myclass.activities.FragmentDay;
 import com.example.la.myclass.activities.MainActivity;
-import com.example.la.myclass.activities.devoir.FragmentListDevoir;
 import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.beans.Week;
 

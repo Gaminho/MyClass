@@ -1,34 +1,19 @@
 package com.example.la.myclass.activities.stats;
 
 import android.app.Fragment;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.la.myclass.R;
-import com.example.la.myclass.activities.FragmentDay;
-import com.example.la.myclass.activities.FragmentMoney;
-import com.example.la.myclass.activities.FragmentSettings;
-import com.example.la.myclass.activities.FragmentWeek;
-import com.example.la.myclass.activities.MainActivity;
-import com.example.la.myclass.activities.NavigationDrawerFragment;
-import com.example.la.myclass.activities.course.FragmentListCourse;
-import com.example.la.myclass.activities.devoir.FragmentListDevoir;
-import com.example.la.myclass.activities.pupil.FragmentListPupil;
 import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.beans.Devoir;
 import com.example.la.myclass.beans.Pupil;
 import com.example.la.myclass.database.CoursesBDD;
 import com.example.la.myclass.database.DevoirBDD;
 import com.example.la.myclass.database.PupilsBDD;
-import com.example.la.myclass.utils.DateParser;
-
-import java.util.Date;
 
 /**
  * Created by Gaminho on 21/09/2016.
