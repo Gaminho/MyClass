@@ -9,7 +9,6 @@ import java.util.Calendar;
  */
 public class Month  extends PeriodicItem {
 
-    protected long beginning;
 
     public Month(int nbOfCourses, double money, long beginning) {
         this.beginning = beginning;

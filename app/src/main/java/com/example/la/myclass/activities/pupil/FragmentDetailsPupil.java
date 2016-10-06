@@ -202,13 +202,13 @@ public class FragmentDetailsPupil extends Fragment implements View.OnClickListen
         if(pupil.getState() == Pupil.ACTIVE) {
             mPupil.setState(Pupil.DESACTIVE);
             color = getActivity().getResources().getColor(R.color.red500);
-            message = "En désactivant cet élève, vous ne pourrez plus le sélectionner lors de l'ajout de cours.";
+            message = "En désactivant cet élève, vous ne pourrez plus le sélectionner lors de l'ajout de cours.\n\nSouhaitez-vous continuer ?";
         }
 
         else {
             mPupil.setState(Pupil.ACTIVE);
             color = getActivity().getResources().getColor(R.color.green500);
-            message = "En réactivant cet élève, vous pourrez à nouveau le sélectionner lors de l'ajout de cours.";
+            message = "En réactivant cet élève, vous pourrez à nouveau le sélectionner lors de l'ajout de cours.\n\nSouhaitez-vous continuer ?";
         }
 
         final int finalColor = color;

@@ -13,14 +13,14 @@
     </string-array>
 
     <string-array name="drawer_sections0">
-        <item>{fa-home};Accueil</item>
-        <item>{fa-users};Elèves</item>
-        <item>{fa-book};Cours</item>
-        <item>{fa-file-text};Devoirs</item>
-        <item>{fa-line-chart};Suivi</item>
-        <item>{fa-calendar};Semaine</item>
-        <item>{fa-eur};Argent</item>
-        <item>{fa-bar-chart};Statistiques</item>
-        <item>{fa-wrench};Paramètres</item>
+        <item>Accueil;Aperçu de la semaine en cours</item>
+        <item>Elèves;Consulter l\'ensemble des élèves</item>
+        <item>Cours;Consulter l\'ensemble des cours</item>
+        <item>Devoirs;Consulter l\'ensemble des devoirs</item>
+        <item>Suivi;Suivre les résultats des élèves</item>
+        <item>Semaine;Consulter le calendrier</item>
+        <item>Argent;Consulter les résultats financiers</item>
+        <item>Statistiques;Les chiffres clés de votre activité</item>
+        <item>Paramètres;Gérer voss données et vos notifications</item>
     </string-array>
 </resources>

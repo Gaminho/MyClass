@@ -8,26 +8,44 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingLeft="4dp"
+        android:gravity="center_vertical">
 
-        <com.joanzapata.iconify.widget.IconTextView
-            android:id="@+id/icon"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:textSize="28dp"
-            android:textColor="#000"
-            android:text="{fa-folder-open}"/>
+        <ImageView
+            android:id="@+id/imgSection"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_home_white_48dp"
+            android:tint="@color/white"
+            android:layout_marginRight="4dp"/>
 
-        <TextView
-            android:id="@+id/label"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:text="Bilan"
-            android:textSize="18dp"
-            android:textColor="@color/them800"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bilan"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/unthem500"/>
+
+            <TextView
+                android:id="@+id/subTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Détails de la semaine courante"
+                android:textSize="12dp"
+                android:maxLines="1"
+                android:ellipsize="marquee"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

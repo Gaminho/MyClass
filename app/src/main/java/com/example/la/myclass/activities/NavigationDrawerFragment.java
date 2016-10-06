@@ -3,6 +3,7 @@ package com.example.la.myclass.activities;
 import android.app.Fragment;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -24,6 +25,11 @@ import com.example.la.myclass.R;
 public class NavigationDrawerFragment extends Fragment implements View.OnClickListener {
 
     // Statics
+    public static int[] SECTION_PIX = {R.drawable.ic_home_white_48dp,R.drawable.ic_group_white_48dp,
+        R.drawable.ic_book_open_page_variant_white_48dp,R.drawable.ic_assignment_white_48dp,
+        R.drawable.ic_trending_up_white_48dp,R.drawable.ic_today_white_48dp,
+        R.drawable.ic_euro_symbol_white_48dp,R.drawable.ic_equalizer_white_48dp,
+        R.drawable.ic_build_white_48dp};
     public static int INDEX_HOME = 0;
     public static int INDEX_PUPILS = 1;
     public static int INDEX_CLASSES = 2;
@@ -248,13 +254,14 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
             TextView label, icon;
             label = (TextView) rowView.findViewById(R.id.label);
-            label.setText(arr2[position].split(";")[1]);
+            label.setText(arr2[position].split(";")[0]);
 
-            icon = (TextView) rowView.findViewById(R.id.icon);
-            icon.setText(arr2[position].split(";")[0]);
+            icon = (TextView) rowView.findViewById(R.id.subTitle);
+            icon.setText(arr2[position].split(";")[1]);
+            icon.setTypeface(null, Typeface.ITALIC);
 
-            int color = mContext.getResources().getColor(R.color.calendar);
-            icon.setTextColor(color);
+            ImageView img = (ImageView) rowView.findViewById(R.id.imgSection);
+            img.setImageDrawable(mContext.getResources().getDrawable(SECTION_PIX[position]));
 
             return rowView;
         }

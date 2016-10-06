@@ -1,5 +1,7 @@
 package com.example.la.myclass.beans.periodic;
 
+import java.util.Calendar;
+
 /**
  * Created by ariche on 06/10/2016.
  */
@@ -12,6 +14,7 @@ public class PeriodicItem {
     protected String label;
     protected int nbCourse;
     protected double money;
+    protected long beginning, ending;
 
     /**
      * Constructeurs
@@ -50,6 +53,22 @@ public class PeriodicItem {
         this.money = money;
     }
 
+    public long getEnding() {
+        return ending;
+    }
+
+    public void setEnding(long ending) {
+        this.ending = ending;
+    }
+
+    public long getBeginning() {
+        return beginning;
+    }
+
+    public void setBeginning(long beginning) {
+        this.beginning = beginning;
+    }
+
     /**
      * Utils
      */
@@ -61,5 +80,6 @@ public class PeriodicItem {
                 ", money=" + money +
                 '}';
     }
+
 
 }

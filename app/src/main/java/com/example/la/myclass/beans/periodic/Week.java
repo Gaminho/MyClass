@@ -15,8 +15,6 @@ public class Week extends PeriodicItem{
     public static final int MOD_NEXT = 0;
     public static final int MOD_LAST = 1;
 
-    protected long beginning;
-    protected long ending;
 
     public Week() {
 
