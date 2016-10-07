@@ -2,6 +2,7 @@ package com.example.la.myclass.activities;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -15,6 +16,7 @@ import com.example.la.myclass.R;
 import com.example.la.myclass.activities.course.FragmentListCourse;
 import com.example.la.myclass.activities.devoir.FragmentListDevoir;
 import com.example.la.myclass.activities.pupil.FragmentListPupil;
+import com.example.la.myclass.activities.services.MyService;
 import com.example.la.myclass.activities.stats.FragmentStats;
 
 
@@ -65,6 +67,9 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             setCurrentFragment(fragment);
             loadFragment(fragment,indexSection,getResources().getStringArray(R.array.drawer_sections)[indexSection],false);
         }
+        Intent i = new Intent(MainActivity.this, MyService.class);
+        i.putExtra("KEY1", "Value to be used by the service");
+        startService(i);
     }
 
     @Override

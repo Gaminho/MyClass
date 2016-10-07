@@ -20,7 +20,7 @@ public class ActivityCourse extends ActionBarActivity implements FragmentDetails
 
 
     // BUNDLE
-    static final String COURSE_ID = "course_id";
+    public static final String COURSE_ID = "course_id";
     public static final String COURSE_ACTION = "course_action";
     public static final String COURSE_DAY = "course_day";
     public static final int ADDING = 0;
@@ -47,10 +47,8 @@ public class ActivityCourse extends ActionBarActivity implements FragmentDetails
         Fragment fragment;
         switch(getIntent().getIntExtra(COURSE_ACTION, SEEING)){
             case ADDING :
-                Log.e("DEBUGDAY-ACOURSE", "on est dans le switch");
                 if(getIntent().getLongExtra(COURSE_DAY, 0) != 0) {
                     fragment = FragmentAddOrEditCourse.newInstance(getIntent().getLongExtra(COURSE_DAY, 0));
-                    Log.e("DEBUGDAY-FDAY", "DANS LE IF : " + getIntent().getLongExtra(COURSE_DAY, 0));
                 }
                 else
                     fragment = FragmentAddOrEditCourse.newInstance();

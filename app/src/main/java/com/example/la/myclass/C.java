@@ -150,6 +150,7 @@ public class C {
     public static final int DD_MM_YY = 8;
     public static final int HH_mm = 9;
     public static final int HH_mm_ss = 10;
+    public static final int dd_HH_mm_ss = 11;
     public static String formatDate(long milliseconds, int format){
 
         Calendar calendar = Calendar.getInstance();
@@ -205,6 +206,15 @@ public class C {
                         calendar.get(Calendar.HOUR_OF_DAY),
                         calendar.get(Calendar.MINUTE),
                         calendar.get(Calendar.SECOND));
+            case dd_HH_mm_ss:
+                int jour = (int) (milliseconds / DAY);
+                milliseconds -= jour*DAY;
+                int hour = (int) (milliseconds/HOUR);
+                milliseconds -= hour*HOUR;
+                int minut = (int) (milliseconds/MINUTE);
+                milliseconds -= minut*MINUTE;
+                int second = (int) (milliseconds/SECOND);
+                return String.format("%dj. %02dh%02d:%02d", jour,hour,minut,second);
         }
         return null;
     }

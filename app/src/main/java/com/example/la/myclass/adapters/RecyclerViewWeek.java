@@ -79,7 +79,6 @@ public class RecyclerViewWeek extends RecyclerView.Adapter<RecyclerViewWeek.Pers
 
         if(mListCourse != null)
             for(Course course : mListCourse){
-                Log.e("DEBUGGONS", course.toString());
                 if (course.getDate() > date && course.getDate() < date + DAY) {
                     nbCours = nbCours + 1;
                     Date d = new Date(course.getDate());

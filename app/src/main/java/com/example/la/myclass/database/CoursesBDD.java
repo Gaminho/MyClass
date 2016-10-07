@@ -100,16 +100,14 @@ public class CoursesBDD {
         return cursorToCourse(c);
     }
 
-    public Course getFirstCourse(){
-        Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, null, null, null, null, COL_DATE);
-        if (c.getCount() == 0)
-            return null;
+    public Course getNextCourse(){
+        Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, COL_STATE + " = " + Course.FORESEEN, null, null, null, COL_DATE, "1");
+        return cursorToCourse(c);
+    }
 
-        c.moveToFirst();
-        Course course = new Course();
-        course = cursorToCourse(c);
-        c.close();
-        return course;
+    public Course getFirstCourse(){
+        Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, null, null, null, null, COL_DATE, "1");
+        return cursorToCourse(c);
     }
 
     public List<Course> getCourseWithPupilId(int pupilId) {

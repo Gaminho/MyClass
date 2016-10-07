@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
 
     <application
@@ -32,6 +33,12 @@
 
         <activity android:name=".activities.devoir.ActivityDevoir"
             android:screenOrientation="portrait"/>
+
+        <service android:name=".activities.services.MyService"
+            android:exported="true"
+            android:enabled="true"
+            >
+        </service>
 
     </application>
 
