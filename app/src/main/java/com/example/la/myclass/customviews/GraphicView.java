@@ -179,7 +179,6 @@ public class GraphicView extends View {
             drawOngletBar();
 
         if(mData.size() > 0) {
-            Log.e("Graphic", "List non vide " + mData);
             if(!mDataType.equals(TYPE_DEVOIR))
                 drawLegends(getMaxLeftValue(), getMaxRightValue());
             else

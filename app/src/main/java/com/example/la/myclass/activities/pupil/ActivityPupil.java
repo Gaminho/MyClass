@@ -66,7 +66,9 @@ public class ActivityPupil extends ActionBarActivity implements FragmentDetailsP
 
     public void loadFragment(Fragment fragment){
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.default_container, fragment).commit();
+        fragmentManager.beginTransaction()
+                .replace(R.id.default_container, fragment)
+                .commit();
     }
 
     public void setCurrentFragment(Fragment fragment){

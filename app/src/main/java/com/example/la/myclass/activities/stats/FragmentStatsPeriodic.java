@@ -65,7 +65,7 @@ public class FragmentStatsPeriodic extends AbstractFragmentStats {
     }
 
     @Override
-    public void setTypeItems(TextView textView) {
+    public int getTypeItems(TextView textView) {
         String type = "";
         switch(mItemType){
             case FragmentStats.WEEK:
@@ -81,6 +81,7 @@ public class FragmentStatsPeriodic extends AbstractFragmentStats {
                 break;
         }
         textView.setText(String.format("%s depuis le ", type));
+        return mItemType;
     }
 
 } //141

@@ -49,10 +49,9 @@ public abstract class AbstractFragmentStats extends Fragment {
         View view = inflater.inflate(R.layout.default_fragment_stats, container, false);
         getAllViews(view);
         mListItem = getListItem();
-        fillGrqphic(mGraphic,mListItem);
+        fillGrqphic(mGraphic,mListItem, getTypeItems(mTVTypeItems));
         fillPodium(mPodium, mListItem);
         fillNbItems(mTVNbItems,mListItem.size());
-        setTypeItems(mTVTypeItems);
 
         CoursesBDD coursesBDD = new CoursesBDD(getActivity());
         coursesBDD.open();
@@ -71,8 +70,18 @@ public abstract class AbstractFragmentStats extends Fragment {
         mTVTypeItems = (TextView) view.findViewById(R.id.typeItems);
         mTVFirstCourse = (TextView) view.findViewById(R.id.firstCourse);
     }
-    public void fillGrqphic(GraphicView graphic, List<PeriodicItem> list) {
-        graphic.setListMonths(list);
+    public void fillGrqphic(GraphicView graphic, List<PeriodicItem> list, int type) {
+        switch(type){
+            case FragmentStats.MONTH:
+                graphic.setListMonths(list);
+                break;
+            case FragmentStats.WEEK:
+                graphic.setListWeeks(list);
+                break;
+            default:
+                graphic.setListYears(list);
+                break;
+        }
     }
     public void fillPodium(Podium2 podium, List<PeriodicItem> list){
 
@@ -103,7 +112,7 @@ public abstract class AbstractFragmentStats extends Fragment {
                 list.get(2).getLabel());
     }
     public abstract List<PeriodicItem> getListItem();
-    public abstract void setTypeItems(TextView textView);
+    public abstract int getTypeItems(TextView textView);
     public void fillNbItems(TextView textView, int nbItems){
         textView.setText(String.format("%d", nbItems));
     }
