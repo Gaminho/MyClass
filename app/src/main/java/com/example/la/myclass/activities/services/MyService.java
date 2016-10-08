@@ -1,10 +1,12 @@
 package com.example.la.myclass.activities.services;
 
+import android.app.Application;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -14,6 +16,8 @@ import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.database.CoursesBDD;
 import com.example.la.myclass.notifications.NotificationEndCourse;
 
+import java.util.Date;
+
 
 /**
  * Created by ariche on 07/10/2016.
@@ -21,36 +25,43 @@ import com.example.la.myclass.notifications.NotificationEndCourse;
 
 public class MyService extends Service {
 
-
+    protected Application mApp;
     protected Context mContext;
     protected Course mNextCourse;
+    protected long nextBeginning, nextEnding;
+    public boolean isActive = false, nextCoursEnd = false;
 
-    protected Handler mHandler;
+
+    protected Handler mHandler, mMonitoring, mEndCourse;
     private Runnable mRunnableStartingCours = new Runnable() {
         public void run() {
-            new NotificationBeginningCourse(mContext, mNextCourse).create(mContext);
+            Log.e("RUNNABLE START", "***************** DEBUT : " + new Date().toString() + " *****************");
             changeCourseState(mNextCourse, Course.WAITING_FOT_VALIDATION);
-            mNextCourse = getNextCourses();
 
-            if(mNextCourse != null) {
-                long nextCourseBeginning = ( mNextCourse.getDate() - System.currentTimeMillis() );
-                mHandler.postDelayed(mRunnableStartingCours, nextCourseBeginning);
-                mHandler.postDelayed(mRunnableEndingCourse, nextCourseBeginning + C.MINUTE * mNextCourse.getDuration());
-                Log.e("SERVICE", "Prochaine exécution : " + C.formatDate(nextCourseBeginning,C.dd_HH_mm_ss) );
-            }
+            mHandler.removeCallbacks(mRunnableStartingCours);
+
+            new NotificationBeginningCourse(mContext, mNextCourse).create(mContext);
+            Log.e("RUNNABLE START", "***************** Nouveau cours : " + new Date(mNextCourse.getDate()).toString() + " *****************");
+            mEndCourse.postAtTime(mRunnableEndingCourse, SystemClock.uptimeMillis() + + 8 * C.SECOND);
         }
     };
     private Runnable mRunnableEndingCourse = new Runnable() {
         public void run() {
+            Log.e("RUNNABLE END", "***************** FIN : " + new Date().toString() + " *****************");
             new NotificationEndCourse(mContext, mNextCourse).create(mContext);
+            mEndCourse.removeCallbacks(mRunnableEndingCourse);
+            mNextCourse = getNextCourses();
+            long begin = SystemClock.uptimeMillis() + (mNextCourse.getDate() - System.currentTimeMillis());
+            mHandler.postAtTime(mRunnableStartingCours, begin);
+            isActive = false;
         }
     };
     private Runnable mRunnableMonitoring = new Runnable() {
         public void run() {
-            long nextCourseBeginning = ( mNextCourse.getDate() - System.currentTimeMillis() );
-            Log.e("MONITORING", "Prochain début : " + C.formatDate(nextCourseBeginning,C.dd_HH_mm_ss));
-            Log.e("MONITORING", "Prochaine fin : " + C.formatDate((nextCourseBeginning + mNextCourse.getDuration() * C.MINUTE),C.dd_HH_mm_ss));
-            mHandler.postDelayed(mRunnableMonitoring, 3000);
+            mMonitoring.removeCallbacks(mRunnableMonitoring);
+            if(mNextCourse != null)
+                Log.e("MONITORING", "Début  : " + C.formatDate((mNextCourse.getDate()-System.currentTimeMillis()),C.dd_HH_mm_ss));
+            mMonitoring.postDelayed(mRunnableMonitoring, 10000);
         }
     };
 
@@ -58,20 +69,35 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e("SERVICE","onStartCommand");
-        mContext = getApplicationContext();
-        mNextCourse = getNextCourses();
+
         mHandler = new Handler();
-        mHandler.removeCallbacks(mRunnableStartingCours);
-        mHandler.removeCallbacks(mRunnableEndingCourse);
-        mHandler.removeCallbacks(mRunnableMonitoring);
+        mMonitoring = new Handler();
+        mEndCourse = new Handler();
 
-        mHandler.post(mRunnableMonitoring);
+        Log.e("Service", "onStartCommand - 1 - " + mNextCourse);
 
-        if(mNextCourse != null){
-            Log.e("SERVICE", "Prochaine exécution : " + C.formatDate((mNextCourse.getDate() - System.currentTimeMillis()),C.dd_HH_mm_ss) );
-            long nextCourseBeginning = ( mNextCourse.getDate() - System.currentTimeMillis() );
-            mHandler.postDelayed(mRunnableStartingCours, nextCourseBeginning);
-            mHandler.postDelayed(mRunnableEndingCourse, nextCourseBeginning + C.MINUTE * mNextCourse.getDuration());
+        if( mNextCourse != null && mNextCourse.getDate() > getNextCourses().getDate() ){
+            mHandler.removeCallbacks(mRunnableStartingCours);
+            isActive = false;
+        }
+
+        Log.e("Service", "onStartCommand - 2 - " + isActive);
+
+        if(!isActive && getNextCourses() != null){
+            isActive = true;
+            mNextCourse = getNextCourses();
+
+            Log.e("Service", "onStartCommand - 3 - " + mNextCourse);
+
+            if(mNextCourse != null){
+                Log.e("Service", "onStartCommand - 4 - " + mNextCourse);
+                Log.e("Service", "Prochain cours : " + new Date( mNextCourse.getDate()).toString());
+                long begin = SystemClock.uptimeMillis() + (mNextCourse.getDate() - System.currentTimeMillis());
+                mHandler.postAtTime(mRunnableStartingCours, begin);
+                mEndCourse.postAtTime(mRunnableEndingCourse, begin + 8 * C.SECOND);
+                mMonitoring.post(mRunnableMonitoring);
+
+            }
         }
 
         return START_STICKY;
@@ -100,4 +126,11 @@ public class MyService extends Service {
         coursesBDD.close();
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mContext = getApplicationContext();
+        isActive = false;
+        Log.e("My Service", "onstart !");
+    }
 }

@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -41,9 +42,21 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
     // Activity Life Cycle
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e("MainActivity", "onStart");
+        Intent i = new Intent(MainActivity.this, MyService.class);
+        i.putExtra("KEY1", "Value to be used by the service");
+        startService(i);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e("MainActivity", "onCreate");
+
         setContentView(R.layout.activity_main);
         getAllViews();
 
@@ -67,9 +80,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             setCurrentFragment(fragment);
             loadFragment(fragment,indexSection,getResources().getStringArray(R.array.drawer_sections)[indexSection],false);
         }
-        Intent i = new Intent(MainActivity.this, MyService.class);
-        i.putExtra("KEY1", "Value to be used by the service");
-        startService(i);
     }
 
     @Override

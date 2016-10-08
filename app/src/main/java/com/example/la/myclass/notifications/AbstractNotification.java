@@ -36,7 +36,7 @@ public abstract class AbstractNotification {
                 .setAutoCancel(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            mNotification.notify(78,builder.build());
+            mNotification.notify(requestCode,builder.build());
         }
     }
 }

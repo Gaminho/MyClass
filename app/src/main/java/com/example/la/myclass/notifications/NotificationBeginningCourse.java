@@ -23,7 +23,7 @@ public class NotificationBeginningCourse extends AbstractNotification {
         this.mLaunchIntent = new Intent(context, ActivityCourse.class);
         this.mLaunchIntent.putExtra(ActivityCourse.COURSE_ID, course.getId());
         this.mPendingIntent = PendingIntent.getActivity(context,
-                REQUEST_CODE, this.mLaunchIntent, PendingIntent.FLAG_ONE_SHOT);
+                REQUEST_CODE, this.mLaunchIntent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
 }

@@ -13,7 +13,7 @@ import com.example.la.myclass.beans.Course;
 
 public class NotificationEndCourse  extends AbstractNotification {
 
-    static final int REQUEST_CODE = -50;
+    static final int REQUEST_CODE = -51;
 
     public NotificationEndCourse(Context context, Course course) {
         this.requestCode = REQUEST_CODE;
