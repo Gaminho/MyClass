@@ -14,16 +14,18 @@ import com.example.la.myclass.beans.Course;
 
 public class NotificationBeginningCourse extends AbstractNotification {
 
-    static final int REQUEST_CODE = -50;
 
     public NotificationBeginningCourse(Context context, Course course) {
-        this.requestCode = REQUEST_CODE;
+        this.requestCode = AbstractNotification.COURSE_BEGIN;
+        this.mContext = context;
         this.mTitle = "Début de cours";
         this.mContent = String.format("Le cours avec %s a commencé", course.getPupil().getFullName());
         this.mLaunchIntent = new Intent(context, ActivityCourse.class);
         this.mLaunchIntent.putExtra(ActivityCourse.COURSE_ID, course.getId());
         this.mPendingIntent = PendingIntent.getActivity(context,
-                REQUEST_CODE, this.mLaunchIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                AbstractNotification.COURSE_BEGIN, this.mLaunchIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        this.mLightColor = 0x81d4fa;
     }
 
 }

@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 
 import com.example.la.myclass.R;
@@ -18,22 +19,33 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 
 public abstract class AbstractNotification {
 
+    /**
+     * NOTIFICATION TYPE
+     */
+    public static final int COURSE_BEGIN = 1;
+    public static final int COURSE_END = 2;
+
     protected int requestCode;
+    protected Context mContext;
     protected String mTitle;
     protected String mContent;
     protected Intent mLaunchIntent;
     protected PendingIntent mPendingIntent;
+    protected int mLightColor;
 
-    public void create(Context context){
-        final NotificationManager mNotification = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+    public void create(){
+        final NotificationManager mNotification = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
 
-        Notification.Builder builder = new Notification.Builder(context)
+        Notification.Builder builder = new Notification.Builder(mContext)
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.logo_app)
                 .setContentTitle(mTitle)
                 .setContentText(mContent)
                 .setContentIntent(mPendingIntent)
-                .setAutoCancel(true);
+                .setAutoCancel(true)
+                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
+                .setLights(mLightColor, 3000, 1500);
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             mNotification.notify(requestCode,builder.build());

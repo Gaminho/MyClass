@@ -62,6 +62,7 @@ public class FragmentListCourse extends AbstractFragmentList implements AdapterV
         super.onCreate(savedInstanceState);
         mState = getArguments().getInt(COURSES_STATE, Course.ALL_COURSES);
 
+        /*
         CoursesBDD coursesBDD = new CoursesBDD(getActivity());
         coursesBDD.open();
         List<Course> list = coursesBDD.getCoursesWithState(Course.FORESEEN);
@@ -76,6 +77,9 @@ public class FragmentListCourse extends AbstractFragmentList implements AdapterV
         }
 
         coursesBDD.close();
+
+        */
+
         mFilteringLabels.add(1, "");
         mFilteringLabels.add(2, "");
     }

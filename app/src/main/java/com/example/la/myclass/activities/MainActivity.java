@@ -17,7 +17,7 @@ import com.example.la.myclass.R;
 import com.example.la.myclass.activities.course.FragmentListCourse;
 import com.example.la.myclass.activities.devoir.FragmentListDevoir;
 import com.example.la.myclass.activities.pupil.FragmentListPupil;
-import com.example.la.myclass.activities.services.MyService;
+import com.example.la.myclass.services.MyService;
 import com.example.la.myclass.activities.stats.FragmentStats;
 
 

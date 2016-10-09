@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.la.myclass.beans.Course;
+import com.example.la.myclass.database.CoursesBDD;
 import com.example.la.myclass.database.MyDatabase;
 import com.example.la.myclass.utils.DateParser;
 
@@ -133,6 +135,8 @@ public class C {
      */
     public static final String SHARED_PREFERENCES_NAME = "mySharedPreferences";
     public static final String CURRENT_DB = "current_database";
+    public static final String SP_NOTIF_COURSE_BEGIN = "course_begin";
+    public static final String SP_NOTIF_COURSE_END = "course_end";
 
     /**
      * DATE
@@ -310,5 +314,24 @@ public class C {
         parent.setContentInsetsAbsolute(0, 0);
 
         return actionBar;
+    }
+
+    /**
+     * RETRIEVING DATA FROM DB WITH ID
+     */
+    public static Course getCourseWithId(Context context, int courseID){
+        CoursesBDD coursesBDD = new CoursesBDD(context);
+        coursesBDD.open();
+        Course course = coursesBDD.getCourseWithId(courseID);
+        coursesBDD.close();
+        return course;
+    }
+
+    public static void changeCourseState(Context context, Course course, int newState){
+        CoursesBDD coursesBDD = new CoursesBDD(context);
+        coursesBDD.open();
+        course.setState(newState);
+        coursesBDD.updateCourse(course.getId(), course);
+        coursesBDD.close();
     }
 }

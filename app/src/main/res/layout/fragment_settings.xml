@@ -251,9 +251,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:text="Début d'un cours (non disponible)"/>
+                        android:text="Début d'un cours"/>
 
                     <Switch
+                        android:id="@+id/swCourseBegin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -268,9 +269,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:text="Fin d'un cours (non disponible)"/>
+                        android:text="Fin d'un cours"/>
 
                     <Switch
+                        android:id="@+id/swCourseEnd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 

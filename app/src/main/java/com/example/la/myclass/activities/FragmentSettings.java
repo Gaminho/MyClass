@@ -11,8 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +38,7 @@ import java.util.List;
 /**
  * Created by Gaminho on 22/05/2016.
  */
-public class FragmentSettings extends Fragment implements View.OnClickListener{
+public class FragmentSettings extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     // Variables de classe
     SharedPreferences mSharedPreferences;
@@ -45,6 +47,7 @@ public class FragmentSettings extends Fragment implements View.OnClickListener{
     //Views
     protected TextView mTVCurrentDBName, mTVCurrentDBVersion, mTVCurrentDBDate, mTVCurrentDBSize;
     protected LinearLayout mLLExportDB, mLLImportDB;
+    protected Switch mSCourseBegin, mSCourseEnd;
 
     // Fragment life cycle
     public static FragmentSettings newInstance() {
@@ -82,6 +85,12 @@ public class FragmentSettings extends Fragment implements View.OnClickListener{
         mLLExportDB.setOnClickListener(this);
         mLLImportDB = (LinearLayout) view.findViewById(R.id.importDB);
         mLLImportDB.setOnClickListener(this);
+
+        mSCourseBegin = (Switch) view.findViewById(R.id.swCourseBegin);
+        mSCourseBegin.setOnCheckedChangeListener(this);
+        mSCourseEnd = (Switch) view.findViewById(R.id.swCourseEnd);
+        mSCourseEnd.setOnCheckedChangeListener(this);
+
     }
 
     public void fillAllViews(){
@@ -91,11 +100,15 @@ public class FragmentSettings extends Fragment implements View.OnClickListener{
             mTVCurrentDBSize.setText(C.formatSize(mCurrentDB.getSize()));
             mTVCurrentDBVersion.setText("v.01");
         }
+
+        if(mSharedPreferences.getBoolean(C.SP_NOTIF_COURSE_END, false))
+            mSCourseEnd.setChecked(true);
+        if(mSharedPreferences.getBoolean(C.SP_NOTIF_COURSE_BEGIN, false))
+            mSCourseBegin.setChecked(true);
     }
 
 
     public MyDB getDBWithFileName(String fileName){
-        MyDB currentDB;
         File dataBase = new File(Environment.getExternalStorageDirectory() + C.PATH_DB_FOLDER + fileName);
         if(!dataBase.exists())
             return null;
@@ -195,6 +208,15 @@ public class FragmentSettings extends Fragment implements View.OnClickListener{
                 chooseDBDialog();
                 break;
         }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean isOn) {
+        if(compoundButton.getId() == R.id.swCourseBegin)
+            mSharedPreferences.edit().putBoolean(C.SP_NOTIF_COURSE_BEGIN, isOn).commit();
+
+        if(compoundButton.getId() == R.id.swCourseEnd)
+            mSharedPreferences.edit().putBoolean(C.SP_NOTIF_COURSE_END, isOn).commit();
     }
 }
 
