@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,23 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.la.myclass.C;
 import com.example.la.myclass.R;
 import com.example.la.myclass.adapters.AdapterListViewDB;
 import com.example.la.myclass.beans.MyDB;
-import com.example.la.myclass.database.MyDatabase;
-import com.example.la.myclass.utils.DateParser;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -158,7 +149,7 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     MyDB myDB = (MyDB) ((AdapterListViewDB) mListDB.getAdapter()).getItem(i);
-                    mSharedPreferences.edit().putString(C.CURRENT_DB, myDB.getName()).commit();
+                    mSharedPreferences.edit().putString(C.CURRENT_DB, myDB.getName()).apply();
                     keepOldDBDialog(myDB.getName());
                     createDialog.dismiss();
                 }
@@ -179,7 +170,7 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
         final AlertDialog createDialog = adb.create();
         createDialog.show();
 
-        ((TextView) createDialog.findViewById(R.id.messageDialog)).setText("Souhaitez-vous conserver la base de données actuelle ?");
+        ((TextView) createDialog.findViewById(R.id.messageDialog)).setText(getString(R.string.dialog_keep_old_db));
 
         createDialog.findViewById(R.id.valid).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,7 +178,7 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
                 if(C.importDB(getActivity(), nameNewDB, false)){
                     mCurrentDB = getDBWithFileName(nameNewDB);
                     fillAllViews();
-                };
+                }
                 createDialog.dismiss();
             }
         });
@@ -198,7 +189,7 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
                 if(C.importDB(getActivity(), nameNewDB, false)){
                     mCurrentDB = getDBWithFileName(nameNewDB);
                     fillAllViews();
-                };
+                }
                 createDialog.dismiss();
             }
         });
@@ -222,16 +213,16 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean isOn) {
         if(compoundButton.getId() == R.id.swCourseBegin)
-            mSharedPreferences.edit().putBoolean(C.SP_NOTIF_COURSE_BEGIN, isOn).commit();
+            mSharedPreferences.edit().putBoolean(C.SP_NOTIF_COURSE_BEGIN, isOn).apply();
 
         if(compoundButton.getId() == R.id.swCourseEnd)
-            mSharedPreferences.edit().putBoolean(C.SP_NOTIF_COURSE_END, isOn).commit();
+            mSharedPreferences.edit().putBoolean(C.SP_NOTIF_COURSE_END, isOn).apply();
 
         if(compoundButton.getId() == R.id.swDevoirBegin)
-            mSharedPreferences.edit().putBoolean(C.SP_NOTIF_DEVOIR_BEGIN, isOn).commit();
+            mSharedPreferences.edit().putBoolean(C.SP_NOTIF_DEVOIR_BEGIN, isOn).apply();
 
         if(compoundButton.getId() == R.id.swDevoirEnd)
-            mSharedPreferences.edit().putBoolean(C.SP_NOTIF_DEVOIR_END, isOn).commit();
+            mSharedPreferences.edit().putBoolean(C.SP_NOTIF_DEVOIR_END, isOn).apply();
     }
 }
 

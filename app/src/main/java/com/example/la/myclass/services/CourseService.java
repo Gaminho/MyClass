@@ -37,7 +37,7 @@ public class CourseService extends Service {
         int requestCode = 0;
         long alarmDate = 0;
 
-        mNextCourse = getNextCourse();
+        mNextCourse = CoursesBDD.getNextCourse(mContext);
         if(mNextCourse != null) {
             Log.e("MYSERVICE", "Next Course : " + new Date(mNextCourse.getDate()));
             intentAlarm.putExtra("courseID", mNextCourse.getId());
@@ -58,7 +58,7 @@ public class CourseService extends Service {
             );
         }
 
-        mNextDevoir = getNextDevoir();
+        mNextDevoir = DevoirBDD.getNextDevoir(mContext);
         if(mNextDevoir != null) {
             Log.e("MYSERVICE", "Next Devoir : " + new Date(mNextDevoir.getDate()));
             intentAlarm.putExtra("devoirID", mNextDevoir.getId());
@@ -87,24 +87,6 @@ public class CourseService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
-    }
-
-    protected Course getNextCourse(){
-        CoursesBDD coursesBDD = new CoursesBDD(mContext);
-        coursesBDD.open();
-        Course course = coursesBDD.getNextCourse();
-        coursesBDD.close();
-
-        return course;
-    }
-
-    protected Devoir getNextDevoir(){
-        DevoirBDD devoirBDD = new DevoirBDD(mContext);
-        devoirBDD.open();
-        Devoir devoir = devoirBDD.getNextDevoir();
-        devoirBDD.close();
-
-        return devoir;
     }
 
 

@@ -42,7 +42,7 @@ public class CoursesBDD {
     public static final String COL_MEMO = "MEMO";
     public static final int NUM_COL_MEMO = 6;
     public static final String COL_PUPIL_ID = "PUPIL_ID";
-    public static final int NUM_COL_PUPIL_ID  = 7;
+    public static final int NUM_COL_PUPIL_ID = 7;
 
     public static final String[] COURSES_FIELDS = new String[]{COL_ID, COL_DATE, COL_DURATION, COL_STATE, COL_MONEY, COL_THEME, COL_MEMO, COL_PUPIL_ID};
 
@@ -78,7 +78,7 @@ public class CoursesBDD {
         return bdd.insert(TABLE_COURSES, null, values);
     }
 
-    public int updateCourse(int id, Course course){
+    public int updateCourse(int id, Course course) {
         ContentValues values = new ContentValues();
         values.put(COL_DATE, course.getDate());
         values.put(COL_DURATION, course.getDuration());
@@ -100,12 +100,12 @@ public class CoursesBDD {
         return cursorToCourse(c);
     }
 
-    public Course getNextCourse(){
+    public Course getNextCourse() {
         Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, COL_STATE + " = " + Course.FORESEEN, null, null, null, COL_DATE, "1");
         return cursorToCourse(c);
     }
 
-    public Course getFirstCourse(){
+    public Course getFirstCourse() {
         Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, null, null, null, null, COL_DATE, "1");
         return cursorToCourse(c);
     }
@@ -171,12 +171,12 @@ public class CoursesBDD {
         return list;
     }
 
-    public List<Course> getAllCourses(){
+    public List<Course> getAllCourses() {
         Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, null, null, null, null, COL_DATE + " DESC");
         return cursorToListCourses(c);
     }
 
-    public List<Course> getActiveCourses(){
+    public List<Course> getActiveCourses() {
         Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, CoursesBDD.COL_STATE + " != " + Course.CANCELED, null, null, null, COL_DATE + " DESC");
         return cursorToListCourses(c);
     }
@@ -202,7 +202,7 @@ public class CoursesBDD {
         return c.getCount();
     }
 
-    public List<Course> getCoursesBetweenTwoDates(long start, long end){
+    public List<Course> getCoursesBetweenTwoDates(long start, long end) {
         Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, null, null, null, null, COL_DATE + " ASC");
 
         List<Course> list = new ArrayList<>();
@@ -213,7 +213,7 @@ public class CoursesBDD {
 
         while (!c.isAfterLast()) {
             long date = c.getLong(NUM_COL_DATE);
-            if(date > start && date < end) {
+            if (date > start && date < end) {
                 Course course = new Course();
                 course.setId(c.getInt(NUM_COL_ID));
                 course.setDate(date);
@@ -236,16 +236,16 @@ public class CoursesBDD {
         return list;
     }
 
-    public int getNumberWeeks(){
+    public int getNumberWeeks() {
         List<Course> list = getAllCourses();
         Calendar calendar = Calendar.getInstance();
         int weekNumber = -1;
         int nbWeeks = 0;
-        for(Course course : list){
+        for (Course course : list) {
             if (course.getState() != Course.FORESEEN && course.getState() != Course.CANCELED) {
                 calendar.setTimeInMillis(course.getDate());
                 int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
-                if(weekOfYear != weekNumber) {
+                if (weekOfYear != weekNumber) {
                     nbWeeks = nbWeeks + 1;
                     weekNumber = weekOfYear;
                 }
@@ -254,11 +254,11 @@ public class CoursesBDD {
         return nbWeeks;
     }
 
-    public List<PeriodicItem> getAllWeeks(){
+    public List<PeriodicItem> getAllWeeks() {
         List<PeriodicItem> weekList = new ArrayList<>();
         List<Course> list = getAllCourses();
 
-        if(list != null) {
+        if (list != null) {
             Collections.reverse(list);
             Calendar calendar = Calendar.getInstance();
             int weekNumber = -1;
@@ -303,11 +303,11 @@ public class CoursesBDD {
         return weekList;
     }
 
-    public List<PeriodicItem> getAllMonths(){
+    public List<PeriodicItem> getAllMonths() {
         List<PeriodicItem> monthList = new ArrayList<>();
         List<Course> list = getAllCourses();
 
-        if(list != null) {
+        if (list != null) {
             Collections.reverse(list);
             Calendar calendar = Calendar.getInstance();
             int monthNumber = -1;
@@ -353,11 +353,11 @@ public class CoursesBDD {
         return monthList;
     }
 
-    public List<PeriodicItem> getAllYears(){
+    public List<PeriodicItem> getAllYears() {
         List<PeriodicItem> yearList = new ArrayList<>();
         List<Course> list = getAllCourses();
 
-        if(list != null) {
+        if (list != null) {
             Collections.reverse(list);
             Calendar calendar = Calendar.getInstance();
             Course course0 = list.get(0);
@@ -366,7 +366,7 @@ public class CoursesBDD {
             String label = String.format("%d/%d", year, year + 1);
             int nbCourse = 1;
             double money = course0.getMoney();
-            for(Course course : list) {
+            for (Course course : list) {
                 if (course.getState() != Course.FORESEEN && course.getState() != Course.CANCELED) {
                     calendar.setTimeInMillis(course.getDate());
                     if (calendar.get(Calendar.MONTH) > Calendar.JULY && calendar.get(Calendar.YEAR) > year) {
@@ -388,16 +388,16 @@ public class CoursesBDD {
 
     }
 
-    public int getNumberMonths(){
+    public int getNumberMonths() {
         List<Course> list = getAllCourses();
         Calendar calendar = Calendar.getInstance();
         int monthNumber = -1;
         int nbMonths = 0;
-        for(Course course : list){
+        for (Course course : list) {
             if (course.getState() != Course.FORESEEN && course.getState() != Course.CANCELED) {
                 calendar.setTimeInMillis(course.getDate());
-                int monthOfYear = calendar.get(Calendar.MONTH)+1;
-                if(monthOfYear != monthNumber) {
+                int monthOfYear = calendar.get(Calendar.MONTH) + 1;
+                if (monthOfYear != monthNumber) {
                     nbMonths += 1;
                     monthNumber = monthOfYear;
                 }
@@ -406,18 +406,18 @@ public class CoursesBDD {
         return nbMonths;
     }
 
-    public double getMoneyEarnedWithState(int state){
+    public double getMoneyEarnedWithState(int state) {
         List<Course> list = getCoursesWithState(state);
-        if(list == null)
+        if (list == null)
             return 0;
         double money = 0;
-        for(Course course : list)
+        for (Course course : list)
             money += course.getMoney();
 
         return money;
     }
 
-    public Double[] getMoneyOfBestWeek(){
+    public Double[] getMoneyOfBestWeek() {
         List<Course> list = getAllCourses();
         Double[] result = new Double[2];
         int indexWeek = -1;
@@ -425,20 +425,20 @@ public class CoursesBDD {
         double bestWeek = 0;
         double bestMoney = 0, bestMoneyIndex = -1;
         Calendar calendar = Calendar.getInstance();
-        for(Course course : list){
-            if(bestWeek > bestMoney) {
+        for (Course course : list) {
+            if (bestWeek > bestMoney) {
                 bestMoney = bestWeek;
                 bestMoneyIndex = calendar.getTimeInMillis();
             }
             calendar.setTimeInMillis(course.getDate());
             courseWeek = calendar.get(Calendar.WEEK_OF_YEAR);
             // If it's an other week, we begin again
-            if(courseWeek != indexWeek){
+            if (courseWeek != indexWeek) {
                 indexWeek = courseWeek;
                 bestWeek = course.getMoney();
             }
             // Else, continue to count
-            else{
+            else {
                 bestWeek += course.getMoney();
             }
         }
@@ -448,7 +448,7 @@ public class CoursesBDD {
         return result;
     }
 
-    public Double[] getMoneyOfBestMonth(){
+    public Double[] getMoneyOfBestMonth() {
         List<Course> list = getAllCourses();
         Double[] result = new Double[2];
         int indexMonth = -1;
@@ -456,8 +456,8 @@ public class CoursesBDD {
         double bestMonth = 0;
         double bestMoney = 0, bestMoneyIndex = -1;
         Calendar calendar = Calendar.getInstance();
-        for(Course course : list){
-            if(bestMonth > bestMoney) {
+        for (Course course : list) {
+            if (bestMonth > bestMoney) {
                 bestMoney = bestMonth;
                 bestMoneyIndex = calendar.getTimeInMillis();
             }
@@ -465,12 +465,12 @@ public class CoursesBDD {
             calendar.setTimeInMillis(course.getDate());
             courseMonth = calendar.get(Calendar.MONTH);
             // If it's an other week, we begin again
-            if(courseMonth != indexMonth){
+            if (courseMonth != indexMonth) {
                 indexMonth = courseMonth;
                 bestMonth = course.getMoney();
             }
             // Else, continue to count
-            else{
+            else {
                 bestMonth += course.getMoney();
             }
         }
@@ -480,4 +480,28 @@ public class CoursesBDD {
         return result;
     }
 
+    public static Course getNextCourse(Context context) {
+        CoursesBDD coursesBDD = new CoursesBDD(context);
+        coursesBDD.open();
+        Course course = coursesBDD.getNextCourse();
+        coursesBDD.close();
+
+        return course;
+    }
+
+    public static Course getCourseWithId(Context context, int courseID){
+        CoursesBDD coursesBDD = new CoursesBDD(context);
+        coursesBDD.open();
+        Course course = coursesBDD.getCourseWithId(courseID);
+        coursesBDD.close();
+        return course;
+    }
+
+    public static void changeCourseState(Context context, Course course, int newState){
+        CoursesBDD coursesBDD = new CoursesBDD(context);
+        coursesBDD.open();
+        course.setState(newState);
+        coursesBDD.updateCourse(course.getId(), course);
+        coursesBDD.close();
+    }
 }

@@ -9,6 +9,8 @@ import android.util.Log;
 import com.example.la.myclass.C;
 import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.beans.Devoir;
+import com.example.la.myclass.database.CoursesBDD;
+import com.example.la.myclass.database.DevoirBDD;
 import com.example.la.myclass.notifications.AbstractNotification;
 import com.example.la.myclass.notifications.NotificationCourseBegin;
 import com.example.la.myclass.notifications.NotificationCourseEnd;
@@ -35,14 +37,14 @@ public class AlarmReceiver extends BroadcastReceiver {
         if(requestCode == AbstractNotification.COURSE_BEGIN
                 || requestCode == AbstractNotification.COURSE_END) {
 
-            Course course = C.getCourseWithId(context, intent.getExtras().getInt("courseID", -1));
+            Course course = CoursesBDD.getCourseWithId(context, intent.getExtras().getInt("courseID", -1));
 
             if(requestCode == AbstractNotification.COURSE_BEGIN
                     && mSharedPreferences.getBoolean(C.SP_NOTIF_COURSE_BEGIN, false))
                 new NotificationCourseBegin(context, course).create();
 
             else if (requestCode == AbstractNotification.COURSE_END){
-                C.changeCourseState(context, course, Course.WAITING_FOT_VALIDATION);
+                CoursesBDD.changeCourseState(context, course, Course.WAITING_FOT_VALIDATION);
 
                 if (mSharedPreferences.getBoolean(C.SP_NOTIF_COURSE_END, false))
                     new NotificationCourseEnd(context, course).create();
@@ -55,7 +57,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         else if(requestCode == AbstractNotification.DEVOIR_BEGIN
                 || requestCode == AbstractNotification.DEVOIR_VALIDATION){
 
-            Devoir devoir = C.getDevoirWithId(context, intent.getExtras().getInt("devoirID", -1));
+            Devoir devoir = DevoirBDD.getDevoirWithId(context, intent.getExtras().getInt("devoirID", -1));
 
             if(requestCode == AbstractNotification.DEVOIR_BEGIN
                     && mSharedPreferences.getBoolean(C.SP_NOTIF_DEVOIR_BEGIN, false))
@@ -63,7 +65,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
             else if (requestCode == AbstractNotification.DEVOIR_VALIDATION
                     && mSharedPreferences.getBoolean(C.SP_NOTIF_DEVOIR_END, false)){
-                C.changeDevoirState(context, devoir, Devoir.STATE_WAITING_FOR_VALIDATION);
+                DevoirBDD.changeDevoirState(context, devoir, Devoir.STATE_WAITING_FOR_VALIDATION);
                 new NotificationDevoirEnd(context, devoir).create();
             }
         }

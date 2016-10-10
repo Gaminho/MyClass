@@ -1,12 +1,17 @@
 <resources>
     <string name="app_name">MyClass</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
-
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_example">Example action</string>
+
+    <!-- DIALOG -->
+    <string name="dialog_keep_old_db">"Souhaitez-vous conserver la base de données actuelle ?"</string>
+    <string name="dialog_delete_devoir">"Voulez-vous vraiment supprimer ce devoir ?"</string>
+    <string name="dialog_delete_pupil">"Voulez-vous vraiment supprimer cet élève ?"</string>
+    <string name="dialog_delete_course">"Voulez-vous vraiment supprimer ce cours ?"</string>
+
 </resources>

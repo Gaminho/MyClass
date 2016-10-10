@@ -285,7 +285,7 @@ public class FragmentAddOrEditPupil extends AbstractFragmentAddOrEdit implements
         createDialog.show();
 
 
-        ((TextView) createDialog.findViewById(R.id.messageDialog)).setText("Voulez-vous vraiment supprimer cet élève ?");
+        ((TextView) createDialog.findViewById(R.id.messageDialog)).setText(getString(R.string.dialog_delete_pupil));
 
         createDialog.findViewById(R.id.valid).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -234,7 +234,7 @@ public class FragmentAddOrEditCourse extends AbstractFragmentAddOrEdit implement
         createDialog.show();
 
 
-        ((TextView) createDialog.findViewById(R.id.messageDialog)).setText("Voulez-vous vraiment supprimer ce cours ?");
+        ((TextView) createDialog.findViewById(R.id.messageDialog)).setText(getText(R.string.dialog_delete_pupil));
 
         createDialog.findViewById(R.id.valid).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -46,7 +46,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     @Override
     protected void onStart() {
         super.onStart();
-        Log.e("MainActivity", "onStart");
         Intent i = new Intent(MainActivity.this, CourseService.class);
         i.putExtra("KEY1", "Value to be used by the service");
         startService(i);

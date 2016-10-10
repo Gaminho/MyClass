@@ -23,7 +23,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public class NotificationDevoirBegin extends AbstractNotification {
 
     public NotificationDevoirBegin(Context context, Devoir devoir) {
-        this.requestCode = AbstractNotification.COURSE_BEGIN;
+        this.requestCode = AbstractNotification.DEVOIR_BEGIN;
         this.mContext = context;
         this.mTitle = "Devoir";
         this.mContent = String.format("%s a un devoir aujourdh'hui.", devoir.getPupil().getFullName());

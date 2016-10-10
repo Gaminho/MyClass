@@ -228,7 +228,7 @@ public class FragmentAddOrEditDevoir extends AbstractFragmentAddOrEdit implement
         createDialog.show();
 
 
-        ((TextView) createDialog.findViewById(R.id.messageDialog)).setText("Voulez-vous vraiment supprimer ce devoir ?");
+        ((TextView) createDialog.findViewById(R.id.messageDialog)).setText(getString(R.string.dialog_delete_devoir));
 
         createDialog.findViewById(R.id.valid).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -226,5 +226,29 @@ public class DevoirBDD {
         return cursorToDevoir(c);
     }
 
+    public static Devoir getNextDevoir(Context context){
+        DevoirBDD devoirBDD = new DevoirBDD(context);
+        devoirBDD.open();
+        Devoir devoir = devoirBDD.getNextDevoir();
+        devoirBDD.close();
+
+        return devoir;
+    }
+
+    public static Devoir getDevoirWithId(Context context, int devoirID){
+        DevoirBDD devoirBDD = new DevoirBDD(context);
+        devoirBDD.open();
+        Devoir devoir = devoirBDD.getDevoirWithId(devoirID);
+        devoirBDD.close();
+        return devoir;
+    }
+
+    public static void changeDevoirState(Context context, Devoir devoir, int newState){
+        DevoirBDD devoirBDD = new DevoirBDD(context);
+        devoirBDD.open();
+        devoir.setState(newState);
+        devoirBDD.updateDevoir(devoir.getId(), devoir);
+        devoirBDD.close();
+    }
 }
 //259
