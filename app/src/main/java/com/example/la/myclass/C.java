@@ -139,6 +139,8 @@ public class C {
     public static final String CURRENT_DB = "current_database";
     public static final String SP_NOTIF_COURSE_BEGIN = "course_begin";
     public static final String SP_NOTIF_COURSE_END = "course_end";
+    public static final String SP_NOTIF_DEVOIR_BEGIN = "devoir_begin";
+    public static final String SP_NOTIF_DEVOIR_END = "devoir_end";
 
     /**
      * DATE

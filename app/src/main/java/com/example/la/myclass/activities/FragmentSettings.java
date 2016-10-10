@@ -47,7 +47,7 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
     //Views
     protected TextView mTVCurrentDBName, mTVCurrentDBVersion, mTVCurrentDBDate, mTVCurrentDBSize;
     protected LinearLayout mLLExportDB, mLLImportDB;
-    protected Switch mSCourseBegin, mSCourseEnd;
+    protected Switch mSCourseBegin, mSCourseEnd, mSDevoirBegin, mSDevoirEnd;
 
     // Fragment life cycle
     public static FragmentSettings newInstance() {
@@ -90,7 +90,10 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
         mSCourseBegin.setOnCheckedChangeListener(this);
         mSCourseEnd = (Switch) view.findViewById(R.id.swCourseEnd);
         mSCourseEnd.setOnCheckedChangeListener(this);
-
+        mSDevoirEnd = (Switch) view.findViewById(R.id.swDevoirEnd);
+        mSDevoirEnd.setOnCheckedChangeListener(this);
+        mSDevoirBegin = (Switch) view.findViewById(R.id.swDevoirBegin);
+        mSDevoirBegin.setOnCheckedChangeListener(this);
     }
 
     public void fillAllViews(){
@@ -100,11 +103,17 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
             mTVCurrentDBSize.setText(C.formatSize(mCurrentDB.getSize()));
             mTVCurrentDBVersion.setText("v.01");
         }
-
+        // Notifications courses
         if(mSharedPreferences.getBoolean(C.SP_NOTIF_COURSE_END, false))
             mSCourseEnd.setChecked(true);
         if(mSharedPreferences.getBoolean(C.SP_NOTIF_COURSE_BEGIN, false))
             mSCourseBegin.setChecked(true);
+
+        //Notification devoirs
+        if(mSharedPreferences.getBoolean(C.SP_NOTIF_DEVOIR_BEGIN, false))
+            mSDevoirBegin.setChecked(true);
+        if(mSharedPreferences.getBoolean(C.SP_NOTIF_DEVOIR_END, false))
+            mSDevoirEnd.setChecked(true);
     }
 
 
@@ -217,6 +226,12 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
 
         if(compoundButton.getId() == R.id.swCourseEnd)
             mSharedPreferences.edit().putBoolean(C.SP_NOTIF_COURSE_END, isOn).commit();
+
+        if(compoundButton.getId() == R.id.swDevoirBegin)
+            mSharedPreferences.edit().putBoolean(C.SP_NOTIF_DEVOIR_BEGIN, isOn).commit();
+
+        if(compoundButton.getId() == R.id.swDevoirEnd)
+            mSharedPreferences.edit().putBoolean(C.SP_NOTIF_DEVOIR_END, isOn).commit();
     }
 }
 

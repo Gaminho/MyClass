@@ -57,10 +57,12 @@ public class AlarmReceiver extends BroadcastReceiver {
 
             Devoir devoir = C.getDevoirWithId(context, intent.getExtras().getInt("devoirID", -1));
 
-            if(requestCode == AbstractNotification.DEVOIR_BEGIN)
+            if(requestCode == AbstractNotification.DEVOIR_BEGIN
+                    && mSharedPreferences.getBoolean(C.SP_NOTIF_DEVOIR_BEGIN, false))
                 new NotificationDevoirBegin(context, devoir).create();
 
-            else if (requestCode == AbstractNotification.DEVOIR_VALIDATION){
+            else if (requestCode == AbstractNotification.DEVOIR_VALIDATION
+                    && mSharedPreferences.getBoolean(C.SP_NOTIF_DEVOIR_END, false)){
                 C.changeDevoirState(context, devoir, Devoir.STATE_WAITING_FOR_VALIDATION);
                 new NotificationDevoirEnd(context, devoir).create();
             }

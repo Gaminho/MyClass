@@ -321,9 +321,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:text="Début d'un devoir (non disponible)"/>
+                        android:text="Début d'un devoir"/>
 
                     <Switch
+                        android:id="@+id/swDevoirBegin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -338,9 +339,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:text="Validation d'un devoir (non disponible)"/>
+                        android:text="Validation d'un devoir"/>
 
                     <Switch
+                        android:id="@+id/swDevoirEnd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
