@@ -24,6 +24,8 @@ public abstract class AbstractNotification {
      */
     public static final int COURSE_BEGIN = 1;
     public static final int COURSE_END = 2;
+    public static final int DEVOIR_BEGIN = 11;
+    public static final int DEVOIR_VALIDATION = 12;
 
     protected int requestCode;
     protected Context mContext;
@@ -32,11 +34,12 @@ public abstract class AbstractNotification {
     protected Intent mLaunchIntent;
     protected PendingIntent mPendingIntent;
     protected int mLightColor;
+    protected Notification.Builder mBuilder;
 
     public void create(){
         final NotificationManager mNotification = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
 
-        Notification.Builder builder = new Notification.Builder(mContext)
+        mBuilder = new Notification.Builder(mContext)
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.logo_app)
                 .setContentTitle(mTitle)
@@ -46,9 +49,8 @@ public abstract class AbstractNotification {
                 .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
                 .setLights(mLightColor, 3000, 1500);
 
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            mNotification.notify(requestCode,builder.build());
+            mNotification.notify(requestCode,mBuilder.build());
         }
     }
 }

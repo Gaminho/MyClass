@@ -17,7 +17,7 @@ import com.example.la.myclass.R;
 import com.example.la.myclass.activities.course.FragmentListCourse;
 import com.example.la.myclass.activities.devoir.FragmentListDevoir;
 import com.example.la.myclass.activities.pupil.FragmentListPupil;
-import com.example.la.myclass.services.MyService;
+import com.example.la.myclass.services.CourseService;
 import com.example.la.myclass.activities.stats.FragmentStats;
 
 
@@ -47,7 +47,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     protected void onStart() {
         super.onStart();
         Log.e("MainActivity", "onStart");
-        Intent i = new Intent(MainActivity.this, MyService.class);
+        Intent i = new Intent(MainActivity.this, CourseService.class);
         i.putExtra("KEY1", "Value to be used by the service");
         startService(i);
     }

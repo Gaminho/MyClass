@@ -8,9 +8,12 @@ import android.util.Log;
 
 import com.example.la.myclass.C;
 import com.example.la.myclass.beans.Course;
+import com.example.la.myclass.beans.Devoir;
 import com.example.la.myclass.notifications.AbstractNotification;
-import com.example.la.myclass.notifications.NotificationBeginningCourse;
-import com.example.la.myclass.notifications.NotificationEndCourse;
+import com.example.la.myclass.notifications.NotificationCourseBegin;
+import com.example.la.myclass.notifications.NotificationCourseEnd;
+import com.example.la.myclass.notifications.NotificationDevoirBegin;
+import com.example.la.myclass.notifications.NotificationDevoirEnd;
 
 import java.util.Date;
 
@@ -36,17 +39,31 @@ public class AlarmReceiver extends BroadcastReceiver {
 
             if(requestCode == AbstractNotification.COURSE_BEGIN
                     && mSharedPreferences.getBoolean(C.SP_NOTIF_COURSE_BEGIN, false))
-                new NotificationBeginningCourse(context, course).create();
+                new NotificationCourseBegin(context, course).create();
 
             else if (requestCode == AbstractNotification.COURSE_END){
                 C.changeCourseState(context, course, Course.WAITING_FOT_VALIDATION);
 
                 if (mSharedPreferences.getBoolean(C.SP_NOTIF_COURSE_END, false))
-                    new NotificationEndCourse(context, course).create();
+                    new NotificationCourseEnd(context, course).create();
             }
 
-            intent = new Intent(context, MyService.class);
+            intent = new Intent(context, CourseService.class);
             context.startService(intent);
+        }
+
+        else if(requestCode == AbstractNotification.DEVOIR_BEGIN
+                || requestCode == AbstractNotification.DEVOIR_VALIDATION){
+
+            Devoir devoir = C.getDevoirWithId(context, intent.getExtras().getInt("devoirID", -1));
+
+            if(requestCode == AbstractNotification.DEVOIR_BEGIN)
+                new NotificationDevoirBegin(context, devoir).create();
+
+            else if (requestCode == AbstractNotification.DEVOIR_VALIDATION){
+                C.changeDevoirState(context, devoir, Devoir.STATE_WAITING_FOR_VALIDATION);
+                new NotificationDevoirEnd(context, devoir).create();
+            }
         }
 
     }

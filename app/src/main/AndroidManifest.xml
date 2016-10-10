@@ -34,7 +34,7 @@
         <activity android:name=".activities.devoir.ActivityDevoir"
             android:screenOrientation="portrait"/>
 
-        <service android:name=".services.MyService"
+        <service android:name=".services.CourseService"
             android:exported="true"
             android:enabled="true"
             >

@@ -77,6 +77,10 @@ public class RecyclerViewDevoirs extends RecyclerView.Adapter<RecyclerViewDevoir
                 personViewHolder.imageState.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_schedule_white_48dp));
                 personViewHolder.imageState.setColorFilter(mContext.getResources().getColor(R.color.unthem600));
                 break;
+            case Devoir.STATE_WAITING_FOR_VALIDATION :
+                personViewHolder.imageState.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_done_black_48dp));
+                personViewHolder.imageState.setColorFilter(mContext.getResources().getColor(R.color.them700));
+                break;
             case Devoir.STATE_CANCELED :
                 personViewHolder.imageState.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_clear_white_48dp));
                 personViewHolder.imageState.setColorFilter(mContext.getResources().getColor(R.color.red500));

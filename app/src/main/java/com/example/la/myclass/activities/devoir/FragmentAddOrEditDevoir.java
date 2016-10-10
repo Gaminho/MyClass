@@ -78,6 +78,11 @@ public class FragmentAddOrEditDevoir extends AbstractFragmentAddOrEdit implement
         super.onCreate(savedInstanceState);
         mCalendar = Calendar.getInstance();
         mCalendar.setTime(new Date());
+        // Fix the hour for the reminding notification
+        mCalendar.set(Calendar.HOUR_OF_DAY, 10);
+        mCalendar.set(Calendar.MINUTE, 0);
+        mCalendar.set(Calendar.SECOND, 0);
+
         mDevoir = new Devoir();
         mDevoir.setDate(mCalendar.getTimeInMillis());
 

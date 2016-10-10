@@ -221,5 +221,10 @@ public class DevoirBDD {
         return list;
     }
 
+    public Devoir getNextDevoir(){
+        Cursor c = bdd.query(TABLE_DEVOIRS, DEVOIR_FIELDS, COL_STATE + " = " + Devoir.STATE_PREPARATING, null, null, null, COL_DATE, "1");
+        return cursorToDevoir(c);
+    }
+
 }
 //259

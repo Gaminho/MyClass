@@ -24,16 +24,8 @@ import java.util.List;
 public class RecyclerViewCourses extends RecyclerView.Adapter<RecyclerViewCourses.PersonViewHolder>{
 
 
-    private static final String FA_HOURGLASS = "{fa-hourglass-2}";
-    private static final String FA_CHECK = "{fa-check}";
-    private static final String FA_CLOSE = "{fa-close}";
-
     // BUNDLE
     static final String COURSE_ID = "course_id";
-    private static final String COURSES_STATE = "courses_state";
-    static final String COURSE_ACTION = "course_action";
-    static final int ADDING = 0;
-
 
 
     /**

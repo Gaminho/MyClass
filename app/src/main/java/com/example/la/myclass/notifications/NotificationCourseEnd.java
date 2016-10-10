@@ -11,10 +11,10 @@ import com.example.la.myclass.beans.Course;
  * Created by ariche on 07/10/2016.
  */
 
-public class NotificationEndCourse  extends AbstractNotification {
+public class NotificationCourseEnd extends AbstractNotification {
 
 
-    public NotificationEndCourse(Context context, Course course) {
+    public NotificationCourseEnd(Context context, Course course) {
         this.requestCode = AbstractNotification.COURSE_END;
         this.mTitle = "Fin de cours";
         this.mContext = context;
