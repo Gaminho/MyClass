@@ -7,15 +7,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.la.myclass.C;
 import com.example.la.myclass.R;
+import com.example.la.myclass.adapters.AdapterGridViewMonth;
 import com.example.la.myclass.adapters.RecyclerViewWeek;
 import com.example.la.myclass.database.CoursesBDD;
 import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.beans.periodic.Week;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -27,6 +31,14 @@ public class FragmentWeek extends Fragment implements View.OnClickListener {
     protected RecyclerView mListViewWeekDays;
     protected TextView mTextViewActualWeek, mTextViewNextWeek, mTextViewLastWeek, mTextViewInformationWeek;
 
+
+    // NEW
+    protected TextView mTVMonthLabel;
+    protected int mCurrentOffsetMonth;
+    protected static final int NEXT = 1;
+    protected static final int PAST = -1;
+    protected GridView mGVMonth;
+    protected Calendar mCalendar;
 
     // Variables de classe
     protected Week mWeek;
@@ -51,6 +63,7 @@ public class FragmentWeek extends Fragment implements View.OnClickListener {
         mListCourse = coursesBDD.getAllCourses();
         mCurrentWeekCourse = coursesBDD.getCoursesBetweenTwoDates(mWeek.getBeginning(), mWeek.getEnding());
         coursesBDD.close();
+        mCalendar = Calendar.getInstance();
     }
 
     @Override
@@ -79,6 +92,11 @@ public class FragmentWeek extends Fragment implements View.OnClickListener {
         mTextViewNextWeek = (TextView) view.findViewById(R.id.nextWeek);
         mTextViewNextWeek.setOnClickListener(this);
         mTextViewInformationWeek = (TextView) view.findViewById(R.id.informationWeek);
+        mGVMonth = (GridView) view.findViewById(R.id.gridView);
+
+        view.findViewById(R.id.nextMonth).setOnClickListener(this);
+        view.findViewById(R.id.pastMonth).setOnClickListener(this);
+        mTVMonthLabel = (TextView) view.findViewById(R.id.monthLabel);
 
     }
 
@@ -93,6 +111,11 @@ public class FragmentWeek extends Fragment implements View.OnClickListener {
 
         mTextViewInformationWeek.setText(String.format("Cours : %d ; Argent : %.2f €", mCurrentWeekCourse.size(), money));
 
+
+
+        mGVMonth.setAdapter(new AdapterGridViewMonth(getActivity(), mCurrentOffsetMonth));
+        mTVMonthLabel.setText(String.format("%s %d",
+                C.MONTHS[mCalendar.get(Calendar.MONTH)], mCalendar.get(Calendar.YEAR)));
     }
 
     public void changeWeek(int mode) {
@@ -108,6 +131,18 @@ public class FragmentWeek extends Fragment implements View.OnClickListener {
             Toast.makeText(getActivity(), "Aucun cours", Toast.LENGTH_SHORT).show();
     }
 
+    public void changeMonth(int mode){
+        mCurrentOffsetMonth += mode;
+        mGVMonth.setAdapter(new AdapterGridViewMonth(getActivity(), mCurrentOffsetMonth));
+        mCalendar.add(Calendar.MONTH, mode);
+        mTVMonthLabel.setText(
+                String.format("%s %d",
+                        C.MONTHS[mCalendar.get(Calendar.MONTH)],
+                        mCalendar.get(Calendar.YEAR)
+                )
+        );
+    }
+
 
     @Override
     public void onClick(View view) {
@@ -119,6 +154,12 @@ public class FragmentWeek extends Fragment implements View.OnClickListener {
 
             case R.id.lastWeek:
                 changeWeek(Week.MOD_LAST);
+                break;
+            case R.id.pastMonth:
+                changeMonth(PAST);
+                break;
+            case R.id.nextMonth:
+                changeMonth(NEXT);
                 break;
         }
     }

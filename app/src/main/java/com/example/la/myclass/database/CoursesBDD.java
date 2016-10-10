@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+import static com.example.la.myclass.database.PupilsBDD.COL_STATE;
 import static com.example.la.myclass.database.PupilsBDD.PUPILS_FIELDS;
 
 /**
@@ -503,5 +504,25 @@ public class CoursesBDD {
         course.setState(newState);
         coursesBDD.updateCourse(course.getId(), course);
         coursesBDD.close();
+    }
+
+    public List<Course> getListCourseForADay(long timestampOfTheDay){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timestampOfTheDay);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        long begin = calendar.getTimeInMillis();
+
+        calendar.set(Calendar.HOUR_OF_DAY,23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        long end = calendar.getTimeInMillis();
+
+        String criteria = " 1 AND " + COL_DATE + " > " + begin
+                + " AND " + COL_DATE + " < " + end + " AND "
+                + COL_STATE + " = " + Course.VALIDATED;
+        return getCourseWithCriteria(criteria);
+        //return getCoursesBetweenTwoDates(begin,end);
     }
 }
