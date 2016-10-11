@@ -2,6 +2,7 @@ package com.example.la.myclass;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -11,31 +12,26 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Environment;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.la.myclass.beans.Course;
-import com.example.la.myclass.beans.Devoir;
-import com.example.la.myclass.database.CoursesBDD;
-import com.example.la.myclass.database.DevoirBDD;
+import com.example.la.myclass.beans.MyDb;
 import com.example.la.myclass.database.MyDatabase;
 import com.example.la.myclass.utils.DateParser;
+import com.example.la.myclass.utils.MyJSONParser;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.InputStreamReader;
 import java.nio.channels.FileChannel;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.zip.Inflater;
 
 /**
  * Created by Gaminho on 23/08/2016.
@@ -58,6 +54,29 @@ public class C {
      */
     public static final String PATH_DB_FOLDER = "/MyClass/databases/";
     public static final String PATH_PHOTOS_FOLDER = "/MyClass/pupils/photos/";
+
+    /**
+     * JSONFile for databases
+     */
+    public static final String JSONFILE_NAME = "databases.json";
+    public static String convertStreamToString(File file) throws IOException {
+        FileInputStream fin = new FileInputStream(file);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(fin));
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        Boolean firstLine = true;
+        while ((line = reader.readLine()) != null) {
+            if(firstLine){
+                sb.append(line);
+                firstLine = false;
+            } else {
+                sb.append("\n").append(line);
+            }
+        }
+        reader.close();
+        fin.close();
+        return sb.toString();
+    }
 
     /**
      * DATABASES
@@ -92,6 +111,54 @@ public class C {
             e.printStackTrace();
         }
     }
+    /**
+     * Method to export the new database
+     * @param context
+     * @param name : name of the new database
+     * @param comment : comment about the new database
+     * @return
+     */
+    public static String exportDB2(Context context, String name, String comment){
+
+        File sd = new File(Environment.getExternalStorageDirectory()  + C.PATH_DB_FOLDER);
+        if(!sd.exists())
+            sd.mkdirs();
+
+        File data = Environment.getDataDirectory();
+        FileChannel source=null;
+        FileChannel destination=null;
+        String currentDBPath = C.SYSTEM_PATH_TO_DATABASE + MyDatabase.DB_NAME;
+        String backupDBPath = C.NAME_EXPORTED_DB + new DateParser().getReadableDate(new Date()) + ".sql";
+
+        File currentDB = new File(data, currentDBPath);
+        File backupDB = new File(sd, backupDBPath);
+
+        try {
+            MyDb myDb = new MyDb();
+            myDb.setFilePath(backupDBPath);
+            myDb.setName(name);
+            myDb.setCommentaire(comment);
+            myDb.setFilePath(sd + "/" + backupDBPath);
+            myDb.setSize(new File(data,currentDBPath).length());
+            myDb.setDate(System.currentTimeMillis());
+            myDb.setLastUpdate(System.currentTimeMillis());
+
+            new MyJSONParser().addDatabaseToJSONFile(myDb);
+
+            source = new FileInputStream(currentDB).getChannel();
+            destination = new FileOutputStream(backupDB).getChannel();
+            destination.transferFrom(source, 0, source.size());
+            source.close();
+            destination.close();
+
+            Toast.makeText(context, "La base de données a bien été exportée.", Toast.LENGTH_SHORT).show();
+            return myDb.getFilePath();
+        } catch(IOException e) {
+            Log.e("DEBUG", "Failure => " + e);
+            //e.printStackTrace();
+        }
+        return null;
+    }
     public static boolean importDB(Context context, String nameDB, boolean keepOldDB){
 
         try {
@@ -123,7 +190,75 @@ public class C {
         }
         return true;
     }
+    public static boolean importDB2(Context context, String filepath){
 
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data  = Environment.getDataDirectory();
+
+            if (sd.canWrite()) {
+                //Le fichier à remplacer
+                String currentDBPath = C.SYSTEM_PATH_TO_DATABASE + MyDatabase.DB_NAME;
+
+                File backupDB   = new File(data, currentDBPath);
+                File currentDB  = new File(filepath);
+
+                FileChannel src = new FileInputStream(currentDB).getChannel();
+                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+                Toast.makeText(context, "La base de données a été remplacée.", Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
+    }
+    public static boolean updateDB(Context context){
+        File sd = new File(Environment.getExternalStorageDirectory()  + C.PATH_DB_FOLDER);
+        if(!sd.exists())
+            sd.mkdirs();
+
+        File data = Environment.getDataDirectory();
+        FileChannel source=null;
+        FileChannel destination=null;
+
+        SharedPreferences sharedPreferences =
+                context.getSharedPreferences(C.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+
+        String backupDBPath = sharedPreferences.getString(C.CURRENT_DB, "nodb");
+
+        if(!new File(backupDBPath).exists()) {
+            Toast.makeText(context, "La base de données est introuvable.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        String currentDBPath = C.SYSTEM_PATH_TO_DATABASE + MyDatabase.DB_NAME;
+
+        Log.e("TERTYUI", currentDBPath);
+
+        File currentDB = new File(data, currentDBPath);
+        File backupDB = new File(backupDBPath);
+
+        try {
+            source = new FileInputStream(currentDB).getChannel();
+            destination = new FileOutputStream(backupDB).getChannel();
+            destination.transferFrom(source, 0, source.size());
+            source.close();
+            destination.close();
+
+            new MyJSONParser().updateDatabaseInJSON(backupDBPath);
+
+            Toast.makeText(context, "La base de données a été mise à jour.", Toast.LENGTH_SHORT).show();
+        } catch(IOException e) {
+            Log.e("DEBUG", "Failure => " + e);
+            //e.printStackTrace();
+        }
+
+        return true;
+    }
     /**
      * HOURS CONSTANT
      */

@@ -22,37 +22,25 @@
                 android:background="@color/white"
                 android:padding="5dp">
 
+                <TextView
+                    android:id="@+id/tvCurrentDBName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="myClassDB_20160926_193944.sql"
+                    android:textColor="@color/textColor"
+                    android:textSize="13dp"
+                    android:textStyle="bold"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="8dp">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:text="Nom : "/>
-
-                    <TextView
-                        android:id="@+id/tvCurrentDBName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="myClassDB_20160926_193944.sql"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:text="Date d'export : "/>
+                        android:text="Création : "/>
 
                     <TextView
                         android:id="@+id/tvCurrentDBDate"
@@ -65,20 +53,39 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="8dp">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:text="Taille : "/>
+                        android:text="Dernière modification : "/>
+
+                    <TextView
+                        android:id="@+id/tvCurrentDBLastUpdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ma. 26/09/16 à 19h39:44"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="Taille : "
+                        android:id="@+id/textView4" />
 
                     <TextView
                         android:id="@+id/tvCurrentDBSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="56.0 ko"/>
+                        android:text="Ma. 26/09/16 à 19h39:44"/>
 
                 </LinearLayout>
 

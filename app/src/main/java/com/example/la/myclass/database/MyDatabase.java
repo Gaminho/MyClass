@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class MyDatabase extends SQLiteOpenHelper {
 
-    public static final int VERSION_BDD = 27;
+    public static final int VERSION_BDD = 30;
     public static final String DB_NAME = "myclassdb";
     private static final String TABLE_PUPILS = "pupils_table";
     private static final String TABLE_PUPILS_2 = "pupils_table_2";
@@ -43,7 +43,6 @@ public class MyDatabase extends SQLiteOpenHelper {
     private static final String COL_PUPIL_ID = "PUPIL_ID";
 
     private static final String TABLE_DEVOIRS = "devoirs_table";
-    private static final String TABLE_DEVOIRS_2 = "devoirs_table_2";
     private static final String COL_NOTE = "NOTE";
     private static final String COL_COMMENTAIRE = "COMMENTAIRE";
     private static final String COL_BAREM = "BAREM";
@@ -54,7 +53,7 @@ public class MyDatabase extends SQLiteOpenHelper {
             + COL_SEX + " INTEGER, " + COL_CLASS + " TEXT NOT NULL, "
             + COL_TYPE + " INTEGER, " + COL_FREQUENCE + " INTEGER, "
             + COL_ADRESS + " TEXT NOT NULL, " + COL_PRICE + " DOUBLE, "
-            + COL_DATE_SINCE + " LONG DEFAULT " + new Date().getTime() + ", "
+            + COL_DATE_SINCE + " LONG DEFAULT " + System.currentTimeMillis() + ", "
             + COL_TEL_1 + " LONG DEFAULT 0, " + COL_TEL_2 + " LONG DEFAULT 0, "
             + COL_IMG_PATH + " TEXT, " + COL_STATE + " INTEGER DEFAULT " + Pupil.ACTIVE+ ");";
 
@@ -63,7 +62,7 @@ public class MyDatabase extends SQLiteOpenHelper {
             + COL_SEX + " INTEGER, " + COL_CLASS + " TEXT NOT NULL, "
             + COL_TYPE + " INTEGER, " + COL_FREQUENCE + " INTEGER, "
             + COL_ADRESS + " TEXT NOT NULL, " + COL_PRICE + " DOUBLE, "
-            + COL_DATE_SINCE + " LONG DEFAULT " + new Date().getTime() + ", "
+            + COL_DATE_SINCE + " LONG DEFAULT " + System.currentTimeMillis() + ", "
             + COL_TEL_1 + " LONG DEFAULT 0, " + COL_TEL_2 + " LONG DEFAULT 0, "
             + COL_IMG_PATH + " TEXT );";
 
@@ -96,13 +95,14 @@ public class MyDatabase extends SQLiteOpenHelper {
         //db.execSQL("DROP TABLE " + TABLE_PUPILS + ";");
         //if you need to add a new column
         if(newVersion > oldVersion) {
-            db.execSQL("ALTER TABLE " + TABLE_PUPILS + " ADD COLUMN " + COL_STATE + " INT DEFAULT " + Pupil.ACTIVE);
+            //db.execSQL("ALTER TABLE " + TABLE_DATABASES + " ADD COLUMN " + COL_SIZE + " LONG DEFAULT 0" );
             //db.execSQL("ALTER TABLE " + TABLE_DEVOIRS + " ADD COLUMN " + COL_TYPE + " INT DEFAULT 0");
             //db.execSQL("ALTER TABLE " + TABLE_PUPILS + " ADD COLUMN " + COL_TEL_1 + " LONG DEFAULT 0");
             //db.execSQL("ALTER TABLE " + TABLE_PUPILS + " ADD COLUMN " + COL_TEL_2 + " LONG DEFAULT 0");
             //db.execSQL("ALTER TABLE " + TABLE_PUPILS + " ADD COLUMN " + COL_NB_COURSES + " INTEGER DEFAULT 0");
 
-            //db.execSQL(CREATE_COURSES_BDD);
+            //db.execSQL(CREATE_DATABASES_BDD);
+            //db.execSQL("DROP TABLE " + TABLE_DATABASES);
             Log.e("BDD", "UPGRADE_DB");
 
 
@@ -118,7 +118,7 @@ public class MyDatabase extends SQLiteOpenHelper {
             db.execSQL(CREATE_DEVOIRS_BDD);
             db.execSQL("INSERT INTO " + TABLE_DEVOIRS + " SELECT " + COL_ID + "," + COL_THEME + "," + COL_DATE + ","
                     + COL_NOTE + "," + COL_COMMENTAIRE + "," + COL_STATE + "," + COL_PUPIL_ID + " FROM " + TABLE_DEVOIRS_2);
-            db.execSQL("DROP TABLE " + TABLE_DEVOIRS_2);
+
             Log.e("BDD", "OK");
             */
 

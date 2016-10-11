@@ -183,6 +183,32 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/saveNewDB"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="1dp"
+                    android:background="@color/white"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_file_download_black_48dp"
+                        android:tint="@color/unthem600"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Save"
+                        android:textAllCaps="true"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:textColor="@color/unthem600"/>
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>

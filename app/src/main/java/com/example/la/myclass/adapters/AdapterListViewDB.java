@@ -2,18 +2,15 @@ package com.example.la.myclass.adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.la.myclass.C;
 import com.example.la.myclass.R;
-import com.example.la.myclass.beans.Devoir;
-import com.example.la.myclass.beans.MyDB;
+import com.example.la.myclass.beans.MyDb;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -28,14 +25,14 @@ public class AdapterListViewDB extends BaseAdapter {
      * Variables de classe *
      */
     private Context mContext;
-    private List<MyDB> mListDB;
+    private List<MyDb> mListDB;
     private SharedPreferences mSharedPreferences;
 
 
     /**
      * Constructeur *
      */
-    public AdapterListViewDB(Context context, List<MyDB> dbs) {
+    public AdapterListViewDB(Context context, List<MyDb> dbs) {
         this.mContext = context;
         this.mListDB = dbs;
         this.mSharedPreferences =  context.getSharedPreferences(C.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
@@ -47,9 +44,9 @@ public class AdapterListViewDB extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.adapter_cell_listview_dbs, null);
 
-        MyDB myDB = mListDB.get(position);
+        MyDb myDB = mListDB.get(position);
 
-        TextView date, size, name;
+        TextView date, size, name, lastUpdate;
         name = (TextView) rowView.findViewById(R.id.tvCurrentDBName);
         name.setText(myDB.getName());
 
@@ -58,11 +55,17 @@ public class AdapterListViewDB extends BaseAdapter {
 
         date = (TextView) rowView.findViewById(R.id.tvCurrentDBDate);
         date.setText(
-                String.format("%s à %s",
-                        C.formatDate(myDB.getDate(), C.DATE_FORMAT_SHORT_MONTH),
+                String.format("%s - %s",
+                        C.formatDate(myDB.getDate(), C.DD_MM_YY),
                         C.formatDate(myDB.getDate(), C.HH_mm)));
 
-        if(myDB.getName().equals(mSharedPreferences.getString(C.CURRENT_DB, "")))
+        lastUpdate = (TextView) rowView.findViewById(R.id.tvCurrentDBLastUpdate);
+        lastUpdate.setText(
+                String.format("%s - %s",
+                        C.formatDate(myDB.getLastUpdate(), C.DD_MM_YY),
+                        C.formatDate(myDB.getLastUpdate(), C.HH_mm)));
+
+        if(myDB.getFilePath().equals(mSharedPreferences.getString(C.CURRENT_DB, "")))
             rowView.findViewById(R.id.currentDB).setVisibility(View.VISIBLE);
         else
             rowView.findViewById(R.id.currentDB).setVisibility(View.INVISIBLE);
@@ -86,7 +89,7 @@ public class AdapterListViewDB extends BaseAdapter {
     }
 
 
-    public void setmListDBs(List<MyDB> listDBs){
+    public void setmListDBs(List<MyDb> listDBs){
         this.mListDB = listDBs;
     }
 

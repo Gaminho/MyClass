@@ -13,5 +13,6 @@
     <string name="dialog_delete_devoir">"Voulez-vous vraiment supprimer ce devoir ?"</string>
     <string name="dialog_delete_pupil">"Voulez-vous vraiment supprimer cet élève ?"</string>
     <string name="dialog_delete_course">"Voulez-vous vraiment supprimer ce cours ?"</string>
+    <string name="dialog_update_db">"Voulez-vous utiliser cette nouvelle base de données ?"</string>
 
 </resources>

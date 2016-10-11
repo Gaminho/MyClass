@@ -6,24 +6,26 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.la.myclass.C;
 import com.example.la.myclass.R;
 import com.example.la.myclass.adapters.AdapterListViewDB;
-import com.example.la.myclass.beans.MyDB;
+import com.example.la.myclass.beans.MyDb;
+import com.example.la.myclass.utils.MyJSONParser;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -33,11 +35,11 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
 
     // Variables de classe
     SharedPreferences mSharedPreferences;
-    MyDB mCurrentDB;
+    MyDb mCurrentDB;
 
     //Views
     protected TextView mTVCurrentDBName, mTVCurrentDBVersion, mTVCurrentDBDate, mTVCurrentDBSize;
-    protected LinearLayout mLLExportDB, mLLImportDB;
+    protected LinearLayout mLLExportDB, mLLImportDB, mLLSaveNewDB;
     protected Switch mSCourseBegin, mSCourseEnd, mSDevoirBegin, mSDevoirEnd;
 
     // Fragment life cycle
@@ -76,6 +78,8 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
         mLLExportDB.setOnClickListener(this);
         mLLImportDB = (LinearLayout) view.findViewById(R.id.importDB);
         mLLImportDB.setOnClickListener(this);
+        mLLSaveNewDB = (LinearLayout) view.findViewById(R.id.saveNewDB);
+        mLLSaveNewDB.setOnClickListener(this);
 
         mSCourseBegin = (Switch) view.findViewById(R.id.swCourseBegin);
         mSCourseBegin.setOnCheckedChangeListener(this);
@@ -108,12 +112,12 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
     }
 
 
-    public MyDB getDBWithFileName(String fileName){
+    public MyDb getDBWithFileName(String fileName){
         File dataBase = new File(Environment.getExternalStorageDirectory() + C.PATH_DB_FOLDER + fileName);
         if(!dataBase.exists())
             return null;
         else
-            return new MyDB(dataBase);
+            return new MyDb(dataBase);
     }
 
 
@@ -133,30 +137,95 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
         final ListView mListDB = (ListView) adv.findViewById(R.id.listOfDB);
 
         //On récupère les bases de données
-        List<MyDB> listDBs = new ArrayList<>();
-        File folder = new File(Environment.getExternalStorageDirectory() + C.PATH_DB_FOLDER);
-        File[] listOfFiles = folder.listFiles();
-        Arrays.sort(listOfFiles);
-
-        for(File file : listOfFiles){
-            if (file.isFile())
-                listDBs.add(new MyDB(file));
-        }
+        List<MyDb> listDBs = new MyJSONParser().getListDatabaseFromJsonFile();
 
         if(listDBs.size()>0) {
             mListDB.setAdapter(new AdapterListViewDB(getActivity(), listDBs));
             mListDB.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    MyDB myDB = (MyDB) ((AdapterListViewDB) mListDB.getAdapter()).getItem(i);
+                    MyDb myDB = (MyDb) mListDB.getAdapter().getItem(i);
                     mSharedPreferences.edit().putString(C.CURRENT_DB, myDB.getName()).apply();
-                    keepOldDBDialog(myDB.getName());
-                    createDialog.dismiss();
+
+                    if(C.importDB2(getActivity(), myDB.getFilePath())) {
+                        mSharedPreferences.edit()
+                                .putString(C.CURRENT_DB, myDB.getFilePath())
+                                .apply();
+                        createDialog.dismiss();
+                    }
                 }
             });
         }
 
 
+    }
+
+    public void updateDBDialog(final String filePathNewDb) {
+
+        LayoutInflater factory = LayoutInflater.from(getActivity());
+        final View adv = factory.inflate(R.layout.dialog_delete, null);
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
+        adb.setView(adv);
+
+        final AlertDialog createDialog = adb.create();
+        createDialog.show();
+
+        ((TextView) createDialog.findViewById(R.id.messageDialog)).setText(getText(R.string.dialog_update_db));
+
+        createDialog.findViewById(R.id.valid).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(C.importDB2(getActivity(), filePathNewDb)) {
+                    mSharedPreferences.edit()
+                            .putString(C.CURRENT_DB, filePathNewDb)
+                            .apply();
+                    createDialog.dismiss();
+                }
+            }
+        });
+
+        createDialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createDialog.dismiss();
+            }
+        });
+    }
+
+    public void saveNewDBDialog() {
+
+        LayoutInflater factory = LayoutInflater.from(getActivity());
+        final View adv = factory.inflate(R.layout.dialog_save_new_db, null);
+
+        final AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
+        adb.setView(adv);
+
+        final AlertDialog createDialog = adb.create();
+        createDialog.show();
+
+        final EditText editNameDb = (EditText) adv.findViewById(R.id.newDbName);
+        final EditText editComDb = (EditText) adv.findViewById(R.id.newDbCom);
+
+        createDialog.findViewById(R.id.valid).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!"".equals(editNameDb.getText().toString())) {
+                    updateDBDialog(C.exportDB2(getActivity(), editNameDb.getText().toString(), editComDb.getText().toString()));;
+                    createDialog.dismiss();
+                }
+                else
+                    Toast.makeText(getActivity(), "Renseignez un nom pour la base de données.", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        createDialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createDialog.dismiss();
+            }
+        });
     }
 
     public void keepOldDBDialog(final String nameNewDB){
@@ -202,10 +271,13 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.exportDB :
-                C.exportDB(getActivity());
+                saveNewDBDialog();
                 break;
             case R.id.importDB :
                 chooseDBDialog();
+                break;
+            case R.id.saveNewDB:
+                C.updateDB(getActivity());
                 break;
         }
     }
