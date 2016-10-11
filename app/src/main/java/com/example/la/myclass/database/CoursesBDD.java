@@ -521,7 +521,7 @@ public class CoursesBDD {
 
         String criteria = " 1 AND " + COL_DATE + " > " + begin
                 + " AND " + COL_DATE + " < " + end + " AND "
-                + COL_STATE + " = " + Course.VALIDATED;
+                + COL_STATE + " != " + Course.CANCELED;
         return getCourseWithCriteria(criteria);
     }
 
@@ -542,7 +542,7 @@ public class CoursesBDD {
 
         String criteria = " 1 AND " + COL_DATE + " > " + begin
                 + " AND " + COL_DATE + " < " + end + " AND "
-                + COL_STATE + " = " + Course.VALIDATED;
+                + COL_STATE + " != " + Course.CANCELED;
         return getCourseWithCriteria(criteria);
     }
 
@@ -563,7 +563,7 @@ public class CoursesBDD {
 
         String criteria = " 1 AND " + COL_DATE + " > " + begin
                 + " AND " + COL_DATE + " < " + end + " AND "
-                + COL_STATE + " = " + Course.VALIDATED;
+                + COL_STATE + " != " + Course.CANCELED;
         return getCourseWithCriteria(criteria);
     }
 }

@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.la.myclass.C;
@@ -63,7 +61,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         mTextViewTitle = (TextView) mActionBar.getCustomView().findViewById(R.id.title);
 
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mActionBar);
-        mTextViewTitle.setText(getResources().getStringArray(R.array.drawer_sections)[0].replace(";", " "));
+        mTextViewTitle.setText(getResources().getStringArray(R.array.drawer_sections)[0].split(";")[0]);
 
         if(getIntent() != null && getIntent().getIntExtra(NAVIGATION_POSITION,-1) != -1){
             int indexSection = getIntent().getIntExtra(NAVIGATION_POSITION,-1);
@@ -77,7 +75,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                     break;
             }
             setCurrentFragment(fragment);
-            loadFragment(fragment,indexSection,getResources().getStringArray(R.array.drawer_sections)[indexSection],false);
+            loadFragment(fragment,indexSection,getResources().getStringArray(R.array.drawer_sections)[indexSection].split(";")[0],false);
         }
     }
 
@@ -99,7 +97,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     @Override
     public void onBackPressed() {
         if(mFragment.getClass() != FragmentHome.class)
-            onNavigationDrawerItemSelected(0, getResources().getStringArray(R.array.drawer_sections)[0].replace(";", " "));
+            onNavigationDrawerItemSelected(0, getResources().getStringArray(R.array.drawer_sections)[0].split(";")[0]);
         else
             super.onBackPressed();
     }
@@ -107,24 +105,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     // Utils
     public void getAllViews(){
         mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.navigation_drawer);
-        //mTextViewTitle = (TextView) findViewById(R.id.title);
-    }
-
-    public ActionBar setUpActionBar(){
-        ActionBar actionBar = getSupportActionBar();
-        ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.actionbar, null);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(actionBarLayout);
-        actionBar.setCustomView(actionBarLayout, new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT));
-
-        Toolbar parent =(Toolbar) actionBarLayout.getParent();
-        parent.setPadding(0, 0, 0, 0);
-        parent.setContentInsetsAbsolute(0, 0);
-
-        mTextViewTitle = (TextView) actionBarLayout.findViewById(R.id.title);
-        return actionBar;
     }
 
     // Interface
@@ -141,8 +121,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         else if (label.contains("Argent"))
             mFragment = FragmentMoney.newInstance();
 
-        else if (label.contains("Semaine"))
-            mFragment = FragmentWeek.newInstance();
+        else if (label.contains("Calendrier"))
+            mFragment = FragmentCalendar.newInstance();
 
         else if (label.contains("Devoirs"))
             mFragment = FragmentListDevoir.newInstance();
@@ -178,7 +158,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                     .commit();
 
         if(mTextViewTitle != null)
-            mTextViewTitle.setText(label.replace(";", " "));
+            mTextViewTitle.setText(label);
 
         if(mNavigationDrawerFragment != null)
             mNavigationDrawerFragment.selectItem(position);

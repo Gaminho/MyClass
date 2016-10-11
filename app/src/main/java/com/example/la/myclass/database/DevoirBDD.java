@@ -105,7 +105,6 @@ public class DevoirBDD {
         return cursorToListDevoirs(c);
     }
 
-    //Cette méthode permet de convertir un cursor en un livre
     private Devoir cursorToDevoir(Cursor c) {
 
         if (c.getCount() == 0)
@@ -168,7 +167,7 @@ public class DevoirBDD {
     }
 
     public List<Devoir> getActiveDevoirs(){
-        Cursor c = bdd.query(TABLE_DEVOIRS, DEVOIR_FIELDS, DevoirBDD.COL_STATE + " != " + Devoir.STATE_CANCELED, null, null, null, COL_DATE + " DESC");
+        Cursor c = bdd.query(TABLE_DEVOIRS, DEVOIR_FIELDS, DevoirBDD.COL_STATE + " != " + Devoir.STATE_CANCELED + " AND " + DevoirBDD.COL_STATE + " != " + Devoir.STATE_PREPARATING, null, null, null, COL_DATE + " DESC");
         return cursorToListDevoirs(c);
     }
 
@@ -183,7 +182,7 @@ public class DevoirBDD {
     }
 
     public List<Devoir> getDevoirsWithPupilID(int pupilID) {
-        Cursor c = bdd.query(TABLE_DEVOIRS, DEVOIR_FIELDS, COL_PUPIL_ID + " = " + pupilID + " AND " + COL_STATE + " != " + Devoir.STATE_PREPARATING, null, null, null, COL_DATE + " ASC");
+        Cursor c = bdd.query(TABLE_DEVOIRS, DEVOIR_FIELDS, COL_PUPIL_ID + " = " + pupilID + " AND " + COL_STATE + " = " + Devoir.STATE_DONE, null, null, null, COL_DATE + " ASC");
         return cursorToListDevoirs(c);
     }
 
@@ -267,7 +266,7 @@ public class DevoirBDD {
 
         String criteria = " 1 AND " + COL_DATE + " > " + begin
                 + " AND " + COL_DATE + " < " + end + " AND "
-                + COL_STATE + " = " + Devoir.STATE_DONE;
+                + COL_STATE + " != " + Devoir.STATE_CANCELED;
         return getDevoirWithCriteria(criteria);
     }
 
@@ -288,7 +287,7 @@ public class DevoirBDD {
 
         String criteria = " 1 AND " + COL_DATE + " > " + begin
                 + " AND " + COL_DATE + " < " + end + " AND "
-                + COL_STATE + " = " + Devoir.STATE_DONE;
+                + COL_STATE + " != " + Devoir.STATE_CANCELED;
         return getDevoirWithCriteria(criteria);
     }
 
@@ -309,7 +308,7 @@ public class DevoirBDD {
 
         String criteria = " 1 AND " + COL_DATE + " > " + begin
                 + " AND " + COL_DATE + " < " + end + " AND "
-                + COL_STATE + " = " + Devoir.STATE_DONE;
+                + COL_STATE + " != " + Devoir.STATE_CANCELED;
         return getDevoirWithCriteria(criteria);
     }
 }

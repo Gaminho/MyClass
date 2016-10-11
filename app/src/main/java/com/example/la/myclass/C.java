@@ -320,9 +320,6 @@ public class C {
         return actionBar;
     }
 
-    /**
-     * RETRIEVING DATA FROM DB WITH ID
-     */
 
 
 

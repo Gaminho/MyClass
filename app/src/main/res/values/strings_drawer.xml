@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="drawer_sections">
-        <item>Accueil</item>
-        <item>Elèves</item>
-        <item>Cours</item>
-        <item>Devoirs</item>
-        <item>Suivi</item>
-        <item>Semaine</item>
-        <item>Argent</item>
-        <item>Statistiques</item>
-        <item>Paramètres</item>
-    </string-array>
-
-    <string-array name="drawer_sections0">
         <item>Accueil;Aperçu de la semaine en cours</item>
         <item>Elèves;Consulter l\'ensemble des élèves</item>
         <item>Cours;Consulter l\'ensemble des cours</item>
         <item>Devoirs;Consulter l\'ensemble des devoirs</item>
         <item>Suivi;Suivre les résultats des élèves</item>
-        <item>Semaine;Consulter le calendrier</item>
+        <item>Calendrier;Consulter le calendrier des cours</item>
         <item>Argent;Consulter les résultats financiers</item>
         <item>Statistiques;Les chiffres clés de votre activité</item>
         <item>Paramètres;Gérer voss données et vos notifications</item>

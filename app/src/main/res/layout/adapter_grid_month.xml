@@ -25,25 +25,56 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
             android:layout_centerInParent="true">
 
-            <ImageView
-                android:id="@+id/isThereClass"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_book_open_page_variant_white_48dp"
-                android:layout_gravity="center"
-                android:tint="@color/them700"
-                android:layout_marginRight="0.5dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0.5dp"
+                android:gravity="bottom">
 
-            <ImageView
-                android:id="@+id/isThereDevoir"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_assignment_white_48dp"
-                android:layout_gravity="center"
-                android:tint="@color/unthem800"
-                android:layout_marginLeft="0.5dp"/>
+                <ImageView
+                    android:id="@+id/isThereCourse"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="2dp"
+                    android:src="@drawable/ic_book_open_page_variant_white_48dp"
+                    android:tint="@color/them700"/>
+
+                <TextView
+                    android:id="@+id/nbCourse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="8dp"
+                    android:text=" x3"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0.5dp"
+                android:gravity="bottom">
+
+                <ImageView
+                    android:id="@+id/isThereDevoir"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="2dp"
+                    android:src="@drawable/ic_assignment_white_48dp"
+                    android:tint="@color/unthem800"/>
+
+                <TextView
+                    android:id="@+id/nbDevoir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="8dp"
+                    android:text=" x3"/>
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

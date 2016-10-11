@@ -71,7 +71,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         }
 
         if (mCallbacks != null) {
-            mCallbacks.onNavigationDrawerItemSelected(mCurrentSelectedPosition, drawer_sections[mCurrentSelectedPosition]);
+            mCallbacks.onNavigationDrawerItemSelected(mCurrentSelectedPosition, drawer_sections[mCurrentSelectedPosition].split(";")[0]);
         }
         selectItem(mCurrentSelectedPosition);
     }
@@ -89,7 +89,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position);
                 if (mCallbacks != null) {
-                    mCallbacks.onNavigationDrawerItemSelected(position, drawer_sections[position]);
+                    mCallbacks.onNavigationDrawerItemSelected(position, drawer_sections[position].split(";")[0]);
                 }
             }
         });
@@ -247,10 +247,9 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
             // Récupération de la vue de la cellule
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            //View rowView = inflater.inflate(R.layout.adapter_cell_listview_drawer, null);
             View rowView = inflater.inflate(R.layout.adapter_cell_drawer, null);
 
-            String[] arr2 = mContext.getResources().getStringArray(R.array.drawer_sections0);
+            String[] arr2 = mContext.getResources().getStringArray(R.array.drawer_sections);
 
             TextView label, icon;
             label = (TextView) rowView.findViewById(R.id.label);

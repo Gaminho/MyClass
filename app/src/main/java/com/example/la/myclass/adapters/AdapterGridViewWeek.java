@@ -40,14 +40,7 @@ public class AdapterGridViewWeek extends BaseAdapter {
         mCalendar.add(Calendar.WEEK_OF_YEAR, offset);
 
         mCalendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
-        long begin = mCalendar.getTimeInMillis();
-        mCalendar.add(Calendar.DAY_OF_YEAR, 6);
-        long end = mCalendar.getTimeInMillis();
-        Log.e("WEEKLY 1", new Date(begin) + " x " + new Date(end));
-
-        this.mCalendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         this.mCalendar.add(Calendar.DAY_OF_YEAR,-1);
-        Log.e("WEEKLY 2", mCalendar.getTime()+"");
         this.mOffset = offset;
     }
 
@@ -62,7 +55,7 @@ public class AdapterGridViewWeek extends BaseAdapter {
         calendar.add(Calendar.WEEK_OF_YEAR, mOffset);
         calendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
         calendar.add(Calendar.DAY_OF_YEAR, i);
-        return calendar.getTime();
+        return C.formatDate(calendar.getTimeInMillis(),C.DAY_DATE_D_MONTH_YEAR);
     }
 
     @Override
@@ -74,7 +67,7 @@ public class AdapterGridViewWeek extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.adapter_grid_month, null);
-        rowView.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 300));
+        rowView.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 200));
 
         CoursesBDD coursesBDD = new CoursesBDD(mContext);
         coursesBDD.open();
@@ -86,16 +79,19 @@ public class AdapterGridViewWeek extends BaseAdapter {
         devoirBDD.close();
 
         int dayOfMonth = mCalendar.get(Calendar.DAY_OF_MONTH);
-
+        int drawableID  = R.drawable.bkg_day_calendar;
         int pixCourseColor = mContext.getResources().getColor(R.color.them700);
         int pixDevoirColor = mContext.getResources().getColor(R.color.unthem800);
 
-        int drawableID  = R.drawable.bkg_day_calendar;
+        if(mCalendar.getTimeInMillis() > System.currentTimeMillis()) {
+            pixCourseColor = mContext.getResources().getColor(R.color.them100);
+            pixDevoirColor = mContext.getResources().getColor(R.color.unthem100);
+        }
 
 
         if (System.currentTimeMillis() - C.DAY < mCalendar.getTimeInMillis()
                 && mCalendar.getTimeInMillis() < System.currentTimeMillis() + C.DAY
-                && new Date().getDate() == mCalendar.get(Calendar.DAY_OF_MONTH)) {
+                && new Date().getDate() == dayOfMonth) {
             drawableID = R.drawable.bkg_current_day_calendar;
         }
 
@@ -104,17 +100,27 @@ public class AdapterGridViewWeek extends BaseAdapter {
 
         rowView.findViewById(R.id.dateLayout).setBackground(mContext.getResources().getDrawable(drawableID));
 
-        if(courses.size() > 0)
-            rowView.findViewById(R.id.isThereClass).setVisibility(View.VISIBLE);
-        else
-            rowView.findViewById(R.id.isThereClass).setVisibility(View.GONE);
+        if(courses.size() > 0) {
+            rowView.findViewById(R.id.isThereCourse).setVisibility(View.VISIBLE);
+            rowView.findViewById(R.id.nbCourse).setVisibility(View.VISIBLE);
+            ((TextView) rowView.findViewById(R.id.nbCourse)).setText(String.format("x%d", courses.size()));
+        }
+        else {
+            rowView.findViewById(R.id.isThereCourse).setVisibility(View.GONE);
+            rowView.findViewById(R.id.nbCourse).setVisibility(View.GONE);
+        }
 
-        if(devoirs.size() > 0)
+        if(devoirs.size() > 0) {
             rowView.findViewById(R.id.isThereDevoir).setVisibility(View.VISIBLE);
-        else
+            rowView.findViewById(R.id.nbDevoir).setVisibility(View.VISIBLE);
+            ((TextView) rowView.findViewById(R.id.nbDevoir)).setText(String.format("x%d", devoirs.size()));
+        }
+        else {
             rowView.findViewById(R.id.isThereDevoir).setVisibility(View.GONE);
+            rowView.findViewById(R.id.nbDevoir).setVisibility(View.GONE);
+        }
 
-        ((ImageView)rowView.findViewById(R.id.isThereClass)).setColorFilter(pixCourseColor);
+        ((ImageView)rowView.findViewById(R.id.isThereCourse)).setColorFilter(pixCourseColor);
         ((ImageView)rowView.findViewById(R.id.isThereDevoir)).setColorFilter(pixDevoirColor);
 
         mCalendar.add(Calendar.DAY_OF_MONTH,1);
