@@ -12,6 +12,7 @@
         android:elevation="3dp">
 
         <TextView
+            android:id="@+id/modMonth"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -20,11 +21,11 @@
             android:background="@color/them700"
             android:textAllCaps="true"
             android:textStyle="bold"
-            android:text="Semaine"
-            android:gravity="center"
-            android:id="@+id/textView4" />
+            android:text="Mois"
+            android:gravity="center" />
 
         <TextView
+            android:id="@+id/modWeek"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -32,133 +33,153 @@
             android:textColor="@color/white"
             android:background="@color/them700"
             android:textAllCaps="true"
-            android:text="Mois"
+            android:text="Semaine"
             android:gravity="center"/>
 
     </LinearLayout>
-
-    <!-- Navigate through weeks -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/them500"
-        android:elevation="3dp">
-
-        <ImageView
-            android:id="@+id/pastMonth"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_database_grey600_48dp"
-            android:tint="@color/white" />
-
-        <TextView
-            android:id="@+id/monthLabel"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginRight="0.5dp"
-            android:textColor="@color/unthem300"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:text="Octobre 2016"
-            android:gravity="center" />
-
-        <ImageView
-            android:id="@+id/nextMonth"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_database_grey600_48dp"
-            android:tint="@color/white"/>
-
-    </LinearLayout>
-
-    <!-- Day labels -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="20dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Lu."
-            android:textColor="@color/white"
-            android:background="@color/them400"
-            android:textStyle="bold"
-            android:gravity="center"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Ma."
-            android:textColor="@color/white"
-            android:background="@color/them400"
-            android:textStyle="bold"
-            android:gravity="center"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Me."
-            android:textColor="@color/white"
-            android:background="@color/them400"
-            android:textStyle="bold"
-            android:gravity="center"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Je"
-            android:textColor="@color/white"
-            android:background="@color/them400"
-            android:textStyle="bold"
-            android:gravity="center"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Ve"
-            android:textColor="@color/white"
-            android:background="@color/them400"
-            android:textStyle="bold"
-            android:gravity="center"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Sa."
-            android:textColor="@color/white"
-            android:background="@color/them400"
-            android:textStyle="bold"
-            android:gravity="center"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Di."
-            android:textColor="@color/white"
-            android:background="@color/them400"
-            android:textStyle="bold"
-            android:gravity="center"/>
-
-    </LinearLayout>
-
-    <GridView
-        android:id="@+id/gridView"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:numColumns="7"/>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_margin="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Navigate through weeks -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/them700">
+
+                <ImageView
+                    android:id="@+id/pastMonth"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_keyboard_arrow_left_white_48dp"
+                    android:tint="@color/unthem300"
+                    android:background="@color/them800"/>
+
+                <TextView
+                    android:id="@+id/monthLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginRight="0.5dp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:text="Octobre 2016"
+                    android:gravity="center" />
+
+                <ImageView
+                    android:id="@+id/nextMonth"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_keyboard_arrow_right_white_48dp"
+                    android:tint="@color/unthem300"
+                    android:background="@color/them800"/>
+
+            </LinearLayout>
+
+            <!-- Day labels -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/them600"
+                android:padding="2dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Lu."
+                    android:textColor="@color/white"
+                    android:textSize="8dp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Ma."
+                    android:textColor="@color/white"
+                    android:textSize="8dp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Me."
+                    android:textColor="@color/white"
+                    android:textSize="8dp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Je"
+                    android:textColor="@color/white"
+                    android:textSize="8dp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Ve"
+                    android:textColor="@color/white"
+                    android:textSize="8dp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Sa."
+                    android:textColor="@color/white"
+                    android:textSize="8dp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Di."
+                    android:textColor="@color/white"
+                    android:textSize="8dp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+            <GridView
+                android:id="@+id/gridView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="7"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -208,7 +229,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -218,32 +240,19 @@
                             android:textSize="11dp"/>
 
                         <TextView
-                            android:id="@+id/nbAgencyPupil"
-                            android:layout_width="match_parent"
+                            android:id="@+id/nbCours"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text="12"/>
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="Argent"
-                            android:textSize="11dp"/>
-
-                        <TextView
-                            android:id="@+id/nbAgencyPupil"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:text="12"/>
+                        <ImageView
+                            android:id="@+id/trendCourse"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_keyboard_arrow_down_white_48dp"
+                            android:tint="@color/red500"/>
 
                     </LinearLayout>
 
@@ -260,11 +269,48 @@
                             android:textSize="11dp"/>
 
                         <TextView
-                            android:id="@+id/nbAgencyPupil"
-                            android:layout_width="match_parent"
+                            android:id="@+id/nbDevoir"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text="12"/>
+
+                        <ImageView
+                            android:id="@+id/trendDevoir"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_keyboard_arrow_up_white_48dp"
+                            android:tint="@color/green500"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Argent"
+                            android:textSize="11dp"/>
+
+                        <TextView
+                            android:id="@+id/money"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="12"/>
+
+                        <ImageView
+                            android:id="@+id/trendMoney"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_assignment_white_48dp"
+                            android:tint="@color/textColor"/>
 
                     </LinearLayout>
 
@@ -324,8 +370,40 @@
                             android:text="Cours"
                             android:textSize="11dp"/>
 
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:visibility="invisible"/>
+
                         <TextView
-                            android:id="@+id/nbAgencyPupil"
+                            android:id="@+id/meanCours"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="12"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Devoirs"
+                            android:textSize="11dp"/>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:visibility="invisible"/>
+
+                        <TextView
+                            android:id="@+id/meanDevoir"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
@@ -345,29 +423,14 @@
                             android:text="Argent"
                             android:textSize="11dp"/>
 
-                        <TextView
-                            android:id="@+id/nbAgencyPupil"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:text="12"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:visibility="invisible"
+                            android:id="@+id/imageView" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="Devoirs"
-                            android:textSize="11dp"/>
-
-                        <TextView
-                            android:id="@+id/nbAgencyPupil"
+                            android:id="@+id/meanMoney"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"

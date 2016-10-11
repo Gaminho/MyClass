@@ -8,14 +8,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.la.myclass.C;
 import com.example.la.myclass.R;
 import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.beans.Devoir;
-import com.example.la.myclass.beans.periodic.Month;
 import com.example.la.myclass.database.CoursesBDD;
 import com.example.la.myclass.database.DevoirBDD;
 
@@ -24,40 +22,45 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by ariche on 10/10/2016.
+ * Created by ariche on 11/10/2016.
  */
 
-public class AdapterGridViewMonth extends BaseAdapter {
+public class AdapterGridViewWeek extends BaseAdapter {
 
     Context mContext;
     Calendar mCalendar;
-    int mMaxDay, firstDayOfMonth, currentMonth, mOffset;
+    int mMaxDay, firstDayOfMonth, mOffset;
 
-    public AdapterGridViewMonth(Context context, int offset) {
+    public AdapterGridViewWeek(Context context, int offset) {
         this.mContext = context;
         this.mCalendar = Calendar.getInstance();
         mCalendar.set(Calendar.HOUR_OF_DAY, 0);
         mCalendar.set(Calendar.MINUTE, 0);
-        mCalendar.set(Calendar.DAY_OF_MONTH, 15);
-        mCalendar.add(Calendar.MONTH, offset);
 
-        this.currentMonth = mCalendar.get(Calendar.MONTH);
-        this.mCalendar.set(Calendar.DAY_OF_MONTH, 1);
-        this.firstDayOfMonth = mCalendar.get(Calendar.DAY_OF_WEEK);
-        this.mMaxDay = mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        mCalendar.add(Calendar.DAY_OF_MONTH, 1-firstDayOfMonth);
+        mCalendar.add(Calendar.WEEK_OF_YEAR, offset);
+
+        mCalendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+        long begin = mCalendar.getTimeInMillis();
+        mCalendar.add(Calendar.DAY_OF_YEAR, 6);
+        long end = mCalendar.getTimeInMillis();
+        Log.e("WEEKLY 1", new Date(begin) + " x " + new Date(end));
+
+        this.mCalendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        this.mCalendar.add(Calendar.DAY_OF_YEAR,-1);
+        Log.e("WEEKLY 2", mCalendar.getTime()+"");
         this.mOffset = offset;
+
+
     }
 
     @Override
     public int getCount() {
-        return 42;
+            return 7;
     }
 
     @Override
     public Object getItem(int i) {
         Calendar calendar = mCalendar;
-        calendar.set(Calendar.MONTH,currentMonth);
         calendar.set(Calendar.DAY_OF_MONTH,1);
         calendar.add(Calendar.DAY_OF_MONTH, i + 2 - firstDayOfMonth);
         return calendar.getTime();
@@ -72,7 +75,7 @@ public class AdapterGridViewMonth extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.adapter_grid_month, null);
-        rowView.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 200));
+        rowView.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 300));
 
         CoursesBDD coursesBDD = new CoursesBDD(mContext);
         coursesBDD.open();
@@ -84,19 +87,14 @@ public class AdapterGridViewMonth extends BaseAdapter {
         devoirBDD.close();
 
         int dayOfMonth = mCalendar.get(Calendar.DAY_OF_MONTH);
-        int indexOfMonth = mCalendar.get(Calendar.MONTH);
+
         int pixCourseColor = mContext.getResources().getColor(R.color.them700);
         int pixDevoirColor = mContext.getResources().getColor(R.color.unthem800);
 
         int drawableID  = R.drawable.bkg_day_calendar;
 
 
-        if(indexOfMonth < currentMonth || indexOfMonth > currentMonth ) {
-            drawableID = R.drawable.bkg_disabled_day_calendar;
-            pixCourseColor = pixDevoirColor = mContext.getResources().getColor(R.color.secondaryColor);
-        }
-
-        else if (System.currentTimeMillis() - C.DAY < mCalendar.getTimeInMillis()
+        if (System.currentTimeMillis() - C.DAY < mCalendar.getTimeInMillis()
                 && mCalendar.getTimeInMillis() < System.currentTimeMillis() + C.DAY
                 && new Date().getDate() == mCalendar.get(Calendar.DAY_OF_MONTH)) {
             drawableID = R.drawable.bkg_current_day_calendar;
@@ -127,16 +125,13 @@ public class AdapterGridViewMonth extends BaseAdapter {
 
     public String getCurrentLabel(){
         Log.e("ADAPTERRR 0", mCalendar.get(Calendar.MONTH) + " " + C.MONTHS[mCalendar.get(Calendar.MONTH)]);
-        Log.e("ADAPTERRR 1", mCalendar.getTime() + "");
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_MONTH, 15);
-        //calendar.set(Calendar.MONTH, currentMonth);
-        calendar.add(Calendar.MONTH, mOffset);
-        Log.e("ADAPTERRR 2", calendar.getTime() + "");
-        return String.format("%s %d",
-                C.MONTHS[calendar.get(Calendar.MONTH)],
-                calendar.get(Calendar.YEAR)
-        );
+        calendar.add(Calendar.WEEK_OF_YEAR, mOffset);
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        long begin = calendar.getTimeInMillis();
+        calendar.add(Calendar.DAY_OF_YEAR,6);
+        long end = calendar.getTimeInMillis();
+        return String.format("%s - %s", C.formatDate(begin, C.DD_MM_YY), C.formatDate(end, C.DD_MM_YY));
 
     }
 

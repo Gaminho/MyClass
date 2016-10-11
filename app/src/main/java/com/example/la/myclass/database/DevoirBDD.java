@@ -10,6 +10,7 @@ import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.beans.Devoir;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -249,6 +250,46 @@ public class DevoirBDD {
         devoir.setState(newState);
         devoirBDD.updateDevoir(devoir.getId(), devoir);
         devoirBDD.close();
+    }
+
+    public List<Devoir> getListDevoirForADay(long timestampOfTheDay){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timestampOfTheDay);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        long begin = calendar.getTimeInMillis();
+
+        calendar.set(Calendar.HOUR_OF_DAY,23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        long end = calendar.getTimeInMillis();
+
+        String criteria = " 1 AND " + COL_DATE + " > " + begin
+                + " AND " + COL_DATE + " < " + end + " AND "
+                + COL_STATE + " = " + Devoir.STATE_DONE;
+        return getDevoirWithCriteria(criteria);
+    }
+
+    public List<Devoir> getListDevoirForAMonth(long timestampOfTheDay){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timestampOfTheDay);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        long begin = calendar.getTimeInMillis();
+
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        calendar.set(Calendar.HOUR_OF_DAY,23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        long end = calendar.getTimeInMillis();
+
+        String criteria = " 1 AND " + COL_DATE + " > " + begin
+                + " AND " + COL_DATE + " < " + end + " AND "
+                + COL_STATE + " = " + Devoir.STATE_DONE;
+        return getDevoirWithCriteria(criteria);
     }
 }
 //259

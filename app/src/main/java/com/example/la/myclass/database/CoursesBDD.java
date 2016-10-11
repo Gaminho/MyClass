@@ -178,7 +178,7 @@ public class CoursesBDD {
     }
 
     public List<Course> getActiveCourses() {
-        Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, CoursesBDD.COL_STATE + " != " + Course.CANCELED, null, null, null, COL_DATE + " DESC");
+        Cursor c = bdd.query(TABLE_COURSES, COURSES_FIELDS, CoursesBDD.COL_STATE + " != " + Course.CANCELED + " AND " + CoursesBDD.COL_STATE + " != " + Course.FORESEEN, null, null, null, COL_DATE + " DESC");
         return cursorToListCourses(c);
     }
 
@@ -286,7 +286,7 @@ public class CoursesBDD {
                         List<Course> weekCourse = getCoursesBetweenTwoDates(beginning, ending);
                         if (weekCourse != null) {
                             for (Course course1 : weekCourse) {
-                                if (course1.getState() != Course.FORESEEN) {
+                                if (course1.getState() != Course.FORESEEN && course.getState() != Course.CANCELED) {
                                     money += course1.getMoney();
                                     nbCourse += 1;
                                 }
@@ -336,7 +336,7 @@ public class CoursesBDD {
                         List<Course> monthCourse = getCoursesBetweenTwoDates(beginning, ending);
                         if (monthCourse != null) {
                             for (Course course1 : monthCourse) {
-                                if (course1.getState() != Course.FORESEEN) {
+                                if (course1.getState() != Course.FORESEEN && course.getState() != Course.CANCELED) {
                                     money += course1.getMoney();
                                     nbCourse += 1;
                                 }
@@ -523,6 +523,26 @@ public class CoursesBDD {
                 + " AND " + COL_DATE + " < " + end + " AND "
                 + COL_STATE + " = " + Course.VALIDATED;
         return getCourseWithCriteria(criteria);
-        //return getCoursesBetweenTwoDates(begin,end);
+    }
+
+    public List<Course> getListCourseForAMonth(long timestampOfTheDay){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timestampOfTheDay);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        long begin = calendar.getTimeInMillis();
+
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        calendar.set(Calendar.HOUR_OF_DAY,23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        long end = calendar.getTimeInMillis();
+
+        String criteria = " 1 AND " + COL_DATE + " > " + begin
+                + " AND " + COL_DATE + " < " + end + " AND "
+                + COL_STATE + " = " + Course.VALIDATED;
+        return getCourseWithCriteria(criteria);
     }
 }
