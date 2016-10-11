@@ -49,8 +49,6 @@ public class AdapterGridViewWeek extends BaseAdapter {
         this.mCalendar.add(Calendar.DAY_OF_YEAR,-1);
         Log.e("WEEKLY 2", mCalendar.getTime()+"");
         this.mOffset = offset;
-
-
     }
 
     @Override
@@ -60,9 +58,10 @@ public class AdapterGridViewWeek extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        Calendar calendar = mCalendar;
-        calendar.set(Calendar.DAY_OF_MONTH,1);
-        calendar.add(Calendar.DAY_OF_MONTH, i + 2 - firstDayOfMonth);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.WEEK_OF_YEAR, mOffset);
+        calendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+        calendar.add(Calendar.DAY_OF_YEAR, i);
         return calendar.getTime();
     }
 

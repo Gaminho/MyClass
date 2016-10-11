@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.la.myclass.C;
 import com.example.la.myclass.R;
 import com.example.la.myclass.adapters.AdapterGridViewMonth;
 import com.example.la.myclass.adapters.AdapterGridViewWeek;
@@ -25,6 +24,7 @@ import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.beans.periodic.Week;
 import com.example.la.myclass.database.DevoirBDD;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -86,7 +86,7 @@ public class FragmentWeek extends Fragment implements View.OnClickListener {
         getAllViews(mRootView);
         fillViews();
         fillMeanStats(mCurrentMod);
-        fillMonthStats();
+        fillPeriodStats(mCurrentMod);
 
         return mRootView;
     }
@@ -108,8 +108,8 @@ public class FragmentWeek extends Fragment implements View.OnClickListener {
         mTextViewInformationWeek = (TextView) view.findViewById(R.id.informationWeek);
         mGVMonth = (GridView) view.findViewById(R.id.gridView);
 
-        view.findViewById(R.id.nextMonth).setOnClickListener(this);
-        view.findViewById(R.id.pastMonth).setOnClickListener(this);
+        view.findViewById(R.id.nextPeriod).setOnClickListener(this);
+        view.findViewById(R.id.pastPeriod).setOnClickListener(this);
         mTVMonthLabel = (TextView) view.findViewById(R.id.monthLabel);
 
         mTVModMonth = (TextView) view.findViewById(R.id.modMonth);
@@ -148,15 +148,25 @@ public class FragmentWeek extends Fragment implements View.OnClickListener {
         });
     }
 
-    public void fillMonthStats(){
+    public void fillPeriodStats(int mod){
         CoursesBDD coursesBDD = new CoursesBDD(getActivity());
         coursesBDD.open();
-        List<Course> courses = coursesBDD.getListCourseForAMonth(mCalendar.getTimeInMillis());
-        coursesBDD.close();
-
         DevoirBDD devoirBDD = new DevoirBDD(getActivity());
         devoirBDD.open();
-        List<Devoir> devoirs = devoirBDD.getListDevoirForAMonth(mCalendar.getTimeInMillis());
+
+        List<Course> courses = new ArrayList<>();
+        List<Devoir> devoirs = new ArrayList<>();
+
+        if(mod == MONTH_MODE) {
+            courses = coursesBDD.getListCourseForAMonth(mCalendar.getTimeInMillis());
+            devoirs = devoirBDD.getListDevoirForAMonth(mCalendar.getTimeInMillis());
+        }
+        else if(mod == WEEK_MODE) {
+            courses = coursesBDD.getListCourseForAWeek(mCalendar.getTimeInMillis());
+            devoirs = devoirBDD.getListDevoirForAWeek(mCalendar.getTimeInMillis());
+        }
+
+        coursesBDD.close();
         devoirBDD.close();
 
         ((TextView)mRootView.findViewById(R.id.nbCours)).setText(String.format("%d", courses.size()));
@@ -195,6 +205,7 @@ public class FragmentWeek extends Fragment implements View.OnClickListener {
         ((ImageView)mRootView.findViewById(R.id.trendMoney)).setColorFilter(getResources().getColor(pixColor));
 
     }
+
 
     public void fillMeanStats(int mod){
         CoursesBDD coursesBDD = new CoursesBDD(getActivity());
@@ -241,24 +252,28 @@ public class FragmentWeek extends Fragment implements View.OnClickListener {
             Toast.makeText(getActivity(), "Aucun cours", Toast.LENGTH_SHORT).show();
     }
 
-    public void changeMonth(int mode){
+    public void changePeriod(int mode){
         mCurrentOffset += mode;
         if(mCurrentMod == MONTH_MODE){
             mGVMonth.setAdapter(new AdapterGridViewMonth(getActivity(),mCurrentOffset));
             mTVMonthLabel.setText( ((AdapterGridViewMonth)mGVMonth.getAdapter()).getCurrentLabel());
+            mCalendar.add(Calendar.MONTH, mode);
         }
         else if(mCurrentMod == WEEK_MODE){
             mGVMonth.setAdapter(new AdapterGridViewWeek(getActivity(), mCurrentOffset));
             mTVMonthLabel.setText( ((AdapterGridViewWeek)mGVMonth.getAdapter()).getCurrentLabel());
+            mCalendar.add(Calendar.WEEK_OF_YEAR, mode);
         }
-        mCalendar.add(Calendar.MONTH, mode);
-        fillMonthStats();
+
+        fillPeriodStats(mCurrentMod);
     }
 
     public void changeModView(int mod){
         mCurrentMod = mod;
         fillMeanStats(mod);
         mCurrentOffset = 0;
+        mCalendar = Calendar.getInstance();
+        fillPeriodStats(mod);
 
         if(mod == WEEK_MODE){
             mTVModMonth.setTextColor(getActivity().getResources().getColor(R.color.white));
@@ -283,18 +298,17 @@ public class FragmentWeek extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-
             case R.id.nextWeek:
                 changeWeek(Week.MOD_NEXT);
                 break;
             case R.id.lastWeek:
                 changeWeek(Week.MOD_LAST);
                 break;
-            case R.id.pastMonth:
-                changeMonth(PAST);
+            case R.id.pastPeriod:
+                changePeriod(PAST);
                 break;
-            case R.id.nextMonth:
-                changeMonth(NEXT);
+            case R.id.nextPeriod:
+                changePeriod(NEXT);
                 break;
             case R.id.modMonth:
                 changeModView(MONTH_MODE);

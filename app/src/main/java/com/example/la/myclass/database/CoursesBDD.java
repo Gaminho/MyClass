@@ -525,6 +525,27 @@ public class CoursesBDD {
         return getCourseWithCriteria(criteria);
     }
 
+    public List<Course> getListCourseForAWeek(long timestampOfTheDay){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timestampOfTheDay);
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        long begin = calendar.getTimeInMillis();
+
+        calendar.add(Calendar.DAY_OF_YEAR, 6);
+        calendar.set(Calendar.HOUR_OF_DAY,23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        long end = calendar.getTimeInMillis();
+
+        String criteria = " 1 AND " + COL_DATE + " > " + begin
+                + " AND " + COL_DATE + " < " + end + " AND "
+                + COL_STATE + " = " + Course.VALIDATED;
+        return getCourseWithCriteria(criteria);
+    }
+
     public List<Course> getListCourseForAMonth(long timestampOfTheDay){
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(timestampOfTheDay);
