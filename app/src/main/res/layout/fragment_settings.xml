@@ -67,7 +67,9 @@
                     android:id="@+id/tvDBComment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Base stable et fort sympatique ma f"
+                    android:text="Base stable et fort sympatique"
+                    android:maxLength="150"
+                    android:ellipsize="end"
                     android:layout_marginBottom="5dp"/>
 
                 <!-- Creation date -->

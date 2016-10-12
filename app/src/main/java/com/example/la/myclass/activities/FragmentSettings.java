@@ -122,13 +122,19 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
         final AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
         adb.setView(adv);
 
-        final AlertDialog createDialog = adb.create();
-        createDialog.show();
 
         final ListView mListDB = (ListView) adv.findViewById(R.id.listOfDB);
 
         //On récupère les bases de données
         List<MyDb> listDBs = new MyJSONParser().getListDatabaseFromJsonFile();
+
+        if(listDBs.size() == 0) {
+            Toast.makeText(getActivity(), "Aucune base de données enregistrée.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        final AlertDialog createDialog = adb.create();
+        createDialog.show();
 
         if(listDBs.size()>0) {
             mListDB.setAdapter(new AdapterListViewDB(getActivity(), listDBs));

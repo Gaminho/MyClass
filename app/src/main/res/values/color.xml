@@ -52,7 +52,9 @@
     <color name="unthem50">#fff8e1</color>
 
     <color name="green500">#4CAF50</color>
+    <color name="green800">#2E7D32</color>
     <color name="red500">#f44336</color>
+    <color name="red800">#C62828</color>
 
     <color name="directory">#ff8f00</color>
     <color name="pupils">#673ab7</color>

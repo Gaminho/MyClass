@@ -63,12 +63,13 @@
                 android:layout_marginRight="10dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
                     android:padding="5dp"
                     android:text="Non"
                     android:textSize="14dp"
+                    android:background="@drawable/bkg_btn_negative"
                     android:textColor="@color/them50"/>
 
             </android.support.v7.widget.CardView>
@@ -83,12 +84,13 @@
                 android:layout_marginLeft="10dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
                     android:padding="5dp"
                     android:text="Oui"
                     android:textSize="14dp"
+                    android:background="@drawable/bkg_btn_positive"
                     android:textColor="@color/them50"/>
 
             </android.support.v7.widget.CardView>
