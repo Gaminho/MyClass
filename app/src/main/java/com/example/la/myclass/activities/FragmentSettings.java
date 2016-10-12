@@ -41,6 +41,7 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
     protected TextView mTVCurrentDBName, mTVCurrentDBVersion, mTVCurrentDBDate, mTVCurrentDBSize;
     protected LinearLayout mLLExportDB, mLLImportDB, mLLSaveNewDB;
     protected Switch mSCourseBegin, mSCourseEnd, mSDevoirBegin, mSDevoirEnd;
+    protected View mRootView;
 
     // Fragment life cycle
     public static FragmentSettings newInstance() {
@@ -51,28 +52,23 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSharedPreferences =  getActivity().getSharedPreferences(C.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-        mCurrentDB = getDBWithFileName(mSharedPreferences.getString(C.CURRENT_DB,C.NO_DB));
+        mCurrentDB = new MyJSONParser().getDatabaseFromJsonFile(mSharedPreferences.getString(C.CURRENT_DB, C.NO_DB));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_settings, container, false);
-        getAllViews(view);
-        fillAllViews();
+        mRootView = inflater.inflate(R.layout.fragment_settings, container, false);
+        getAllViews(mRootView);
+        fillAllViews(mCurrentDB);
 
-        return view;
+        return mRootView;
     }
 
 
     // Utils
 
     public void getAllViews(View view){
-
-        mTVCurrentDBName = (TextView) view.findViewById(R.id.tvCurrentDBName);
-        mTVCurrentDBVersion = (TextView) view.findViewById(R.id.tvCurrentDBVersion);
-        mTVCurrentDBDate = (TextView) view.findViewById(R.id.tvCurrentDBDate);
-        mTVCurrentDBSize = (TextView) view.findViewById(R.id.tvCurrentDBSize);
 
         mLLExportDB = (LinearLayout) view.findViewById(R.id.exportDB);
         mLLExportDB.setOnClickListener(this);
@@ -91,12 +87,17 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
         mSDevoirBegin.setOnCheckedChangeListener(this);
     }
 
-    public void fillAllViews(){
-        if(mCurrentDB != null) {
-            mTVCurrentDBName.setText(mCurrentDB.getName());
-            mTVCurrentDBDate.setText(String.format("%s à %s", C.formatDate(mCurrentDB.getDate(), C.DATE_FORMAT_SHORT_MONTH), C.formatDate(mCurrentDB.getDate(),C.HH_mm)));
-            mTVCurrentDBSize.setText(C.formatSize(mCurrentDB.getSize()));
-            mTVCurrentDBVersion.setText("v.01");
+    public void fillAllViews(MyDb myDb){
+        if(myDb != null) {
+            ((TextView) mRootView.findViewById(R.id.tvCurrentDBName)).setText(myDb.getName());
+            ((TextView) mRootView.findViewById(R.id.tvDBComment)).setText(myDb.getCommentaire());
+            ((TextView) mRootView.findViewById(R.id.tvDBFilePath)).setText(String.format("../%s",
+                    myDb.getFilePath().substring(myDb.getFilePath().indexOf(C.NAME_EXPORTED_DB)))
+            );
+            ((TextView) mRootView.findViewById(R.id.tvCurrentDBLastUpdate)).setText(C.formatDate(myDb.getLastUpdate(), C.DD_MM_YY));
+            ((TextView) mRootView.findViewById(R.id.tvDBCreationDate)).setText(C.formatDate(myDb.getDate(), C.DD_MM_YY));
+            ((TextView) mRootView.findViewById(R.id.tvCurrentDBSize)).setText(C.formatSize(myDb.getSize()));
+
         }
         // Notifications courses
         if(mSharedPreferences.getBoolean(C.SP_NOTIF_COURSE_END, false))
@@ -110,16 +111,6 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
         if(mSharedPreferences.getBoolean(C.SP_NOTIF_DEVOIR_END, false))
             mSDevoirEnd.setChecked(true);
     }
-
-
-    public MyDb getDBWithFileName(String fileName){
-        File dataBase = new File(Environment.getExternalStorageDirectory() + C.PATH_DB_FOLDER + fileName);
-        if(!dataBase.exists())
-            return null;
-        else
-            return new MyDb(dataBase);
-    }
-
 
     // Dialog
 
@@ -223,42 +214,6 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
         createDialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createDialog.dismiss();
-            }
-        });
-    }
-
-    public void keepOldDBDialog(final String nameNewDB){
-
-        LayoutInflater factory = LayoutInflater.from(getActivity());
-        final View adv = factory.inflate(R.layout.dialog_delete, null);
-
-        AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
-        adb.setView(adv);
-
-        final AlertDialog createDialog = adb.create();
-        createDialog.show();
-
-        ((TextView) createDialog.findViewById(R.id.messageDialog)).setText(getString(R.string.dialog_keep_old_db));
-
-        createDialog.findViewById(R.id.valid).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(C.importDB(getActivity(), nameNewDB, false)){
-                    mCurrentDB = getDBWithFileName(nameNewDB);
-                    fillAllViews();
-                }
-                createDialog.dismiss();
-            }
-        });
-
-        createDialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(C.importDB(getActivity(), nameNewDB, false)){
-                    mCurrentDB = getDBWithFileName(nameNewDB);
-                    fillAllViews();
-                }
                 createDialog.dismiss();
             }
         });

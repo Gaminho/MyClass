@@ -53,17 +53,15 @@ public class AdapterListViewDB extends BaseAdapter {
         size = (TextView) rowView.findViewById(R.id.tvCurrentDBSize);
         size.setText(C.formatSize(myDB.getSize()));
 
-        date = (TextView) rowView.findViewById(R.id.tvCurrentDBDate);
-        date.setText(
-                String.format("%s - %s",
-                        C.formatDate(myDB.getDate(), C.DD_MM_YY),
-                        C.formatDate(myDB.getDate(), C.HH_mm)));
-
         lastUpdate = (TextView) rowView.findViewById(R.id.tvCurrentDBLastUpdate);
-        lastUpdate.setText(
-                String.format("%s - %s",
-                        C.formatDate(myDB.getLastUpdate(), C.DD_MM_YY),
-                        C.formatDate(myDB.getLastUpdate(), C.HH_mm)));
+        lastUpdate.setText(C.formatDate(myDB.getLastUpdate(), C.DD_MM_YY));
+
+        ((TextView) rowView.findViewById(R.id.tvDBCreationDate)).setText(C.formatDate(myDB.getDate(), C.DD_MM_YY));
+        ((TextView) rowView.findViewById(R.id.tvDBComment)).setText(myDB.getCommentaire());
+        ((TextView) rowView.findViewById(R.id.tvDBFilePath)).setText(String.format("../%s",
+                myDB.getFilePath().substring(myDB.getFilePath().indexOf(C.NAME_EXPORTED_DB)))
+        );
+
 
         if(myDB.getFilePath().equals(mSharedPreferences.getString(C.CURRENT_DB, "")))
             rowView.findViewById(R.id.currentDB).setVisibility(View.VISIBLE);

@@ -46,40 +46,135 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="Version courante : "/>
-
-                <TextView
-                    android:id="@+id/tvCurrentDBVersion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="v.01"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="Nom : "/>
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp">
 
                 <TextView
                     android:id="@+id/tvCurrentDBName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="myClassDB_20160926_193944.sql"/>
+                    android:text="Nom de la base"
+                    android:ellipsize="middle"
+                    android:maxLines="1"
+                    android:textColor="@color/them700"
+                    android:textSize="14dp"
+                    android:inputType=""
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvDBComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Base stable et fort sympatique ma f"
+                    android:layout_marginBottom="5dp"/>
+
+                <!-- Creation date -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_folder_white_48dp"
+                        android:tint="@color/textColor"/>
+
+                    <TextView
+                        android:id="@+id/tvDBFilePath"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="../myClassDB_20161012_005428.sql"
+                        android:textSize="13dp"
+                        android:layout_marginLeft="2dp"
+                        android:textColor="@color/textColor"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- Size -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/ic_database_grey600_48dp"
+                            android:tint="@color/textColor"/>
+
+                        <TextView
+                            android:id="@+id/tvCurrentDBSize"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="0,00 ko"
+                            android:textSize="13dp"
+                            android:layout_marginLeft="2dp"
+                            android:textColor="@color/textColor"/>
+
+                    </LinearLayout>
+
+                    <!-- Creation date -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/ic_schedule_white_48dp"
+                            android:tint="@color/textColor"/>
+
+                        <TextView
+                            android:id="@+id/tvDBCreationDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="12/10/16"
+                            android:textSize="13dp"
+                            android:layout_marginLeft="2dp"
+                            android:textColor="@color/textColor"/>
+
+                    </LinearLayout>
+
+                    <!-- Update date -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/ic_update_white_48dp"
+                            android:tint="@color/textColor"/>
+
+                        <TextView
+                            android:id="@+id/tvCurrentDBLastUpdate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="top"
+                            android:text="12/10/16"
+                            android:textSize="13dp"
+                            android:layout_marginLeft="2dp"
+                            android:textColor="@color/textColor"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -87,57 +182,72 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="Date d'export : "/>
-
-                <TextView
-                    android:id="@+id/tvCurrentDBDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ma. 26/09/16 à 19h39:44"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="Taille : "/>
-
-                <TextView
-                    android:id="@+id/tvCurrentDBSize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="56.0 ko"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="2dp"
                 android:background="#9b9b9b"
                 android:paddingTop="1dp">
+
+                <LinearLayout
+                    android:id="@+id/saveNewDB"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="0.5dp"
+                    android:background="@drawable/bkg_day_calendar"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_update_white_48dp"
+                        android:tint="@color/unthem600"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Update"
+                        android:textAllCaps="true"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:textColor="@color/them700"
+                        android:id="@+id/textView7" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/importDB"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="0.5dp"
+                    android:background="@drawable/bkg_day_calendar"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_autorenew_white_48dp"
+                        android:tint="@color/unthem600"
+                        android:id="@+id/imageView2" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Changer"
+                        android:textAllCaps="true"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:textColor="@color/them700"
+                        android:id="@+id/textView4" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/exportDB"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginRight="0.5dp"
-                    android:background="@color/white"
+                    android:layout_marginLeft="1dp"
+                    android:background="@drawable/bkg_day_calendar"
                     android:gravity="center">
 
                     <ImageView
@@ -149,63 +259,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Exporter"
+                        android:text="Créer"
                         android:textAllCaps="true"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
-                        android:textColor="@color/unthem600"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/importDB"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="0.5dp"
-                    android:background="@color/white"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_file_download_black_48dp"
-                        android:tint="@color/unthem600"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Importer"
-                        android:textAllCaps="true"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:textColor="@color/unthem600"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/saveNewDB"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="1dp"
-                    android:background="@color/white"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_file_download_black_48dp"
-                        android:tint="@color/unthem600"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Save"
-                        android:textAllCaps="true"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:textColor="@color/unthem600"/>
+                        android:textColor="@color/them700"/>
 
                 </LinearLayout>
 
