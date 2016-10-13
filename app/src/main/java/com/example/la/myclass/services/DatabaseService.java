@@ -47,7 +47,6 @@ public class DatabaseService extends Service {
             }
         }
 
-        Log.e("********", "Still Kill");
 
         mSharedPreferences =  mContext.getSharedPreferences(C.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         mDatabase = new MyJSONParser().getDatabaseFromJsonFile(mSharedPreferences.getString(C.CURRENT_DB, C.NO_DB));
@@ -64,7 +63,7 @@ public class DatabaseService extends Service {
              */
             //long nextUpdate = mDatabase.getLastUpdate() + ( 5 * C.SECOND * mSharedPreferences.getLong(C.SP_UPDATE_DB_DELAY,0) / C.DAY);
             long nextUpdate = mDatabase.getLastUpdate() + mSharedPreferences.getLong(C.SP_UPDATE_DB_DELAY,0);
-            Log.e("DatabaseService", "" + new Date(nextUpdate));
+            Log.e("DatabaseService", "Next Update : " + new Date(nextUpdate));
             if (nextUpdate > System.currentTimeMillis())
                 alarmDate = nextUpdate;
 
