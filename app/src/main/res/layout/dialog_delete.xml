@@ -54,44 +54,19 @@
             android:layout_height="wrap_content">
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cancel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                card_view:cardCornerRadius="10dp"
-                card_view:cardBackgroundColor="@color/red500"
-                android:layout_marginRight="10dp">
+                style="@style/NegativeButton"
+                android:id="@+id/cancel">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="Non"
-                    android:textSize="14dp"
-                    android:background="@drawable/bkg_btn_negative"
-                    android:textColor="@color/them50"/>
+                <TextView style="@style/NegButtonText"/>
 
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/valid"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                card_view:cardCornerRadius="10dp"
-                card_view:cardBackgroundColor="@color/green500"
-                android:layout_marginLeft="10dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="Oui"
-                    android:textSize="14dp"
-                    android:background="@drawable/bkg_btn_positive"
-                    android:textColor="@color/them50"/>
+            <android.support.v7.widget.CardView
+                style="@style/PositiveButton"
+                android:id="@+id/valid">
+
+                <TextView style="@style/PosButtonText"/>
 
             </android.support.v7.widget.CardView>
 

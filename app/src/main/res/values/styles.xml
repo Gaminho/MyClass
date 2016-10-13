@@ -88,4 +88,56 @@
         <item name="android:elevation">4dp</item>
     </style>
 
+    <style name="CardViewButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardCornerRadius">10dp</item>
+    </style>
+
+    <style name="PositiveButton" parent="CardViewButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="cardBackgroundColor">@color/green500</item>
+        <item name="android:layout_marginLeft">10dp</item>
+    </style>
+
+    <style name="NegativeButton" parent="CardViewButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="cardBackgroundColor">@color/red500</item>
+        <item name="android:layout_marginRight">10dp</item>
+    </style>
+
+    <style name="PosButtonText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:text">Oui</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:background">@drawable/bkg_btn_positive</item>
+        <item name="android:textColor">@color/them50</item>
+    </style>
+
+    <style name="NegButtonText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:text">Non</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:background">@drawable/bkg_btn_negative</item>
+        <item name="android:textColor">@color/them50</item>
+    </style>
+        <!--
+
+                <TextView
+                    android:padding="5dp"
+                    android:text="Oui"
+                    android:textSize="14dp"
+                    android:background="@drawable/bkg_btn_positive"
+                    android:textColor="@color/them50"/>
+
+        -->
+
 </resources>
