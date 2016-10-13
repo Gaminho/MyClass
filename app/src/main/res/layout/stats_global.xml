@@ -614,7 +614,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Les élèves"
+                            android:text="Les devoirs"
                             android:textStyle="bold"
                             android:textColor="@color/unthem600"/>
 
