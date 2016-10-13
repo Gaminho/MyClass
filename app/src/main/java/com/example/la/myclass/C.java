@@ -217,6 +217,7 @@ public class C {
         return true;
     }
     public static boolean updateDB(Context context){
+
         File sd = new File(Environment.getExternalStorageDirectory()  + C.PATH_DB_FOLDER);
         if(!sd.exists())
             sd.mkdirs();
@@ -237,8 +238,6 @@ public class C {
 
         String currentDBPath = C.SYSTEM_PATH_TO_DATABASE + MyDatabase.DB_NAME;
 
-        Log.e("TERTYUI", currentDBPath);
-
         File currentDB = new File(data, currentDBPath);
         File backupDB = new File(backupDBPath);
 
@@ -254,7 +253,6 @@ public class C {
             Toast.makeText(context, "La base de données a été mise à jour.", Toast.LENGTH_SHORT).show();
         } catch(IOException e) {
             Log.e("DEBUG", "Failure => " + e);
-            //e.printStackTrace();
         }
 
         return true;
@@ -276,6 +274,8 @@ public class C {
     public static final String SP_NOTIF_COURSE_END = "course_end";
     public static final String SP_NOTIF_DEVOIR_BEGIN = "devoir_begin";
     public static final String SP_NOTIF_DEVOIR_END = "devoir_end";
+    public static final String SP_NOTIF_DATABASE_UPDATE = "database_update";
+    public static final String SP_UPDATE_DB_DELAY = "database_update_delay";
 
     /**
      * DATE

@@ -15,6 +15,7 @@ public class NotificationCourseEnd extends AbstractNotification {
 
 
     public NotificationCourseEnd(Context context, Course course) {
+        super(context);
         this.requestCode = AbstractNotification.COURSE_END;
         this.mTitle = "Fin de cours";
         this.mContext = context;

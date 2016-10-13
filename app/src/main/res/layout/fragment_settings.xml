@@ -496,13 +496,48 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:text="Nouvelle sauvegarde (non disponible)"/>
+                        android:text="Mise à jour"/>
 
                     <Switch
+                        android:id="@+id/swDatabaseUpdate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
+
+                <RadioGroup
+                    android:id="@+id/rGroupFrequenceUpdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:clickable="false"
+                    android:visibility="gone">
+
+                    <RadioButton
+                        android:id="@+id/rb10days"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="10 jours"
+                        android:enabled="false"/>
+
+                    <RadioButton
+                        android:id="@+id/rb7days"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="1 semaine"
+                        android:enabled="false"/>
+
+                    <RadioButton
+                        android:id="@+id/rb3days"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="3 jours"
+                        android:enabled="false"/>
+
+                </RadioGroup>
 
 
             </LinearLayout>

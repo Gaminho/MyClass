@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 
 import com.example.la.myclass.R;
 
@@ -26,6 +27,7 @@ public abstract class AbstractNotification {
     public static final int COURSE_END = 2;
     public static final int DEVOIR_BEGIN = 11;
     public static final int DEVOIR_VALIDATION = 12;
+    public static final int DATABASE_UPDATE = 21;
 
     protected int requestCode;
     protected Context mContext;
@@ -36,14 +38,19 @@ public abstract class AbstractNotification {
     protected int mLightColor;
     protected Notification.Builder mBuilder;
 
+    public AbstractNotification(Context context){
+        this.mBuilder = new Notification.Builder(context);
+    }
+
     public void create(){
         final NotificationManager mNotification = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
 
-        mBuilder = new Notification.Builder(mContext)
+        mBuilder
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.logo_app)
                 .setContentTitle(mTitle)
                 .setContentText(mContent)
+                .setStyle(new Notification.BigTextStyle().bigText(mContent))
                 .setContentIntent(mPendingIntent)
                 .setAutoCancel(true)
                 .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })

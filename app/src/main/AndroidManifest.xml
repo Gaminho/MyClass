@@ -34,11 +34,8 @@
         <activity android:name=".activities.devoir.ActivityDevoir"
             android:screenOrientation="portrait"/>
 
-        <service android:name=".services.CourseService"
-            android:exported="true"
-            android:enabled="true"
-            >
-        </service>
+        <service android:name=".services.CourseService" />
+        <service android:name=".services.DatabaseService" />
 
         <receiver android:name=".services.AlarmReceiver"/>
 

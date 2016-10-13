@@ -15,6 +15,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +33,8 @@ import java.util.List;
 /**
  * Created by Gaminho on 22/05/2016.
  */
-public class FragmentSettings extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class FragmentSettings extends Fragment implements View.OnClickListener,
+        CompoundButton.OnCheckedChangeListener, RadioGroup.OnCheckedChangeListener {
 
     // Variables de classe
     SharedPreferences mSharedPreferences;
@@ -40,7 +43,7 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
     //Views
     protected TextView mTVCurrentDBName, mTVCurrentDBVersion, mTVCurrentDBDate, mTVCurrentDBSize;
     protected LinearLayout mLLExportDB, mLLImportDB, mLLSaveNewDB;
-    protected Switch mSCourseBegin, mSCourseEnd, mSDevoirBegin, mSDevoirEnd;
+    protected Switch mSCourseBegin, mSCourseEnd, mSDevoirBegin, mSDevoirEnd, mSDatabaseUpdate;
     protected View mRootView;
 
     // Fragment life cycle
@@ -85,6 +88,10 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
         mSDevoirEnd.setOnCheckedChangeListener(this);
         mSDevoirBegin = (Switch) view.findViewById(R.id.swDevoirBegin);
         mSDevoirBegin.setOnCheckedChangeListener(this);
+        mSDatabaseUpdate = (Switch) view.findViewById(R.id.swDatabaseUpdate);
+        mSDatabaseUpdate.setOnCheckedChangeListener(this);
+
+        ((RadioGroup)view.findViewById(R.id.rGroupFrequenceUpdate)).setOnCheckedChangeListener(this);
     }
 
     public void fillAllViews(MyDb myDb){
@@ -110,6 +117,19 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
             mSDevoirBegin.setChecked(true);
         if(mSharedPreferences.getBoolean(C.SP_NOTIF_DEVOIR_END, false))
             mSDevoirEnd.setChecked(true);
+        if(mSharedPreferences.getBoolean(C.SP_NOTIF_DATABASE_UPDATE, false)) {
+            mSDatabaseUpdate.setChecked(true);
+            mRootView.findViewById(R.id.rb10days).setEnabled(true);
+            mRootView.findViewById(R.id.rb7days).setEnabled(true);
+            mRootView.findViewById(R.id.rb3days).setEnabled(true);
+        }
+
+        if(mSharedPreferences.getLong(C.SP_UPDATE_DB_DELAY,0) == 10 * C.DAY)
+            ((RadioButton)mRootView.findViewById(R.id.rb10days)).setChecked(true);
+        if(mSharedPreferences.getLong(C.SP_UPDATE_DB_DELAY,0) == 7 * C.DAY)
+            ((RadioButton)mRootView.findViewById(R.id.rb7days)).setChecked(true);
+        if(mSharedPreferences.getLong(C.SP_UPDATE_DB_DELAY,0) == 3 * C.DAY)
+            ((RadioButton)mRootView.findViewById(R.id.rb3days)).setChecked(true);
     }
 
     // Dialog
@@ -256,6 +276,34 @@ public class FragmentSettings extends Fragment implements View.OnClickListener, 
 
         if(compoundButton.getId() == R.id.swDevoirEnd)
             mSharedPreferences.edit().putBoolean(C.SP_NOTIF_DEVOIR_END, isOn).apply();
+
+        if(compoundButton.getId() == R.id.swDatabaseUpdate) {
+            mSharedPreferences.edit().putBoolean(C.SP_NOTIF_DATABASE_UPDATE, isOn).apply();
+            if(isOn)
+                mRootView.findViewById(R.id.rGroupFrequenceUpdate).setVisibility(View.VISIBLE);
+            else
+                mRootView.findViewById(R.id.rGroupFrequenceUpdate).setVisibility(View.GONE);
+            mRootView.findViewById(R.id.rb10days).setEnabled(isOn);
+            mRootView.findViewById(R.id.rb7days).setEnabled(isOn);
+            mRootView.findViewById(R.id.rb3days).setEnabled(isOn);
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int radioButtonId) {
+        if(radioGroup.getId() == R.id.rGroupFrequenceUpdate){
+            switch(radioButtonId){
+                case R.id.rb10days:
+                    mSharedPreferences.edit().putLong(C.SP_UPDATE_DB_DELAY, 10 * C.DAY).apply();
+                    break;
+                case R.id.rb7days:
+                    mSharedPreferences.edit().putLong(C.SP_UPDATE_DB_DELAY, 7 * C.DAY).apply();
+                    break;
+                case R.id.rb3days:
+                    mSharedPreferences.edit().putLong(C.SP_UPDATE_DB_DELAY, 3 * C.DAY).apply();
+                    break;
+            }
+        }
     }
 }
 

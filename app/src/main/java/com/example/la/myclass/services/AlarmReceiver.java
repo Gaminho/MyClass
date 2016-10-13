@@ -5,17 +5,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.la.myclass.C;
 import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.beans.Devoir;
+import com.example.la.myclass.beans.MyDb;
 import com.example.la.myclass.database.CoursesBDD;
 import com.example.la.myclass.database.DevoirBDD;
 import com.example.la.myclass.notifications.AbstractNotification;
 import com.example.la.myclass.notifications.NotificationCourseBegin;
 import com.example.la.myclass.notifications.NotificationCourseEnd;
+import com.example.la.myclass.notifications.NotificationDatabaseUpdate;
 import com.example.la.myclass.notifications.NotificationDevoirBegin;
 import com.example.la.myclass.notifications.NotificationDevoirEnd;
+import com.example.la.myclass.utils.MyJSONParser;
 
 import java.util.Date;
 
@@ -68,6 +72,26 @@ public class AlarmReceiver extends BroadcastReceiver {
                 DevoirBDD.changeDevoirState(context, devoir, Devoir.STATE_WAITING_FOR_VALIDATION);
                 new NotificationDevoirEnd(context, devoir).create();
             }
+        }
+
+        else if(requestCode == AbstractNotification.DATABASE_UPDATE){
+            Log.e("AlarmReceiver", "Reception de l'alarme !");
+            MyDb myDb = new MyJSONParser().getDatabaseFromJsonFile(mSharedPreferences.getString(C.CURRENT_DB, C.NO_DB));
+
+            if(mSharedPreferences.getBoolean(C.SP_NOTIF_DATABASE_UPDATE, false)) {
+                new NotificationDatabaseUpdate(context, myDb).create();
+                Log.e("AlarmReceiver", "Notification bdd");
+            }
+            else
+                Log.e("AlarmReceiver", "Pas de notification bdd");
+            /*
+            if(C.updateDB(context)) {
+                intent = new Intent(context, DatabaseService.class);
+                context.startService(intent);
+            }
+            else
+                Toast.makeText(context, "Impossible de mettre à jour la base de données.", Toast.LENGTH_SHORT).show();
+                */
         }
 
     }

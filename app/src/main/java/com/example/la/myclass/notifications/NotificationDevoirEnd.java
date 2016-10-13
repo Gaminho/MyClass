@@ -14,6 +14,7 @@ import com.example.la.myclass.beans.Devoir;
 public class NotificationDevoirEnd extends AbstractNotification {
 
     public NotificationDevoirEnd(Context context, Devoir devoir) {
+        super(context);
         this.requestCode = AbstractNotification.DEVOIR_VALIDATION;
         this.mContext = context;
         this.mTitle = "Devoir";

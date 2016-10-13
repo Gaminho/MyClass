@@ -16,6 +16,7 @@ public class NotificationCourseBegin extends AbstractNotification {
 
 
     public NotificationCourseBegin(Context context, Course course) {
+        super(context);
         this.requestCode = AbstractNotification.COURSE_BEGIN;
         this.mContext = context;
         this.mTitle = "Début de cours";

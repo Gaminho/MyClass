@@ -23,6 +23,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public class NotificationDevoirBegin extends AbstractNotification {
 
     public NotificationDevoirBegin(Context context, Devoir devoir) {
+        super(context);
         this.requestCode = AbstractNotification.DEVOIR_BEGIN;
         this.mContext = context;
         this.mTitle = "Devoir";
