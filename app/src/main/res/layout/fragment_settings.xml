@@ -12,35 +12,12 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="5dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/white">
+        <LinearLayout style="@style/CardViewContainer">
 
             <!-- HEADER -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_database_grey600_48dp"
-                    android:tint="@color/black"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12dp"
-                    android:paddingLeft="4dp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:text="Base de données"/>
-
+            <LinearLayout style="@style/CardViewLayoutTitle">
+                <ImageView style="@style/CardViewLayoutTitleImage" android:src="@drawable/ic_database_grey600_48dp"/>
+                <TextView style="@style/CardViewLayoutTitleText" android:text="Base de données"/>
             </LinearLayout>
 
             <LinearLayout
@@ -282,269 +259,90 @@
         app:cardCornerRadius="5dp"
         android:layout_marginTop="8dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/white">
+        <LinearLayout style="@style/CardViewContainer">
 
             <!-- HEADER -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_notifications_black_48dp"
-                    android:tint="@color/black"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12dp"
-                    android:paddingLeft="4dp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:text="Notifications"/>
-
+            <LinearLayout style="@style/CardViewLayoutTitle">
+                <ImageView style="@style/CardViewLayoutTitleImage" android:src="@drawable/ic_notifications_black_48dp"/>
+                <TextView style="@style/CardViewLayoutTitleText" android:text="Notifications"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingBottom="8dp">
+            <!-- Course -->
+            <LinearLayout style="@style/CardViewContent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cours"
-                    android:textStyle="bold"
-                    android:textColor="@color/unthem600"/>
+                <TextView style="@style/CardViewSubtitle" android:text="Cours" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:text="Début d'un cours"/>
-
-                    <Switch
-                        android:id="@+id/swCourseBegin"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
+                <LinearLayout style="@style/CardViewHorizontalItem">
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:text="Début d'un cours"/>
+                    <Switch style="@style/SwitchNotification" android:id="@+id/swCourseBegin"/>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:text="Fin d'un cours"/>
-
-                    <Switch
-                        android:id="@+id/swCourseEnd"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
+                <LinearLayout style="@style/CardViewHorizontalItem">
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:text="Fin d'un cours"/>
+                    <Switch style="@style/SwitchNotification" android:id="@+id/swCourseEnd"/>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:text="Rappel d'un cours (non disponible)"/>
-
-                    <Switch
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
+                <LinearLayout style="@style/CardViewHorizontalItem">
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:text="Rappel d'un cours (non disponible)"/>
+                    <Switch style="@style/SwitchNotification"/>
                 </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingBottom="8dp">
+            <!-- Devoirs -->
+            <LinearLayout style="@style/CardViewContent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Devoirs"
-                    android:textStyle="bold"
-                    android:textColor="@color/unthem600"/>
+                <TextView style="@style/CardViewSubtitle" android:text="Devoirs" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:text="Début d'un devoir"/>
-
-                    <Switch
-                        android:id="@+id/swDevoirBegin"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
+                <LinearLayout style="@style/CardViewHorizontalItem">
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:text="Début d'un devoir"/>
+                    <Switch style="@style/SwitchNotification" android:id="@+id/swDevoirBegin"/>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:text="Validation d'un devoir"/>
-
-                    <Switch
-                        android:id="@+id/swDevoirEnd"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
+                <LinearLayout style="@style/CardViewHorizontalItem">
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:text="Validation d'un devoir"/>
+                    <Switch style="@style/SwitchNotification" android:id="@+id/swDevoirEnd"/>
                 </LinearLayout>
-
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingBottom="8dp">
+            <!-- Semaine -->
+            <LinearLayout style="@style/CardViewContent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Semaines"
-                    android:textStyle="bold"
-                    android:textColor="@color/unthem600"/>
+                <TextView style="@style/CardViewSubtitle" android:text="Semaine" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:text="Nouvelle semaine (non disponible)"/>
-
-                    <Switch
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
+                <LinearLayout style="@style/CardViewHorizontalItem">
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:text="Nouvelle semaine (non disponible)"/>
+                    <Switch style="@style/SwitchNotification"/>
                 </LinearLayout>
-
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingBottom="8dp">
+            <!-- BDD -->
+            <LinearLayout style="@style/CardViewContent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Base de données"
-                    android:textStyle="bold"
-                    android:textColor="@color/unthem600"/>
+                <TextView style="@style/CardViewSubtitle" android:text="Base de données"
+                    android:id="@+id/textView8" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:text="Mise à jour"/>
-
-                    <Switch
-                        android:id="@+id/swDatabaseUpdate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
+                <LinearLayout style="@style/CardViewHorizontalItem">
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:text="Mise à jour"/>
+                    <Switch style="@style/SwitchNotification" android:id="@+id/swDatabaseUpdate"/>
                 </LinearLayout>
 
                 <RadioGroup
                     android:id="@+id/rGroupFrequenceUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:clickable="false"
-                    android:visibility="gone">
-
-                    <RadioButton
-                        android:id="@+id/rb10days"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="10 jours"
-                        android:enabled="false"/>
-
-                    <RadioButton
-                        android:id="@+id/rb7days"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="1 semaine"
-                        android:enabled="false"/>
-
-                    <RadioButton
-                        android:id="@+id/rb3days"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="3 jours"
-                        android:enabled="false"/>
-
+                    android:orientation="horizontal">
+                    <RadioButton style="@style/RadioButtonReminder" android:id="@+id/rb10days" android:text="10 jours" android:enabled="false"/>
+                    <RadioButton style="@style/RadioButtonReminder" android:id="@+id/rb7days" android:text="1 semaine" android:enabled="false"/>
+                    <RadioButton style="@style/RadioButtonReminder" android:id="@+id/rb3days" android:text="3 jours" android:enabled="false"/>
                 </RadioGroup>
-
 
             </LinearLayout>
 
         </LinearLayout>
 
-
     </android.support.v7.widget.CardView>
 
-</LinearLayout>
+</LinearLayout> <!-- 550 (15h54) -> 348 (16h04) -->
