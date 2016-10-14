@@ -16,16 +16,14 @@ import com.example.la.myclass.adapters.RecyclerViewWeek;
 import com.example.la.myclass.database.CoursesBDD;
 import com.example.la.myclass.database.DevoirBDD;
 import com.example.la.myclass.beans.Course;
-import com.example.la.myclass.beans.Devoir;
 import com.example.la.myclass.beans.periodic.Week;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 /**
- * Created by Léa on 02/10/2015.
+ * Creation : 02/10/2015.
  */
 public class FragmentHome extends Fragment {
 
@@ -84,7 +82,6 @@ public class FragmentHome extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         mListViewWeekDays = (RecyclerView) view.findViewById(R.id.weekList);
         mListViewWeekDays.setLayoutManager(llm);
-
 
         mTextViewCours = (TextView) view.findViewById(R.id.cours);
         mTextViewDevoirs = (TextView) view.findViewById(R.id.devoirs);
