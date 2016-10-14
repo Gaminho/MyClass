@@ -1,10 +1,10 @@
 package com.example.la.myclass.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,26 +22,33 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Gaminho on 24/08/2016.
+ * 24/08/2016.
  */
 public class FragmentDay extends Fragment implements View.OnClickListener{
 
-    // BUNDLE
-    static final String DATE_DAY = "date_day";
-    static final int NEXT_DAY = 1;
-    static final int LAST_DAY = -1;
+    /**
+     * Bundle Variables
+     */
+    private static final String DATE_DAY = "date_day";
 
 
-    //Variables de classe
-    protected Date mDay;
-    protected List<Course> mListCourses;
+    /**
+     * Variables de classe
+     */
+    private Date mDay;
+    private List<Course> mListCourses;
 
-    //Views
-    protected TextView mTextViewTitle, mTextViewNextDay, mTextViewLastDay, mTVAddACourse;
-    protected View mViewRoot;
+    /**
+     * Views
+     */
+    private TextView mTextViewTitle;
+    private View mViewRoot;
 
 
-    // Fragment life cycle
+    /**
+     * Fragment Life Cycle
+     * @param day : the timestamp of the current day
+     */
     public static FragmentDay newInstance(long day) {
         FragmentDay fragmentDay = new FragmentDay();
         Bundle args = new Bundle();
@@ -73,25 +80,25 @@ public class FragmentDay extends Fragment implements View.OnClickListener{
     }
 
 
-    // Utils
+    /**
+     * Utils
+     * @param view : the root view
+     */
 
-    public void getAllViews(View view){
+    private void getAllViews(View view){
         mTextViewTitle = (TextView) view.findViewById(R.id.actualDay);
-        mTextViewLastDay = (TextView) view.findViewById(R.id.lastDay);
-        mTextViewLastDay.setOnClickListener(this);
-        mTextViewNextDay = (TextView) view.findViewById(R.id.nextDay);
-        mTextViewNextDay.setOnClickListener(this);
-        mTVAddACourse = (TextView) view.findViewById(R.id.addACourse);
-        mTVAddACourse.setOnClickListener(this);
+        view.findViewById(R.id.lastDay).setOnClickListener(this);
+        view.findViewById(R.id.nextDay).setOnClickListener(this);
+        view.findViewById(R.id.addACourse).setOnClickListener(this);
     }
 
-    public void fillViews(){
+    private void fillViews(){
 
         if(mDay != null) {
             mTextViewTitle.setText(C.formatDate(mDay.getTime(), C.DAY_DATE_D_MONTH_YEAR));
             CoursesBDD coursesBDD = new CoursesBDD(getActivity());
             coursesBDD.open();
-            mListCourses = coursesBDD.getCoursesBetweenTwoDates(mDay.getTime(), mDay.getTime() + C.DAY);
+            mListCourses = coursesBDD.getListCourseForADay(mDay.getTime());
             coursesBDD.close();
         }
 
@@ -103,7 +110,7 @@ public class FragmentDay extends Fragment implements View.OnClickListener{
         }
     }
 
-    public void putCourseOnTimeline(final Course course, final View view){
+    private void putCourseOnTimeline(final Course course, final View view){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date(course.getDate()));
         final int hBegin = calendar.get(Calendar.HOUR_OF_DAY);
@@ -117,12 +124,13 @@ public class FragmentDay extends Fragment implements View.OnClickListener{
 
         ViewTreeObserver vto = beginingHourView.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @SuppressLint("InflateParams")
             @Override
             public void onGlobalLayout() {
                 // Récupération des positions
                 float x = beginingHourView.getX(), y = beginingHourView.getY();
 
-                beginingHourView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                beginingHourView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
                 float offset = (float) mBegin / 60;
                 int yBeginning = (int) (y + offset * beginingHourView.getHeight());
@@ -136,42 +144,49 @@ public class FragmentDay extends Fragment implements View.OnClickListener{
                     v = vi.inflate(R.layout.cell_day_timeline_course, null);
                 }
 
-                ((TextView) v.findViewById(R.id.pupilName)).setText(course.getPupil().getFullName());
-                ((TextView) v.findViewById(R.id.coursesHours)).setText(course.getHoursSlot());
-
-                TextView state = (TextView) v.findViewById(R.id.state);
-                switch(course.getState()){
-                    case Course.FORESEEN :
-                        state.setText(C.FA_COURSE_FORESSEN);
-                        state.setTextColor(getActivity().getResources().getColor(R.color.red500));
-                        break;
-                    case Course.WAITING_FOT_VALIDATION:
-                        state.setText(C.FA_COURSE_WAITING_FOR_VALIDATION);
-                        state.setTextColor(getActivity().getResources().getColor(R.color.them700));
-                        break;
-                    case Course.VALIDATED:
-                        state.setText(C.FA_COURSE_VALIDATED);
-                        state.setTextColor(getActivity().getResources().getColor(R.color.green500));
-                        break;
+                if (v != null) {
+                    ((TextView) v.findViewById(R.id.pupilName)).setText(course.getPupil().getFullName());
+                    ((TextView) v.findViewById(R.id.coursesHours)).setText(course.getHoursSlot());
                 }
 
-                v.setX(x);
-                v.setY(yBeginning);
-                ((ViewGroup)view.findViewById(R.id.timeline)).addView(v, ViewGroup.LayoutParams.MATCH_PARENT, height);
 
-                v.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getActivity(), ActivityCourse.class);
-                        intent.putExtra("course_id", course.getId());
-                        getActivity().startActivity(intent);
+                TextView state;
+                if (v != null) {
+                    state = (TextView) v.findViewById(R.id.state);
+                    switch(course.getState()){
+                        case Course.FORESEEN :
+                            state.setText(C.FA_COURSE_FORESSEN);
+                            state.setTextColor(getActivity().getResources().getColor(R.color.red500));
+                            break;
+                        case Course.WAITING_FOT_VALIDATION:
+                            state.setText(C.FA_COURSE_WAITING_FOR_VALIDATION);
+                            state.setTextColor(getActivity().getResources().getColor(R.color.them700));
+                            break;
+                        case Course.VALIDATED:
+                            state.setText(C.FA_COURSE_VALIDATED);
+                            state.setTextColor(getActivity().getResources().getColor(R.color.green500));
+                            break;
                     }
-                });
+
+                    v.setX(x);
+                    v.setY(yBeginning);
+
+                    ((ViewGroup)view.findViewById(R.id.timeline)).addView(v, ViewGroup.LayoutParams.MATCH_PARENT, height);
+
+                    v.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getActivity(), ActivityCourse.class);
+                            intent.putExtra("course_id", course.getId());
+                            getActivity().startActivity(intent);
+                        }
+                    });
+                }
             }
         });
     }
 
-    public void changeDay(int mod){
+    private void changeDay(int mod){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(mDay);
         calendar.add(Calendar.DAY_OF_YEAR, mod);
@@ -186,17 +201,16 @@ public class FragmentDay extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.nextDay :
-                changeDay(NEXT_DAY);
+                changeDay(1);
                 break;
             case R.id.lastDay:
-                changeDay(LAST_DAY);
+                changeDay(-1);
                 break;
             case R.id.addACourse :
                 Intent intent = new Intent(getActivity(), ActivityCourse.class);
                 intent.putExtra(ActivityCourse.COURSE_ACTION, ActivityCourse.ADDING);
                 intent.putExtra(ActivityCourse.COURSE_DAY, mDay.getTime());
                 startActivity(intent);
-                Log.e("DEBUGDAY-FDAY", mDay.getTime() + "");
                 break;
         }
     }
