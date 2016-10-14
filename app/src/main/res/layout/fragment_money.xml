@@ -18,90 +18,41 @@
 
             <!-- HEADER -->
             <LinearLayout style="@style/CardViewLayoutTitle">
-
                 <ImageView style="@style/CardViewLayoutTitleImage" android:src="@drawable/ic_euro_symbol_white_48dp"/>
-
                 <TextView style="@style/CardViewLayoutTitleText" android:text="Argent"/>
-
             </LinearLayout>
 
             <!-- By States -->
             <LinearLayout style="@style/CardViewContent">
 
                 <LinearLayout style="@style/CardViewHorizontalItem">
-
                     <TextView style="@style/CardViewHorizontalItemLeftText" android:text="Cours validés"/>
-
-                    <TextView style="@style/CardViewHorizontalItemMiddleText"
-                        android:id="@+id/nbCoursesValidated"
-                        android:text="(130)"/>
-
-                    <TextView style="@style/CardViewHorizontalItemRightText"
-                        android:id="@+id/validated"
-                        android:textColor="@color/green500"
-                        android:text="3099,00€"/>
-
+                    <TextView style="@style/CardViewHorizontalItemMiddleText" android:id="@+id/nbCoursesValidated" android:text="(130)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/validated" android:textColor="@color/green500" android:text="3099,00€"/>
                 </LinearLayout>
 
                 <LinearLayout style="@style/CardViewHorizontalItem">
-
                     <TextView style="@style/CardViewHorizontalItemLeftText" android:text="Cours en attente"/>
-
-                    <TextView style="@style/CardViewHorizontalItemMiddleText"
-                        android:id="@+id/nbCoursesWaiting"
-                        android:text="(0)"/>
-
-                    <TextView style="@style/CardViewHorizontalItemRightText"
-                        android:id="@+id/waitingForValidation"
-                        android:textColor="@color/them700"
-                        android:text="0,00€"/>
-
+                    <TextView style="@style/CardViewHorizontalItemMiddleText" android:id="@+id/nbCoursesWaiting" android:text="(0)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/waitingForValidation" android:textColor="@color/them700" android:text="0,00€"/>
                 </LinearLayout>
 
                 <LinearLayout style="@style/CardViewHorizontalItem">
-
                     <TextView style="@style/CardViewHorizontalItemLeftText" android:text="Cours à venir"/>
-
-                    <TextView style="@style/CardViewHorizontalItemMiddleText"
-                        android:id="@+id/nbCoursesForeseen"
-                        android:text="(1)"/>
-
-                    <TextView style="@style/CardViewHorizontalItemRightText"
-                        android:id="@+id/foreseen"
-                        android:textColor="@color/unthem600"
-                        android:text="35,00€"/>
-
+                    <TextView style="@style/CardViewHorizontalItemMiddleText" android:id="@+id/nbCoursesForeseen" android:text="(1)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/foreseen" android:textColor="@color/unthem600" android:text="35,00€"/>
                 </LinearLayout>
 
                 <LinearLayout style="@style/CardViewHorizontalItem">
-
                     <TextView style="@style/CardViewHorizontalItemLeftText" android:text="Cours annulés"/>
-
-                    <TextView style="@style/CardViewHorizontalItemMiddleText"
-                        android:id="@+id/nbCoursesCanceled"
-                        android:text="(1)"/>
-
-                    <TextView style="@style/CardViewHorizontalItemRightText"
-                        android:id="@+id/canceled"
-                        android:textColor="@color/red500"
-                        android:text="0,00€"/>
-
+                    <TextView style="@style/CardViewHorizontalItemMiddleText" android:id="@+id/nbCoursesCanceled" android:text="(1)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/canceled" android:textColor="@color/red500" android:text="0,00€"/>
                 </LinearLayout>
 
                 <LinearLayout style="@style/CardViewHorizontalItem">
-
                     <TextView style="@style/CardViewHorizontalItemLeftText" android:text="Total"/>
-
-                    <TextView style="@style/CardViewHorizontalItemMiddleText"
-                        android:id="@+id/nbCoursesTotal"
-                        android:text="(131)"/>
-
-                    <TextView style="@style/CardViewHorizontalItemRightText"
-                        android:id="@+id/total"
-                        android:textColor="@color/textColor"
-                        android:textStyle="bold"
-                        android:text="3134,00€"/>
-
+                    <TextView style="@style/CardViewHorizontalItemMiddleText" android:id="@+id/nbCoursesTotal" android:text="(131)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/total" android:textColor="@color/textColor" android:textStyle="bold" android:text="3134,00€"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -121,11 +72,8 @@
 
             <!-- HEADER -->
             <LinearLayout style="@style/CardViewLayoutTitle">
-
                 <ImageView style="@style/CardViewLayoutTitleImage" android:src="@drawable/ic_thumb_up_white_48dp"/>
-
                 <TextView style="@style/CardViewLayoutTitleText" android:text="Les tops"/>
-
             </LinearLayout>
 
             <!-- By Pupils -->
@@ -134,52 +82,21 @@
                 <TextView style="@style/CardViewSubtitle" android:text="Top élève" />
 
                 <LinearLayout style="@style/CardViewHorizontalItem">
-
-                    <TextView style="@style/CardViewHorizontalItemLeftText"
-                        android:id="@+id/pupil1Name"
-                        android:text="Emile Roux"/>
-
-                    <TextView style="@style/CardViewHorizontalItemMiddleText"
-                        android:id="@+id/pupil1Course"
-                        android:text="(26)"/>
-
-                    <TextView style="@style/CardViewHorizontalItemRightText"
-                        android:id="@+id/pupil1Money"
-                        android:text="3099,00€"/>
-
-
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:id="@+id/pupil1Name" android:text="Emile Roux"/>
+                    <TextView style="@style/CardViewHorizontalItemMiddleText" android:id="@+id/pupil1Course" android:text="(26)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/pupil1Money" android:text="3099,00€"/>
                 </LinearLayout>
 
                 <LinearLayout style="@style/CardViewHorizontalItem">
-
-                    <TextView style="@style/CardViewHorizontalItemLeftText"
-                        android:id="@+id/pupil2Name"
-                        android:text="Adrien Fleury"/>
-
-                    <TextView style="@style/CardViewHorizontalItemMiddleText"
-                        android:id="@+id/pupil2Course"
-                        android:text="(25)"/>
-
-                    <TextView style="@style/CardViewHorizontalItemRightText"
-                        android:id="@+id/pupil2Money"
-                        android:text="0,00€"/>
-
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:id="@+id/pupil2Name" android:text="Adrien Fleury"/>
+                    <TextView style="@style/CardViewHorizontalItemMiddleText" android:id="@+id/pupil2Course" android:text="(25)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/pupil2Money" android:text="0,00€"/>
                 </LinearLayout>
 
                 <LinearLayout style="@style/CardViewHorizontalItem">
-
-                    <TextView style="@style/CardViewHorizontalItemLeftText"
-                        android:id="@+id/pupil3Name"
-                        android:text="Justine Gouin"/>
-
-                    <TextView style="@style/CardViewHorizontalItemMiddleText"
-                        android:id="@+id/pupil3Course"
-                        android:text="(12)"/>
-
-                    <TextView style="@style/CardViewHorizontalItemRightText"
-                        android:id="@+id/pupil3Money"
-                        android:text="3134,00€"/>
-
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:id="@+id/pupil3Name" android:text="Justine Gouin"/>
+                    <TextView style="@style/CardViewHorizontalItemMiddleText" android:id="@+id/pupil3Course" android:text="(12)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/pupil3Money" android:text="3134,00€"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -190,52 +107,21 @@
                 <TextView style="@style/CardViewSubtitle" android:text="Top semaine" />
 
                 <LinearLayout style="@style/CardViewHorizontalItem">
-
-                    <TextView style="@style/CardViewHorizontalItemLeftText"
-                        android:id="@+id/week1Label"
-                        android:text="11/04/16 - 17/04/16"/>
-
-                    <TextView style="@style/CardViewHorizontalItemMiddleText"
-                        android:id="@+id/week1Course"
-                        android:text="(7)"/>
-
-                    <TextView style="@style/CardViewHorizontalItemRightText"
-                        android:id="@+id/week1Money"
-                        android:text="184,00€"/>
-
-
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:id="@+id/week1Label" android:text="11/04/16 - 17/04/16"/>
+                    <TextView style="@style/CardViewHorizontalItemMiddleText" android:id="@+id/week1Course" android:text="(7)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/week1Money" android:text="184,00€"/>
                 </LinearLayout>
 
                 <LinearLayout style="@style/CardViewHorizontalItem">
-
-                    <TextView style="@style/CardViewHorizontalItemLeftText"
-                        android:id="@+id/week2Label"
-                        android:text="16/05/16 - 22/05/16"/>
-
-                    <TextView style="@style/CardViewHorizontalItemMiddleText"
-                        android:id="@+id/week2Course"
-                        android:text="(5)"/>
-
-                    <TextView style="@style/CardViewHorizontalItemRightText"
-                        android:id="@+id/week2Money"
-                        android:text="125,00€"/>
-
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:id="@+id/week2Label" android:text="16/05/16 - 22/05/16"/>
+                    <TextView style="@style/CardViewHorizontalItemMiddleText" android:id="@+id/week2Course" android:text="(5)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/week2Money" android:text="125,00€"/>
                 </LinearLayout>
 
                 <LinearLayout style="@style/CardViewHorizontalItem">
-
-                    <TextView style="@style/CardViewHorizontalItemLeftText"
-                        android:id="@+id/week3Label"
-                        android:text="02/11/16 - 08/11/16"/>
-
-                    <TextView style="@style/CardViewHorizontalItemMiddleText"
-                        android:id="@+id/week3Course"
-                        android:text="(5)"/>
-
-                    <TextView style="@style/CardViewHorizontalItemRightText"
-                        android:id="@+id/week3Money"
-                        android:text="120,00€"/>
-
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:id="@+id/week3Label" android:text="02/11/16 - 08/11/16"/>
+                    <TextView style="@style/CardViewHorizontalItemMiddleText" android:id="@+id/week3Course" android:text="(5)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/week3Money" android:text="120,00€"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -246,52 +132,21 @@
                 <TextView style="@style/CardViewSubtitle" android:text="Top mois" />
 
                 <LinearLayout style="@style/CardViewHorizontalItem">
-
-                    <TextView style="@style/CardViewHorizontalItemLeftText"
-                        android:id="@+id/month1Label"
-                        android:text="Avril 2016"/>
-
-                    <TextView style="@style/CardViewHorizontalItemMiddleText"
-                        android:id="@+id/month1Course"
-                        android:text="(16)"/>
-
-                    <TextView style="@style/CardViewHorizontalItemRightText"
-                        android:id="@+id/month1Money"
-                        android:text="398,00€"/>
-
-
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:id="@+id/month1Label" android:text="Avril 2016"/>
+                    <TextView style="@style/CardViewHorizontalItemMiddleText" android:id="@+id/month1Course" android:text="(16)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/month1Money" android:text="398,00€"/>
                 </LinearLayout>
 
                 <LinearLayout style="@style/CardViewHorizontalItem">
-
-                    <TextView style="@style/CardViewHorizontalItemLeftText"
-                        android:id="@+id/month2Label"
-                        android:text="Mars 2016"/>
-
-                    <TextView style="@style/CardViewHorizontalItemMiddleText"
-                        android:id="@+id/month2Course"
-                        android:text="(17)"/>
-
-                    <TextView style="@style/CardViewHorizontalItemRightText"
-                        android:id="@+id/month2Money"
-                        android:text="390,00€"/>
-
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:id="@+id/month2Label" android:text="Mars 2016"/>
+                    <TextView style="@style/CardViewHorizontalItemMiddleText" android:id="@+id/month2Course" android:text="(17)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/month2Money" android:text="390,00€"/>
                 </LinearLayout>
 
                 <LinearLayout style="@style/CardViewHorizontalItem">
-
-                    <TextView style="@style/CardViewHorizontalItemLeftText"
-                        android:id="@+id/month3Label"
-                        android:text="Novembre 2015"/>
-
-                    <TextView style="@style/CardViewHorizontalItemMiddleText"
-                        android:id="@+id/month3Course"
-                        android:text="(16)"/>
-
-                    <TextView style="@style/CardViewHorizontalItemRightText"
-                        android:id="@+id/month3Money"
-                        android:text="368,00€"/>
-
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:id="@+id/month3Label" android:text="Novembre 2015"/>
+                    <TextView style="@style/CardViewHorizontalItemMiddleText" android:id="@+id/month3Course" android:text="(16)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/month3Money" android:text="368,00€"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -311,64 +166,31 @@
 
             <!-- HEADER -->
             <LinearLayout style="@style/CardViewLayoutTitle">
-
                 <ImageView style="@style/CardViewLayoutTitleImage" android:src="@drawable/ic_thumb_down_white_48dp"/>
-
                 <TextView style="@style/CardViewLayoutTitleText" android:text="Les flops"/>
-
             </LinearLayout>
 
             <LinearLayout style="@style/CardViewContent">
 
                 <!-- By Pupils -->
                 <LinearLayout style="@style/CardViewHorizontalItem">
-
-                    <TextView style="@style/CardViewHorizontalItemLeftText"
-                        android:id="@+id/flopPupilName"
-                        android:text="Emile Roux"/>
-
-                    <TextView style="@style/CardViewHorizontalItemMiddleText"
-                        android:id="@+id/flopPupilCourse"
-                        android:text="(26)"/>
-
-                    <TextView style="@style/CardViewHorizontalItemRightText"
-                        android:id="@+id/flopPupilMoney"
-                        android:text="3099,00€"/>
-
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:id="@+id/flopPupilName" android:text="Emile Roux"/>
+                    <TextView style="@style/CardViewHorizontalItemMiddleText" android:id="@+id/flopPupilCourse" android:text="(26)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/flopPupilMoney" android:text="3099,00€"/>
                 </LinearLayout>
 
                 <!-- By Week -->
                 <LinearLayout style="@style/CardViewHorizontalItem">
-
-                    <TextView style="@style/CardViewHorizontalItemLeftText"
-                        android:id="@+id/flopWeekLabel"
-                        android:text="11/04/16 - 17/04/16"/>
-
-                    <TextView style="@style/CardViewHorizontalItemMiddleText"
-                        android:id="@+id/flopWeekCourse"
-                        android:text="(7)"/>
-
-                    <TextView style="@style/CardViewHorizontalItemRightText"
-                        android:id="@+id/flopWeekMoney"
-                        android:text="184,00€"/>
-
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:id="@+id/flopWeekLabel" android:text="11/04/16 - 17/04/16"/>
+                    <TextView style="@style/CardViewHorizontalItemMiddleText" android:id="@+id/flopWeekCourse" android:text="(7)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/flopWeekMoney" android:text="184,00€"/>
                 </LinearLayout>
 
                 <!-- By Month -->
                 <LinearLayout style="@style/CardViewHorizontalItem">
-
-                    <TextView style="@style/CardViewHorizontalItemLeftText"
-                        android:id="@+id/flopMonthLabel"
-                        android:text="Avril 2016"/>
-
-                    <TextView style="@style/CardViewHorizontalItemMiddleText"
-                        android:id="@+id/flopMonthCourse"
-                        android:text="(16)"/>
-
-                    <TextView style="@style/CardViewHorizontalItemRightText"
-                        android:id="@+id/flopMonthMoney"
-                        android:text="398,00€"/>
-
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:id="@+id/flopMonthLabel" android:text="Avril 2016"/>
+                    <TextView style="@style/CardViewHorizontalItemMiddleText" android:id="@+id/flopMonthCourse" android:text="(16)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/flopMonthMoney" android:text="398,00€"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -377,4 +199,4 @@
 
     </android.support.v7.widget.CardView>
 
-</LinearLayout> <!-- 735 / 529 / 381 -->
+</LinearLayout> <!-- 735 / 529 / 381 / 202-->
