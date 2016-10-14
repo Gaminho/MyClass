@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Creation : 02/10/2015.
+ * 02/10/2015.
  */
 public class FragmentHome extends Fragment {
 

@@ -19,7 +19,7 @@ import com.example.la.myclass.utils.MyJSONParser;
 import java.util.Date;
 
 /**
- * Created by ariche on 13/10/2016.
+ * 13/10/2016.
  */
 
 public class DatabaseService extends Service {
@@ -34,7 +34,6 @@ public class DatabaseService extends Service {
     // TODO : Notification for new weeks
     // TODO : Change notification text for devoir multi-pupils
     // TODO : Notification course depart
-    // TODO : Correct bugs of current week number of courses and devoirs
 
 
     public static final String UPDATE_DB = "updateDb";
