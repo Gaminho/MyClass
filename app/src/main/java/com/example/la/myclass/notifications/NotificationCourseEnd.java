@@ -34,7 +34,7 @@ public class NotificationCourseEnd extends AbstractNotification {
         Intent intent = new Intent(context, ActivityCourse.class);
         intent.putExtra(ActivityCourse.COURSE_ID, course.getId());
         intent.putExtra(ActivityCourse.COURSE_ACTION, ActivityCourse.ADDING);
-        this.mBuilder.addAction(R.drawable.ic_update_white_24dp, "Compléter", PendingIntent.getActivity(context,-90,intent,PendingIntent.FLAG_UPDATE_CURRENT));
+        this.mBuilder.addAction(R.drawable.ic_assignment_white_24dp, "Compléter", PendingIntent.getActivity(context,-90,intent,PendingIntent.FLAG_UPDATE_CURRENT));
 
         intent = new Intent(context, CourseService.class);
         intent.setAction(CourseService.NO_ACTION);

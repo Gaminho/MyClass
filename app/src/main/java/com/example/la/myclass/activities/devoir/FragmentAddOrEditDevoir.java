@@ -124,7 +124,7 @@ public class FragmentAddOrEditDevoir extends AbstractFragmentAddOrEdit implement
     @Override
     protected View setContent(Context context, ViewGroup container) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.adding_devoir, container, false);
+        View view = inflater.inflate(R.layout.devoir_fragment_add_or_edit, container, false);
         Spinner spinner = (Spinner) view.findViewById(R.id.spinnerPupils);
         fillSpinnerPupils(spinner, this, getResources().getColor(R.color.textColor));
         ((RadioGroup) view.findViewById(R.id.rGroupTypeDevoir)).setOnCheckedChangeListener(this);

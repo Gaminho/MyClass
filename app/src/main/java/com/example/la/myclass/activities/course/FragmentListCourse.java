@@ -21,7 +21,6 @@ import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.beans.Pupil;
 import com.example.la.myclass.database.CoursesBDD;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -127,7 +126,7 @@ public class FragmentListCourse extends AbstractFragmentList implements AdapterV
     @Override
     protected View setFilterContent(Context context, ViewGroup container) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.filters_courses, container, false);
+        View view = inflater.inflate(R.layout.course_filters, container, false);
         fillSpinnerPupils((Spinner) view.findViewById(R.id.spinnerPupils), this);
         setSpinnerContent((Spinner) view.findViewById(R.id.spinnerStates), R.array.filter_cours, this);
         mCBHide.setText("Afficher les cours annulés");

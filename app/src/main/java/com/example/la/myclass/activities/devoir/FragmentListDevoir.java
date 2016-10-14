@@ -97,7 +97,7 @@ public class FragmentListDevoir extends AbstractFragmentList implements AdapterV
     @Override
     protected View setFilterContent(Context context, ViewGroup container) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.filters_courses, container, false);
+        View view = inflater.inflate(R.layout.course_filters, container, false);
         fillSpinnerPupils((Spinner) view.findViewById(R.id.spinnerPupils), this);
         setSpinnerContent((Spinner) view.findViewById(R.id.spinnerStates), R.array.filter_devoirs, this);
         mCBHide.setText("Afficher les devoirs annulés");

@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -94,7 +92,7 @@ public class FragmentListPupil extends AbstractFragmentList implements AdapterVi
     @Override
     protected View setFilterContent(Context context, ViewGroup container) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.filters_pupils, container, false);
+        View view = inflater.inflate(R.layout.pupil_filters, container, false);
 
         setSpinnerContent((Spinner) view.findViewById(R.id.spinnerClass), R.array.filter_classe, this);
         setSpinnerContent((Spinner) view.findViewById(R.id.spinnerPaiementType), R.array.filter_paiement_type, this);

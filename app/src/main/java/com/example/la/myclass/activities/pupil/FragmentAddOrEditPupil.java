@@ -157,7 +157,7 @@ public class FragmentAddOrEditPupil extends AbstractFragmentAddOrEdit implements
    @Override
     protected View setContent(Context context, ViewGroup container) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.adding_pupil, container, false);
+        View view = inflater.inflate(R.layout.pupil_fragment_add_or_edit, container, false);
         Spinner spinner =  (Spinner) view.findViewById(R.id.spinnerClass);
         setSpinnerContent(spinner, R.array.classes, this);
         view.findViewById(R.id.loadNewPix).setOnClickListener(this);
