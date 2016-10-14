@@ -5,12 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.la.myclass.C;
 import com.example.la.myclass.beans.Course;
+import com.example.la.myclass.beans.Database;
 import com.example.la.myclass.beans.Devoir;
-import com.example.la.myclass.beans.MyDb;
 import com.example.la.myclass.database.CoursesBDD;
 import com.example.la.myclass.database.DevoirBDD;
 import com.example.la.myclass.notifications.AbstractNotification;
@@ -76,10 +75,10 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         else if(requestCode == AbstractNotification.DATABASE_UPDATE){
             Log.e("AlarmReceiver", "Reception de l'alarme !");
-            MyDb myDb = new MyJSONParser().getDatabaseFromJsonFile(mSharedPreferences.getString(C.CURRENT_DB, C.NO_DB));
+            Database database = new MyJSONParser().getDatabaseFromJsonFile(mSharedPreferences.getString(C.CURRENT_DB, C.NO_DB));
 
             if(mSharedPreferences.getBoolean(C.SP_NOTIF_DATABASE_UPDATE, false)) {
-                new NotificationDatabaseUpdate(context, myDb).create();
+                new NotificationDatabaseUpdate(context, database).create();
                 Log.e("AlarmReceiver", "Notification bdd");
             }
             else

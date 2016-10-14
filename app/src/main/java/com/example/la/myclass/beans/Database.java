@@ -14,7 +14,7 @@ import java.util.Calendar;
 /**
  * Created by Gaminho on 24/08/2016.
  */
-public class MyDb {
+public class Database {
 
     /**
      * Statics Variables
@@ -33,10 +33,10 @@ public class MyDb {
     protected String name, commentaire, filePath;
 
 
-    public MyDb() {
+    public Database() {
     }
 
-    public MyDb(File file){
+    public Database(File file){
         this.name = file.getName();
         Calendar calendar = Calendar.getInstance();
         int offset = this.name.indexOf(C.NAME_EXPORTED_DB) + C.NAME_EXPORTED_DB.length();
@@ -118,7 +118,7 @@ public class MyDb {
 
     @Override
     public String toString() {
-        return "MyDb{" +
+        return "Database{" +
                 "id=" + id +
                 ", date=" + date +
                 ", size=" + size +
@@ -141,7 +141,7 @@ public class MyDb {
             jsonObject.put(JSON_LAST_UPDATE_DATE, this.lastUpdate);
             jsonObject.put(JSON_SIZE, this.size);
         } catch (JSONException e) {
-            Log.e("MyDb", "Unable to make JSONObject from this database\n"+e.getMessage());
+            Log.e("Database", "Unable to make JSONObject from this database\n"+e.getMessage());
         }
 
         return jsonObject;

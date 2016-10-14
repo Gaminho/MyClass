@@ -12,7 +12,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.la.myclass.C;
-import com.example.la.myclass.beans.MyDb;
+import com.example.la.myclass.beans.Database;
 import com.example.la.myclass.notifications.AbstractNotification;
 import com.example.la.myclass.utils.MyJSONParser;
 
@@ -40,7 +40,7 @@ public class DatabaseService extends Service {
     public static final String NO_ACTION = "noAction";
 
     protected Context mContext;
-    protected MyDb mDatabase;
+    protected Database mDatabase;
     protected SharedPreferences mSharedPreferences;
 
     @Override

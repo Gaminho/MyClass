@@ -1,129 +1,99 @@
-/* Copyright (C) 2012 The Android Open Source Project
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-*/
 package com.example.la.myclass.customviews;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.*;
-import android.os.Build;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.*;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
+import android.widget.TextView;
 
 import com.example.la.myclass.R;
 
-import java.lang.Math;
-import java.lang.Override;
-import java.lang.String;
-
 /**
- * Custom view that shows a pie chart and, optionally, a label.
+ * Created by Gaminho on 23/09/2016.
  */
 public class Podium extends ViewGroup {
 
     // Statics
-    private static final int COLOR_GOLD = 0x88FFD700;
-    private static final int COLOR_SILVER = 0x88cecece;
-    private static final int COLOR_BRONZE = 0x88B36700;
-    private static final int SPACE_BETWEEN_TEXTS = 10;
-
-
-    // Variables de classe
-
-    private PodiumView mPodiumView;
-    private Item[] mData = {new Item(INDEX_SILVER), new Item(INDEX_GOLD), new Item(INDEX_BRONZE)};
-    private RectF mPodiumBounds = new RectF();
-    private Paint mPodiumPaint;
-    private Paint mTextLabelPaint;
-    private Paint mTextSubtitlePaint;
-    private Paint mTextDetailsPaint;
-
-    // Dimensions
-    private float mMaxLegendWidth;
-    private float mMaxSubTitleWidth;
-    private float mMaxDetailsWidth;
-    private static final double COEFF_HEIGHT_GOLD = 0.95;
-    private static final double COEFF_HEIGHT_SILVER = 0.8;
-    private static final double COEFF_HEIGHT_BRONZE = 0.65;
+    String TAG = "PODIUM2";
+    public static final int TITLE_POSITION_LEFT = 0;
+    public static final int TITLE_POSITION_RIGHT = 1;
+    private static final double COEFF_HEIGHT_GOLD = 0.05;
+    private static final double COEFF_HEIGHT_SILVER = 0.20;
+    private static final double COEFF_HEIGHT_BRONZE = 0.35;
     private static final int INDEX_GOLD = 1;
     private static final int INDEX_SILVER = 0;
     private static final int INDEX_BRONZE = 2;
 
-    //Color
-    private int mColorGold;
-    private int mColorSilver;
-    private int mColorBronze;
-    private int mTextLabelColor;
-    private int mTextSubtitleColor;
-    private int mTextDetailsColor;
+
+    // Attributes
+    private int mPositionTitle;
+    private float mPaddingTitle;
+    private boolean mShowTitle = true;
+    private boolean mShowLabel = true;
+    private boolean mShowSubtitle = true;
+    private boolean mShowDetails = true;
+    private String mPodiumTitle = "Titre du podium";
+    private int mNbOfParts = 4;
+    private int mMinHeight = 100;
+    private String mHeight;
 
 
-    // Constructeur
+    // Views
+    private LinearLayout mViewRoot;
+    private TextView mTVLegend;
+    private LinearLayout mSilverView, mGoldView, mBronzeView;
+
+    // Color
+    private static final int COLOR_GOLD = 0x88FFD700;
+    private static final int COLOR_SILVER = 0x88cecece;
+    private static final int COLOR_BRONZE = 0x88B36700;
+
+    // Variables de classe
+    private Item[] mData = {new Item(INDEX_SILVER), new Item(INDEX_GOLD), new Item(INDEX_BRONZE)};
+    private boolean mEnoughtSpaceForSubtitle = false;
+    private boolean mEnoughtSpaceForDetails = false;
 
 
-    /**
-     * Class constructor taking only a context. Use this constructor to create
-     * {@link PieChart} objects from your own code.
-     *
-     * @param context
-     */
+    // Constructeurs
+
     public Podium(Context context) {
         super(context);
         init();
     }
 
-    /**
-     * Class constructor taking a context and an attribute set. This constructor
-     * is used by the layout engine to construct a {@link PieChart} from a set of
-     * XML attributes.
-     *
-     * @param context
-     * @param attrs   An attribute set which can contain attributes from
-     *                {@link com.example.la.myclass.customviews.Podium} as well as attributes inherited
-     *                from {@link android.view.View}.
-     */
     public Podium(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        // attrs contains the raw values for the XML attributes
-        // that were specified in the layout, which don't include
-        // attributes set by styles or themes, and which may have
-        // unresolved references. Call obtainStyledAttributes()
-        // to get the final values for each attribute.
-        //
-        // This call uses R.styleable.PieChart, which is an array of
-        // the custom attributes that were declared in attrs.xml.
+
+
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.Podium, 0, 0);
 
         try {
-            // Retrieve the values from the TypedArray and store into
-            // fields of this class.
-            //
-            // The R.styleable.Podium_* constants represent the index for
-            // each custom attribute in the R.styleable.PieChart array.
-            mColorGold          = a.getColor(R.styleable.Podium_goldColor,          COLOR_GOLD);
-            mColorSilver        = a.getColor(R.styleable.Podium_silverColor,        COLOR_SILVER);
-            mColorBronze        = a.getColor(R.styleable.Podium_bronzeColor,        COLOR_BRONZE);
-            mTextLabelColor     = a.getColor(R.styleable.Podium_textLabelColor,     Color.BLACK);
-            mTextSubtitleColor  = a.getColor(R.styleable.Podium_textSubtitleColor,  Color.BLACK);
-            mTextDetailsColor   = a.getColor(R.styleable.Podium_textDetailsColor,   Color.BLACK);
+            mPaddingTitle = a.getDimension(R.styleable.Podium_titlePadding, 10.0f);
+            mShowTitle = a.getBoolean(R.styleable.Podium_showTitle, true);
+            mShowDetails = a.getBoolean(R.styleable.Podium_showDetails, true);
+            mShowLabel = a.getBoolean(R.styleable.Podium_showLabel, true);
+            mShowSubtitle = a.getBoolean(R.styleable.Podium_showSubtitle, true);
+
+            if(!mShowTitle)
+                mNbOfParts = 3;
+
+
+            if(a.getString(R.styleable.Podium_titlePodium) != null && !a.getString(R.styleable.Podium_titlePodium).isEmpty())
+                mPodiumTitle = a.getString(R.styleable.Podium_titlePodium);
+
+            mPositionTitle = a.getInteger(R.styleable.Podium_titlePosition, TITLE_POSITION_LEFT);
+            mHeight = attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "layout_height");
+
         } finally {
-            // release the TypedArray so that it can be reused.
             a.recycle();
         }
 
@@ -131,84 +101,108 @@ public class Podium extends ViewGroup {
     }
 
 
-    // Getters and setters
+    // Getters & Setters
 
-    public int getGoldColor() {
-        return mColorGold;
+
+    public float getPaddingTitle() {
+        return mPaddingTitle;
     }
 
-    public int getSilverColor() {
-        return mColorSilver;
+
+    public void setPaddingTitle(float mPaddingTitle) {
+        this.mPaddingTitle = mPaddingTitle;
+        onDataChanged();
     }
-
-    public int getBronzeColor() {
-        return mColorBronze;
-    }
-
-    public int getmTextLabelColor() {
-        return mTextLabelColor;
-    }
-
-    public void setGoldColor(int mColorGold) {
-        Item it = mData[INDEX_GOLD];
-        it.mColor = mColorGold;
-        mData[INDEX_GOLD] = it;
-        invalidate();
-    }
-
-    public void setSilverColor(int mColorSilver) {
-        Item it = mData[INDEX_SILVER];
-        it.mColor = mColorSilver;
-        mData[INDEX_SILVER] = it;
-        invalidate();
-    }
-
-    public void setBronzeColor(int mColorBronze) {
-        Item it = mData[INDEX_BRONZE];
-        it.mColor = mColorBronze;
-        mData[INDEX_BRONZE] = it;
-        invalidate();
-    }
-
-    public void setTextLabelColor(int mTextLabelColor) {
-        this.mTextLabelColor = mTextLabelColor;
-        mTextLabelPaint.setColor(mTextLabelColor);
-        invalidate();
-    }
-
-    public void setTextSubtitleColor(int mTextSubtitleColor) {
-        this.mTextSubtitleColor = mTextSubtitleColor;
-        mTextSubtitlePaint.setColor(mTextSubtitleColor);
-        invalidate();
-    }
-
-    public void setTextDetailsColor(int mTextDetailsColor) {
-        this.mTextDetailsColor = mTextDetailsColor;
-        mTextDetailsPaint.setColor(mTextDetailsColor);
-        invalidate();
-    }
-
-    // Getters and Setters
-    // NOT FORGET TO SET INVALIDATE AFTER SETTING DATA
-
-
-    // Utils
-
-
-
-
-
-
-
-    // Interface
 
 
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        // Do nothing. Do not call the superclass method--that would start a layout pass
-        // on this view's children. PieChart lays out its children in onSizeChanged().
-    }
+    protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
+        Log.e(TAG, "onLayout");
 
+        mTVLegend.setText(mPodiumTitle);
+        mTVLegend.setPadding((int) mPaddingTitle, 0, (int) mPaddingTitle, 0);
+
+        int xOffset = 0;
+        int itemWidth = mViewRoot.getWidth() / mNbOfParts;
+
+        if(mShowTitle &&  mPositionTitle != TITLE_POSITION_RIGHT) {
+            mTVLegend.layout(xOffset, 0, xOffset + itemWidth, mViewRoot.getHeight());
+            xOffset += itemWidth;
+        }
+
+        mSilverView.layout(xOffset, (int) (COEFF_HEIGHT_SILVER * mViewRoot.getHeight()), xOffset + itemWidth, mViewRoot.getHeight());
+        xOffset += itemWidth;
+        mGoldView.layout(xOffset, (int) (COEFF_HEIGHT_GOLD * mViewRoot.getHeight()), xOffset + itemWidth, mViewRoot.getHeight());
+        xOffset += itemWidth;
+        mBronzeView.layout(xOffset, (int) (COEFF_HEIGHT_BRONZE * mViewRoot.getHeight()), xOffset + itemWidth, mViewRoot.getHeight());
+        xOffset += itemWidth;
+
+        if(mShowTitle && mPositionTitle == TITLE_POSITION_RIGHT)
+            mTVLegend.layout(xOffset, 0, xOffset + itemWidth, mViewRoot.getHeight());
+
+        for(int j = (mData.length -1) ; j >=0 ; j--){
+            Item it = mData[j];
+            LinearLayout linearLayout = null;
+            TextView tv;
+
+            switch (it.mPosition){
+                case INDEX_BRONZE:
+                    linearLayout = mBronzeView;
+                    break;
+                case INDEX_SILVER :
+                    linearLayout = mSilverView;
+                    break;
+                case INDEX_GOLD:
+                    linearLayout = mGoldView;
+                    break;
+            }
+
+            int yOffset = (int) (0.05 * linearLayout.getHeight());
+            int heightText = getMinTVHeight(getContext(), 100, linearLayout.getWidth(),14,it.mLabel);
+
+            // ADDING LABEL
+            tv = new TextView(getContext());
+            tv.layout(0, yOffset, linearLayout.getWidth(), yOffset + heightText);
+            tv.setText(it.mLabel);
+            tv.setGravity(Gravity.CENTER);
+            tv.setTextSize(14);
+            tv.setTypeface(null, Typeface.BOLD);
+            if(mShowLabel)
+                linearLayout.addView(tv);
+
+            // ADDING SUBTITLE
+            tv = new TextView(getContext());
+            yOffset += heightText;
+            heightText = getMinTVHeight(getContext(), 100, linearLayout.getWidth(),12,it.mSubTitle);
+            tv.layout(0, yOffset, linearLayout.getWidth(), yOffset + heightText);
+            tv.setText(it.mSubTitle);
+            tv.setGravity(Gravity.CENTER);
+            tv.setTextSize(12);
+            if(yOffset + heightText < linearLayout.getHeight() && it.mPosition == INDEX_BRONZE)
+                mEnoughtSpaceForSubtitle = true;
+
+            if(mEnoughtSpaceForSubtitle && mShowSubtitle)
+                linearLayout.addView(tv);
+
+
+            // ADDING DATES
+            tv = new TextView(getContext());
+            yOffset += heightText;
+            heightText = getMinTVHeight(getContext(), 100, linearLayout.getWidth(),10,it.mDetails);
+            tv.layout(0,yOffset,linearLayout.getWidth(), yOffset + heightText);
+            tv.setText(it.mDetails);
+            tv.setGravity(Gravity.CENTER);
+            tv.setTextSize(10);
+            tv.setTypeface(null, Typeface.ITALIC);
+
+            if(yOffset + heightText < linearLayout.getHeight() && it.mPosition == INDEX_BRONZE)
+                mEnoughtSpaceForDetails = true;
+
+            if(mEnoughtSpaceForDetails && mShowDetails)
+                linearLayout.addView(tv);
+        }
+
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -216,179 +210,119 @@ public class Podium extends ViewGroup {
     }
 
 
-    //
-    // Measurement functions. This example uses a simple heuristic: it assumes that
-    // the pie chart should be at least as wide as its label.
-    //
     @Override
-    protected int getSuggestedMinimumWidth() {
-        return 0;
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        Log.e(TAG, "onMeasure");
+
+        int minw = getPaddingLeft() + getPaddingRight();
+        int w = Math.max(minw, MeasureSpec.getSize(widthMeasureSpec));
+
+
+        int yOffset = getPaddingBottom() + getPaddingTop();
+        int heightOfBronze = (int) ((1-COEFF_HEIGHT_BRONZE) * heightMeasureSpec);
+
+        int h;
+        if(mHeight.equals(String.valueOf(LayoutParams.WRAP_CONTENT)))
+            h = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mMinHeight, getContext().getResources().getDisplayMetrics());
+        else
+            h = MeasureSpec.getSize(heightMeasureSpec);
+
+        // Whatever the width ends up being, ask for a height that would let the pie
+        // get as big as it can
+
+        setMeasuredDimension(w, h);
     }
 
     @Override
-    protected int getSuggestedMinimumHeight() {
-        return 0;
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        Log.e(TAG, "onSizeChanged");
+
+        //
+        // Set dimensions for text, pie chart, etc
+        //
+        // Account for padding
+        float xpad = (float) (getPaddingLeft() + getPaddingRight());
+        float ypad = (float) (getPaddingTop() + getPaddingBottom());
+
+        float ww = (float) w - xpad;
+        float hh = (float) h - ypad;
+
+        mViewRoot.layout(0, 0, (int) ww, (int) hh);
+        //mTVTitle.layout(0, 0, mViewRoot.getWidth(), ((int) (COEFF_HEIGHT_TITLE * mViewRoot.getHeight())));
+
+        onDataChanged();
     }
 
 
-    private void setLayerToSW(View v) {
-        if (!v.isInEditMode() && Build.VERSION.SDK_INT >= 11) {
-            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        }
-    }
-
-    private void setLayerToHW(View v) {
-        if (!v.isInEditMode() && Build.VERSION.SDK_INT >= 11) {
-            setLayerType(View.LAYER_TYPE_HARDWARE, null);
-        }
-    }
-
-
-    // My actions
-
-    private class PodiumView extends View{
-
-        // Used for SDK < 11
-        private float mRotation = 0;
-        private Matrix mTransform = new Matrix();
-        private PointF mPivot = new PointF();
-
-        /**
-         * Construct a PieView
-         *
-         * @param context
-         */
-        public PodiumView(Context context) {
-            super(context);
-        }
-
-        @Override
-        protected void onDraw(Canvas canvas) {
-            super.onDraw(canvas);
-            Log.e("TEST-PODIUM", "onDraw");
-            if (Build.VERSION.SDK_INT < 11) {
-                mTransform.set(canvas.getMatrix());
-                mTransform.preRotate(mRotation, mPivot.x, mPivot.y);
-                canvas.setMatrix(mTransform);
-            }
-
-
-
-            for (Item it : mData) {
-
-                if(it != null) {
-                    /**
-                     * Draw rectangles of podium
-                     */
-                    mPodiumPaint.setColor(it.mColor);
-                    canvas.drawRect(it.mStartOffset, mPodiumBounds.bottom - it.mHeight, it.mEndOffset, mPodiumBounds.bottom, mPodiumPaint);
-
-                    /**
-                     * Write Labels
-                     */
-                    int xText = it.mStartOffset + (it.mEndOffset - it.mStartOffset) / 2;
-                    int yText = (int) (mPodiumBounds.bottom - it.mHeight / 2);
-
-                    calibrateTextSize(mTextLabelPaint, it.mLabel, 20, 200, mMaxLegendWidth);
-                    Rect result = new Rect();
-                    mTextLabelPaint.getTextBounds(it.mLabel, 0, it.mLabel.length(), result);
-                    int height = result.height();
-                    canvas.drawText(it.mLabel, xText, yText, mTextLabelPaint);
-
-                    /**
-                     * Write Subtitles
-                     */
-                    if(isSubtitleWritable()){
-                        yText = yText + height + SPACE_BETWEEN_TEXTS;
-                        calibrateTextSize(mTextSubtitlePaint, it.mSubTitle, 10, 180, mMaxSubTitleWidth);
-                        mTextSubtitlePaint.getTextBounds(it.mSubTitle, 0, it.mSubTitle.length(), result);
-                        canvas.drawText(it.mSubTitle, xText, yText, mTextSubtitlePaint);
-
-                        if(areDetailsWritable()){
-                            //yText = yText + height + SPACE_BETWEEN_TEXTS;
-                            yText = (int) mPodiumBounds.bottom;
-                            String[] details = it.mDetails.split("\n");
-                            calibrateTextSize(mTextDetailsPaint, details[0], 10, 150, mMaxDetailsWidth);
-                            mTextSubtitlePaint.getTextBounds(details[0], 0, details[0].length(), result);
-                            //yText -= result0.height();
-                            yText -= 2* SPACE_BETWEEN_TEXTS;
-                            canvas.drawText(details[1], xText, yText, mTextDetailsPaint);
-                            yText -= result.height();
-                            calibrateTextSize(mTextDetailsPaint, details[0], 10, 150, mMaxDetailsWidth);
-                            canvas.drawText(details[0], xText, yText, mTextDetailsPaint);
-                        }
-                    }
-
-                }
-            }
-        }
-
-        @Override
-        protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-            mBounds = new RectF(0, 0, w, h);
-        }
-
-        RectF mBounds;
-
-    }
-
-
-    /**
-     * Initialize the control. This code is in a separate method so that it can be
-     * called from both constructors.
-     */
     private void init() {
-        Log.e("TEST-PODIUM", "init");
-        // Force the background to software rendering because otherwise the Blur
-        // filter won't work.
-        setLayerToSW(this);
+        Log.e(TAG, "init");
 
-        mPodiumView = new PodiumView(getContext());
-        addView(mPodiumView);
+        mViewRoot = new LinearLayout(getContext());
+        //mViewRoot.setBackgroundColor(0x99b3e5fc);
 
-        mPodiumPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPodiumPaint.setStyle(Paint.Style.FILL);
+        mTVLegend = new TextView(getContext());
+        //mTVLegend.setBackgroundColor(0x99b3e5fc);
+        mTVLegend.setTextColor(Color.BLACK);
+        mTVLegend.setTextSize(10);
+        mTVLegend.setPadding((int) mPaddingTitle, 0, (int) mPaddingTitle, 0);
+        mViewRoot.addView(mTVLegend);
 
-        mTextLabelPaint = new Paint(Paint.FAKE_BOLD_TEXT_FLAG);
-        mTextLabelPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mTextLabelPaint.setTextAlign(Paint.Align.CENTER);
-        mTextLabelPaint.setColor(mTextLabelColor);
+        mSilverView = new LinearLayout(getContext());
+        mSilverView.setBackgroundColor(COLOR_SILVER);
+        mViewRoot.addView(mSilverView);
 
-        mTextSubtitlePaint = new Paint(Paint.LINEAR_TEXT_FLAG);
-        mTextSubtitlePaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mTextSubtitlePaint.setTextAlign(Paint.Align.CENTER);
-        mTextSubtitlePaint.setColor(mTextSubtitleColor);
+        mGoldView = new LinearLayout(getContext());
+        mGoldView.setBackgroundColor(COLOR_GOLD);
+        mViewRoot.addView(mGoldView);
 
-        mTextDetailsPaint = new Paint(Paint.LINEAR_TEXT_FLAG);
-        mTextDetailsPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mTextDetailsPaint.setTextAlign(Paint.Align.CENTER);
-        mTextDetailsPaint.setColor(mTextDetailsColor);
+        mBronzeView = new LinearLayout(getContext());
+        mBronzeView.setBackgroundColor(COLOR_BRONZE);
+        mViewRoot.addView(mBronzeView);
 
-        // In edit mode it's nice to have some demo data, so add that here.
-        if (this.isInEditMode()) {
-            addSilverItem("125,00€", "5 cours", "16/05/16\n22/05/16");
-            addGoldItem("184,00€", "7 cours", "11/04/16\n17/04/16");
-            addBronzeItem("120,00€", "7 cours", "02/11/15\n08/11/15");
-        }
+        //mTVTitle = new TextView(getContext());
+        //mTVTitle.setBackgroundColor(0x9981d4fa);
+        //mTVTitle.setGravity(mPositionTitle);
+        //mTVTitle.setTextColor(Color.WHITE);
+        //mTVTitle.setPadding((int) mPaddingTitle, 0, (int) mPaddingTitle, 0);
+        //mViewRoot.addView(mTVTitle);
 
+        addView(mViewRoot);
+    }
+
+    private void onDataChanged() {
+        Log.e(TAG, "onDataChanged");
+        mTVLegend.setPadding((int) mPaddingTitle, 0, (int) mPaddingTitle, 0);
     }
 
 
-    /**
-     * Add a new data item to this view. Adding an item adds a slice to the pie whose
-     * size is proportional to the item's value. As new items are added, the size of each
-     * existing slice is recalculated so that the proportions remain correct.
-     *
-     * @return The index of the newly added item.
-     */
+
+
+
+
+
+
+    private int getMinTVHeight(Context context, int height, int width, int fontSize, String text){
+        TextView tv = new TextView(context);
+        tv.layout(0, 0, width, height);
+        tv.setTextSize(fontSize);
+        tv.setText(text);
+        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(tv.getWidth(), View.MeasureSpec.AT_MOST);
+        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(tv.getHeight(), MeasureSpec.UNSPECIFIED);
+        tv.measure(widthMeasureSpec, heightMeasureSpec);
+
+        return tv.getMeasuredHeight();
+    }
+
+
+
+
     public int addGoldItem(String label, String subTitle, String details) {
         Item it = mData[INDEX_GOLD];
-        it.mColor = mColorGold;
         it.mLabel = label;
         it.mSubTitle = subTitle;
         it.mDetails = details;
         it.mPosition = INDEX_GOLD;
-
         mData[INDEX_GOLD]= it;
         onDataChanged();
 
@@ -397,7 +331,6 @@ public class Podium extends ViewGroup {
 
     public int addSilverItem(String label, String subTitle, String details) {
         Item it = mData[INDEX_SILVER];
-        it.mColor = mColorSilver;
         it.mLabel = label;
         it.mSubTitle = subTitle;
         it.mDetails = details;
@@ -409,12 +342,10 @@ public class Podium extends ViewGroup {
 
     public int addBronzeItem(String label, String subTitle, String details) {
         Item it = mData[INDEX_BRONZE];
-        it.mColor = mColorBronze;
         it.mLabel = label;
         it.mSubTitle = subTitle;
         it.mDetails = details;
         it.mPosition = INDEX_BRONZE;
-
         mData[INDEX_BRONZE]= it;
         onDataChanged();
 
@@ -422,9 +353,13 @@ public class Podium extends ViewGroup {
     }
 
 
-    /**
-     * Maintains the state for a data item.
-     */
+
+
+
+
+
+
+    // Inner class
     private class Item {
         public int mHeight;
         public int mColor;
@@ -440,12 +375,7 @@ public class Podium extends ViewGroup {
             this.mSubTitle = "";
             this.mDetails = "";
             this.mPosition = position;
-            if(position == INDEX_GOLD)
-                this.mColor = COLOR_GOLD;
-            else if(position == INDEX_BRONZE)
-                this.mColor = COLOR_BRONZE;
-            else if(position == INDEX_SILVER)
-                this.mColor = COLOR_SILVER;
+            this.mColor = Color.BLACK;
         }
 
         public Item(){}
@@ -463,137 +393,6 @@ public class Podium extends ViewGroup {
                     ", mPosition=" + mPosition +
                     '}';
         }
-    }
-
-    /**
-     * Do all of the recalculations needed when the data array changes.
-     */
-    private void onDataChanged() {
-        Log.e("TEST-PODIUM", "onDataChanged");
-        // When the data changes, we have to recalculate all widths
-        for (int i = 0 ; i < mData.length ; i++) {
-            Item it = mData[i];
-            if(it != null) {
-                it.mStartOffset = (int) (it.mPosition * mPodiumBounds.right / mData.length);
-                it.mEndOffset = it.mStartOffset + (int) (mPodiumBounds.right / mData.length);
-                if (it.mPosition == INDEX_BRONZE)
-                    it.mHeight = (int) (COEFF_HEIGHT_BRONZE * mPodiumBounds.bottom);
-                else if (it.mPosition == INDEX_SILVER)
-                    it.mHeight = (int) (COEFF_HEIGHT_SILVER * mPodiumBounds.bottom);
-                else
-                    it.mHeight = (int) (COEFF_HEIGHT_GOLD * mPodiumBounds.bottom);
-
-                Log.e("TEST-PODIUM", "Rectangle " + i + " : " + it.toString());
-            }
-        }
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        Log.e("TEST-PODIUM", "onMeasure");
-        // Try for a width based on our minimum
-        int minw = getPaddingLeft() + getPaddingRight();
-
-        int w = Math.max(minw, MeasureSpec.getSize(widthMeasureSpec));
-
-        // Whatever the width ends up being, ask for a height that would let the pie
-        // get as big as it can
-        int minh = getPaddingBottom() + getPaddingTop();
-        int h = Math.max(MeasureSpec.getSize(heightMeasureSpec), minh);
-
-        Log.e("TEST-PODIUM", "onMeasure - w : " + w + " x h : " + h);
-        setMeasuredDimension(w, h);
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        Log.e("TEST-PODIUM", "onSizeChanged");
-
-        //
-        // Set dimensions for text, pie chart, etc
-        //
-        // Account for padding
-        float xpad = (float) (getPaddingLeft() + getPaddingRight());
-        float ypad = (float) (getPaddingTop() + getPaddingBottom());
-
-        float ww = (float) w - xpad;
-        float hh = (float) h - ypad;
-
-        mPodiumBounds = new RectF(0.0f,0.0f,ww,hh);
-        mPodiumBounds.offsetTo(getPaddingLeft(), getPaddingTop());
-
-
-        // Lay out the child view that actually draws the pie.
-        mPodiumView.layout((int) mPodiumBounds.left, (int) mPodiumBounds.top,
-                (int) mPodiumBounds.right, (int) mPodiumBounds.bottom);
-
-        mMaxLegendWidth = (float) (0.8* (mPodiumBounds.right / mData.length));
-        mMaxSubTitleWidth = (float) (0.65* (mPodiumBounds.right / mData.length));
-        mMaxDetailsWidth = (float) (0.6* (mPodiumBounds.right / mData.length));
-
-        onDataChanged();
-    }
-
-    /**
-     * Calibrates this paint's text-size to fit the specified text within the specified width.
-     * @param paint     The paint to calibrate.
-     * @param max       The maximum text size to use.
-     * @param boxWidth  The width of the space in which the text has to fit.
-     * @param text      The text to calibrate for.
-     * @param min       The minimum text size to use.
-     */
-
-    public static void calibrateTextSize(Paint paint,String text, float min, float max, float boxWidth) {
-            paint.setTextSize(10);
-            paint.setTextSize(Math.max(Math.min((boxWidth/paint.measureText(text))*10, max), min));
-        }
-
-    public boolean isSubtitleWritable(){
-
-        Rect result0 = new Rect();
-
-        int yText = (int) (mPodiumBounds.bottom - (COEFF_HEIGHT_BRONZE * mPodiumBounds.bottom / 2));
-        calibrateTextSize(mTextLabelPaint, mData[INDEX_BRONZE].mLabel, 20, 200, mMaxLegendWidth);
-        mTextLabelPaint.getTextBounds(mData[INDEX_BRONZE].mLabel, 0, mData[INDEX_BRONZE].mLabel.length(), result0);
-        int heightLabel = result0.height();
-
-        calibrateTextSize(mTextSubtitlePaint, mData[INDEX_BRONZE].mSubTitle, 20, 200, mMaxSubTitleWidth);
-        mTextSubtitlePaint.getTextBounds(mData[INDEX_BRONZE].mSubTitle, 0, mData[INDEX_BRONZE].mSubTitle.length(), result0);
-        int heightSubtitle = result0.height();
-
-        yText += heightLabel + SPACE_BETWEEN_TEXTS + heightSubtitle + SPACE_BETWEEN_TEXTS;
-
-        if(yText < mPodiumBounds.bottom)
-            return true;
-
-        return false;
-    }
-
-    public boolean areDetailsWritable(){
-
-        Rect result0 = new Rect();
-
-        int yText = (int) (mPodiumBounds.bottom - (COEFF_HEIGHT_BRONZE * mPodiumBounds.bottom / 2));
-        calibrateTextSize(mTextLabelPaint, mData[INDEX_BRONZE].mLabel, 20, 200, mMaxLegendWidth);
-        mTextLabelPaint.getTextBounds(mData[INDEX_BRONZE].mLabel, 0, mData[INDEX_BRONZE].mLabel.length(), result0);
-        yText += result0.height() + SPACE_BETWEEN_TEXTS;
-
-        calibrateTextSize(mTextSubtitlePaint, mData[INDEX_BRONZE].mSubTitle, 20, 200, mMaxSubTitleWidth);
-        mTextSubtitlePaint.getTextBounds(mData[INDEX_BRONZE].mSubTitle, 0, mData[INDEX_BRONZE].mSubTitle.length(), result0);
-        yText += result0.height() + SPACE_BETWEEN_TEXTS;
-
-
-        String[] details = mData[INDEX_BRONZE].mDetails.split("\n");
-        calibrateTextSize(mTextDetailsPaint, details[0], 10, 150, mMaxDetailsWidth);
-        mTextSubtitlePaint.getTextBounds(details[0], 0, details[0].length(), result0);
-        yText = yText + 2 * result0.height() + 4 * SPACE_BETWEEN_TEXTS;
-
-        if(yText < mPodiumBounds.bottom) {
-            return true;
-        }
-
-        return false;
     }
 
 }

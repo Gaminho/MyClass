@@ -31,11 +31,6 @@ import java.io.File;
  */
 public class FragmentDetailsPupil extends Fragment implements View.OnClickListener {
 
-    /**
-     * BUNDLE VARIABLES
-     */
-    static final String PUPIL_ID = "pupil_id";
-
     // Views
     protected TextView mTextViewName, mTextViewClass, mTextViewType, mTextViewFrequency, mTextViewPrice, mTextViewAdress;
     protected TextView mTextViewSince, mTextViewTel1, mTextViewTel2;

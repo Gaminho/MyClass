@@ -16,15 +16,6 @@
     </declare-styleable>
 
     <declare-styleable name="Podium">
-        <attr name="goldColor" format="color"/>
-        <attr name="silverColor" format="color"/>
-        <attr name="bronzeColor" format="color"/>
-        <attr name="textLabelColor" format="color"/>
-        <attr name="textSubtitleColor" format="color"/>
-        <attr name="textDetailsColor" format="color"/>
-    </declare-styleable>
-
-    <declare-styleable name="Podium2">
         <attr name="titlePosition" format="enum">
             <enum name="left" value="0"/>
             <enum name="right" value="1"/>

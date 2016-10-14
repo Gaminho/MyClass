@@ -80,7 +80,7 @@
             android:padding="5dp"
             android:weightSum="5">
 
-            <com.example.la.myclass.customviews.Podium2
+            <com.example.la.myclass.customviews.Podium
                 android:id="@+id/podium"
                 android:layout_width="0dp"
                 android:layout_weight="4"

@@ -43,7 +43,6 @@ public class FragmentAddOrEditPupil extends AbstractFragmentAddOrEdit implements
     /**
      * BUNDLE VARIABLES
      */
-    protected static final String PUPIL_ID = "pupil_id";
     protected static final int EDITING = 1;
     protected static final int ADDING = 0;
 
@@ -65,7 +64,7 @@ public class FragmentAddOrEditPupil extends AbstractFragmentAddOrEdit implements
     public static FragmentAddOrEditPupil newInstance(int pupilID) {
         FragmentAddOrEditPupil fragmentAddOrEditPupil = new FragmentAddOrEditPupil();
         Bundle args = new Bundle();
-        args.putInt(PUPIL_ID, pupilID);
+        args.putInt(ActivityPupil.PUPIL_ID, pupilID);
         fragmentAddOrEditPupil.setArguments(args);
         return fragmentAddOrEditPupil;
     }
@@ -77,8 +76,8 @@ public class FragmentAddOrEditPupil extends AbstractFragmentAddOrEdit implements
         super.onCreate(savedInstanceState);
         mPupil = new Pupil();
 
-        if (getArguments() != null && getArguments().getInt(PUPIL_ID,-1) != -1){
-            mPupil = FragmentDetailsPupil.getPupilWithID(getActivity(), getArguments().getInt(PUPIL_ID));
+        if (getArguments() != null && getArguments().getInt(ActivityPupil.PUPIL_ID,-1) != -1){
+            mPupil = FragmentDetailsPupil.getPupilWithID(getActivity(), getArguments().getInt(ActivityPupil.PUPIL_ID));
             mCurrentMod = EDITING;
         }
     }

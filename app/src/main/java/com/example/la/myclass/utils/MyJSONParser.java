@@ -4,7 +4,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.example.la.myclass.C;
-import com.example.la.myclass.beans.MyDb;
+import com.example.la.myclass.beans.Database;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,11 +12,8 @@ import org.json.JSONObject;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,8 +57,8 @@ public class MyJSONParser {
     /**
      * Utils
      */
-    public boolean addDatabaseToJSONFile(MyDb myDb){
-        JSONObject dataBaseJSON = myDb.makeJSON();
+    public boolean addDatabaseToJSONFile(Database database){
+        JSONObject dataBaseJSON = database.makeJSON();
         String jsonContent = "";
         JSONArray jsonArray = new JSONArray();
 
@@ -117,8 +114,8 @@ public class MyJSONParser {
         return true;
     }
 
-    public List<MyDb> getListDatabaseFromJsonFile() {
-        List<MyDb> myDbList = new ArrayList<>();
+    public List<Database> getListDatabaseFromJsonFile() {
+        List<Database> databaseList = new ArrayList<>();
         JSONArray jsonArray = new JSONArray();
         String pathJSON = Environment.getExternalStorageDirectory() + C.PATH_DB_FOLDER + C.JSONFILE_NAME;
         Log.e("MyJSONParser", "getListDatabaseFromJsonFile() x " + pathJSON);
@@ -136,24 +133,24 @@ public class MyJSONParser {
         try {
             for(int i = 0 ; i < jsonArray.length() ; i++){
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                MyDb myDb = new MyDb();
-                myDb.setLastUpdate((Long) jsonObject.get(MyDb.JSON_LAST_UPDATE_DATE));
-                myDb.setDate((Long) jsonObject.get(MyDb.JSON_CREATION_DATE));
-                myDb.setFilePath((String) jsonObject.get(MyDb.JSON_FILE_PATH));
-                myDb.setCommentaire((String) jsonObject.get(MyDb.JSON_COMMENTAIRE));
-                myDb.setName((String) jsonObject.get(MyDb.JSON_NAME));
-                myDb.setSize((Integer) jsonObject.get(MyDb.JSON_SIZE));
-                myDbList.add(myDb);
-                Log.e("MyJSONParser", i + ". MyDb : " + myDb);
+                Database database = new Database();
+                database.setLastUpdate((Long) jsonObject.get(Database.JSON_LAST_UPDATE_DATE));
+                database.setDate((Long) jsonObject.get(Database.JSON_CREATION_DATE));
+                database.setFilePath((String) jsonObject.get(Database.JSON_FILE_PATH));
+                database.setCommentaire((String) jsonObject.get(Database.JSON_COMMENTAIRE));
+                database.setName((String) jsonObject.get(Database.JSON_NAME));
+                database.setSize((Integer) jsonObject.get(Database.JSON_SIZE));
+                databaseList.add(database);
+                Log.e("MyJSONParser", i + ". Database : " + database);
             }
         } catch (Exception e) {
             Log.e("MyJSONParser", "Unable to get JSON child from JsonArray\n" + e.getMessage());
         }
 
-        return myDbList;
+        return databaseList;
     }
 
-    public MyDb getDatabaseFromJsonFile(String filePath){
+    public Database getDatabaseFromJsonFile(String filePath){
         JSONArray jsonArray = new JSONArray();
         String pathJSON = Environment.getExternalStorageDirectory() + C.PATH_DB_FOLDER + C.JSONFILE_NAME;
         Log.e("MyJSONParser", "getDatabaseFromJsonFile() x " + pathJSON);
@@ -169,16 +166,16 @@ public class MyJSONParser {
         try {
             for(int i = 0 ; i < jsonArray.length() ; i++){
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                if(jsonObject.get(MyDb.JSON_FILE_PATH).equals(filePath)) {
-                    MyDb myDb = new MyDb();
-                    myDb.setLastUpdate((Long) jsonObject.get(MyDb.JSON_LAST_UPDATE_DATE));
-                    myDb.setDate((Long) jsonObject.get(MyDb.JSON_CREATION_DATE));
-                    myDb.setFilePath((String) jsonObject.get(MyDb.JSON_FILE_PATH));
-                    myDb.setCommentaire((String) jsonObject.get(MyDb.JSON_COMMENTAIRE));
-                    myDb.setName((String) jsonObject.get(MyDb.JSON_NAME));
-                    myDb.setSize((Integer) jsonObject.get(MyDb.JSON_SIZE));
-                    Log.e("MyJSONParser", i + ". MyDb : " + myDb);
-                    return myDb;
+                if(jsonObject.get(Database.JSON_FILE_PATH).equals(filePath)) {
+                    Database database = new Database();
+                    database.setLastUpdate((Long) jsonObject.get(Database.JSON_LAST_UPDATE_DATE));
+                    database.setDate((Long) jsonObject.get(Database.JSON_CREATION_DATE));
+                    database.setFilePath((String) jsonObject.get(Database.JSON_FILE_PATH));
+                    database.setCommentaire((String) jsonObject.get(Database.JSON_COMMENTAIRE));
+                    database.setName((String) jsonObject.get(Database.JSON_NAME));
+                    database.setSize((Integer) jsonObject.get(Database.JSON_SIZE));
+                    Log.e("MyJSONParser", i + ". Database : " + database);
+                    return database;
                 }
             }
         } catch (Exception e) {
@@ -210,17 +207,17 @@ public class MyJSONParser {
             Log.e("MyJSONParser", "updateDatabaseInJSON 4x " + jsonArray.length());
             for(int i = 0 ; i < jsonArray.length() ; i++){
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                if(jsonObject.get(MyDb.JSON_FILE_PATH).equals(filePathDb)) {
-                    MyDb myDb = new MyDb();
-                    myDb.setLastUpdate(System.currentTimeMillis());
-                    myDb.setDate(jsonObject.getLong(MyDb.JSON_CREATION_DATE));
-                    myDb.setFilePath(jsonObject.getString(MyDb.JSON_FILE_PATH));
-                    myDb.setCommentaire(jsonObject.getString(MyDb.JSON_COMMENTAIRE));
-                    myDb.setName(jsonObject.getString(MyDb.JSON_NAME));
-                    myDb.setSize(jsonObject.getLong(MyDb.JSON_SIZE));
+                if(jsonObject.get(Database.JSON_FILE_PATH).equals(filePathDb)) {
+                    Database database = new Database();
+                    database.setLastUpdate(System.currentTimeMillis());
+                    database.setDate(jsonObject.getLong(Database.JSON_CREATION_DATE));
+                    database.setFilePath(jsonObject.getString(Database.JSON_FILE_PATH));
+                    database.setCommentaire(jsonObject.getString(Database.JSON_COMMENTAIRE));
+                    database.setName(jsonObject.getString(Database.JSON_NAME));
+                    database.setSize(jsonObject.getLong(Database.JSON_SIZE));
                     jsonArray.remove(i);
-                    //jsonArray.put(i,myDb.makeJSON());
-                    jsonArray.put(myDb.makeJSON());
+                    //jsonArray.put(i,database.makeJSON());
+                    jsonArray.put(database.makeJSON());
                 }
 
                 Log.e("MyJSONParser", "updateDatabaseInJSON 5x " + jsonArray);

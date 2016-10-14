@@ -2,7 +2,6 @@ package com.example.la.myclass.adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.la.myclass.C;
 import com.example.la.myclass.R;
-import com.example.la.myclass.beans.MyDb;
+import com.example.la.myclass.beans.Database;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -26,14 +25,14 @@ public class AdapterListViewDB extends BaseAdapter {
      * Variables de classe *
      */
     private Context mContext;
-    private List<MyDb> mListDB;
+    private List<Database> mListDB;
     private SharedPreferences mSharedPreferences;
 
 
     /**
      * Constructeur *
      */
-    public AdapterListViewDB(Context context, List<MyDb> dbs) {
+    public AdapterListViewDB(Context context, List<Database> dbs) {
         this.mContext = context;
         this.mListDB = dbs;
         this.mSharedPreferences =  context.getSharedPreferences(C.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
@@ -45,25 +44,25 @@ public class AdapterListViewDB extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.adapter_cell_listview_dbs, null);
 
-        MyDb myDB = mListDB.get(position);
+        Database database = mListDB.get(position);
 
         TextView date, size, name, lastUpdate;
         name = (TextView) rowView.findViewById(R.id.tvCurrentDBName);
-        name.setText(myDB.getName());
+        name.setText(database.getName());
 
         size = (TextView) rowView.findViewById(R.id.tvCurrentDBSize);
-        size.setText(C.formatSize(myDB.getSize()));
+        size.setText(C.formatSize(database.getSize()));
 
         lastUpdate = (TextView) rowView.findViewById(R.id.tvCurrentDBLastUpdate);
-        lastUpdate.setText(C.formatDate(myDB.getLastUpdate(), C.DD_MM_YY));
+        lastUpdate.setText(C.formatDate(database.getLastUpdate(), C.DD_MM_YY));
 
-        ((TextView) rowView.findViewById(R.id.tvDBCreationDate)).setText(C.formatDate(myDB.getDate(), C.DD_MM_YY));
-        ((TextView) rowView.findViewById(R.id.tvDBComment)).setText(myDB.getCommentaire());
+        ((TextView) rowView.findViewById(R.id.tvDBCreationDate)).setText(C.formatDate(database.getDate(), C.DD_MM_YY));
+        ((TextView) rowView.findViewById(R.id.tvDBComment)).setText(database.getCommentaire());
         ((TextView) rowView.findViewById(R.id.tvDBFilePath)).setText(String.format("../%s",
-                myDB.getFilePath().substring(myDB.getFilePath().indexOf(C.NAME_EXPORTED_DB)))
+                database.getFilePath().substring(database.getFilePath().indexOf(C.NAME_EXPORTED_DB)))
         );
 
-        if(myDB.getFilePath().equals(mSharedPreferences.getString(C.CURRENT_DB, "")))
+        if(database.getFilePath().equals(mSharedPreferences.getString(C.CURRENT_DB, "")))
             rowView.findViewById(R.id.currentDB).setVisibility(View.VISIBLE);
         else
             rowView.findViewById(R.id.currentDB).setVisibility(View.INVISIBLE);
@@ -87,7 +86,7 @@ public class AdapterListViewDB extends BaseAdapter {
     }
 
 
-    public void setmListDBs(List<MyDb> listDBs){
+    public void setmListDBs(List<Database> listDBs){
         this.mListDB = listDBs;
     }
 

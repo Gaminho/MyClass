@@ -18,9 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.la.myclass.beans.MyDb;
+import com.example.la.myclass.beans.Database;
 import com.example.la.myclass.database.MyDatabase;
-import com.example.la.myclass.utils.DateParser;
 import com.example.la.myclass.utils.MyJSONParser;
 
 import java.io.BufferedReader;
@@ -84,33 +83,6 @@ public class C {
     public static final String NO_DB = "Aucune base de données n'a été exportée";
     public static final String NAME_EXPORTED_DB = "myClassDB_";
     public static final String SYSTEM_PATH_TO_DATABASE = "/data/com.example.la.myclass/databases/";
-    public static void exportDB(Context context){
-
-        File sd = new File(Environment.getExternalStorageDirectory()  + C.PATH_DB_FOLDER);
-        if(!sd.exists())
-            sd.mkdirs();
-
-        File data = Environment.getDataDirectory();
-        FileChannel source=null;
-        FileChannel destination=null;
-        String currentDBPath = C.SYSTEM_PATH_TO_DATABASE + MyDatabase.DB_NAME;
-        String backupDBPath = C.NAME_EXPORTED_DB + new DateParser().getReadableDate(new Date()) + ".sql";
-
-        File currentDB = new File(data, currentDBPath);
-        File backupDB = new File(sd, backupDBPath);
-
-        try {
-            source = new FileInputStream(currentDB).getChannel();
-            destination = new FileOutputStream(backupDB).getChannel();
-            destination.transferFrom(source, 0, source.size());
-            source.close();
-            destination.close();
-            Toast.makeText(context, "La base de données a bien été exportée.", Toast.LENGTH_SHORT).show();
-        } catch(IOException e) {
-            Log.e("DEBUG", "Failure => " + e);
-            e.printStackTrace();
-        }
-    }
     /**
      * Method to export the new database
      * @param context
@@ -118,32 +90,32 @@ public class C {
      * @param comment : comment about the new database
      * @return
      */
-    public static String exportDB2(Context context, String name, String comment){
+    public static String exportDB(Context context, String name, String comment){
 
         File sd = new File(Environment.getExternalStorageDirectory()  + C.PATH_DB_FOLDER);
         if(!sd.exists())
             sd.mkdirs();
 
         File data = Environment.getDataDirectory();
-        FileChannel source=null;
-        FileChannel destination=null;
+        FileChannel source;
+        FileChannel destination;
         String currentDBPath = C.SYSTEM_PATH_TO_DATABASE + MyDatabase.DB_NAME;
-        String backupDBPath = C.NAME_EXPORTED_DB + new DateParser().getReadableDate(new Date()) + ".sql";
+        String backupDBPath = C.NAME_EXPORTED_DB + formatDate(System.currentTimeMillis(), YYYYMMDD_HHMMSS) + ".sql";
 
         File currentDB = new File(data, currentDBPath);
         File backupDB = new File(sd, backupDBPath);
 
         try {
-            MyDb myDb = new MyDb();
-            myDb.setFilePath(backupDBPath);
-            myDb.setName(name);
-            myDb.setCommentaire(comment);
-            myDb.setFilePath(sd + "/" + backupDBPath);
-            myDb.setSize(new File(data,currentDBPath).length());
-            myDb.setDate(System.currentTimeMillis());
-            myDb.setLastUpdate(System.currentTimeMillis());
+            Database database = new Database();
+            database.setFilePath(backupDBPath);
+            database.setName(name);
+            database.setCommentaire(comment);
+            database.setFilePath(sd + "/" + backupDBPath);
+            database.setSize(new File(data,currentDBPath).length());
+            database.setDate(System.currentTimeMillis());
+            database.setLastUpdate(System.currentTimeMillis());
 
-            new MyJSONParser().addDatabaseToJSONFile(myDb);
+            new MyJSONParser().addDatabaseToJSONFile(database);
 
             source = new FileInputStream(currentDB).getChannel();
             destination = new FileOutputStream(backupDB).getChannel();
@@ -152,45 +124,13 @@ public class C {
             destination.close();
 
             Toast.makeText(context, "La base de données a bien été exportée.", Toast.LENGTH_SHORT).show();
-            return myDb.getFilePath();
+            return database.getFilePath();
         } catch(IOException e) {
             Log.e("DEBUG", "Failure => " + e);
-            //e.printStackTrace();
         }
         return null;
     }
-    public static boolean importDB(Context context, String nameDB, boolean keepOldDB){
-
-        try {
-            File sd = Environment.getExternalStorageDirectory();
-            File data  = Environment.getDataDirectory();
-
-            if (sd.canWrite()) {
-                //Le fichier à remplacer
-                String currentDBPath = C.SYSTEM_PATH_TO_DATABASE + MyDatabase.DB_NAME;
-                // Le nouveau fichier
-                String backupDBPath  = C.PATH_DB_FOLDER + nameDB;
-
-                File backupDB   = new File(data, currentDBPath);
-                File currentDB  = new File(sd, backupDBPath);
-
-                if(keepOldDB)
-                    exportDB(context);
-
-                FileChannel src = new FileInputStream(currentDB).getChannel();
-                FileChannel dst = new FileOutputStream(backupDB).getChannel();
-                dst.transferFrom(src, 0, src.size());
-                src.close();
-                dst.close();
-                Toast.makeText(context, "La base de données a été remplacée.", Toast.LENGTH_LONG).show();
-            }
-        } catch (Exception e) {
-            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
-            return false;
-        }
-        return true;
-    }
-    public static boolean importDB2(Context context, String filepath){
+    public static boolean importDB(Context context, String filepath){
 
         try {
             File sd = Environment.getExternalStorageDirectory();
@@ -294,6 +234,7 @@ public class C {
     public static final int HH_mm = 9;
     public static final int HH_mm_ss = 10;
     public static final int dd_HH_mm_ss = 11;
+    public static final int YYYYMMDD_HHMMSS = 12;
     public static String formatDate(long milliseconds, int format){
 
         Calendar calendar = Calendar.getInstance();
@@ -358,6 +299,14 @@ public class C {
                 milliseconds -= minut*MINUTE;
                 int second = (int) (milliseconds/SECOND);
                 return String.format("%dj. %02dh%02d:%02d", jour,hour,minut,second);
+            case YYYYMMDD_HHMMSS:
+                return String.format("%d%02d%02d_%02d%02d%02d",
+                        calendar.get(Calendar.YEAR),
+                        (calendar.get(Calendar.MONTH)+1),
+                        calendar.get(Calendar.DAY_OF_MONTH),
+                        calendar.get(Calendar.HOUR_OF_DAY),
+                        calendar.get(Calendar.MINUTE),
+                        calendar.get(Calendar.SECOND));
         }
         return null;
     }
@@ -454,12 +403,5 @@ public class C {
 
         return actionBar;
     }
-
-
-
-
-
-
-
 
 }

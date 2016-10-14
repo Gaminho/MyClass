@@ -11,7 +11,7 @@ import com.example.la.myclass.C;
 import com.example.la.myclass.R;
 import com.example.la.myclass.beans.periodic.PeriodicItem;
 import com.example.la.myclass.customviews.GraphicView;
-import com.example.la.myclass.customviews.Podium2;
+import com.example.la.myclass.customviews.Podium;
 import com.example.la.myclass.database.CoursesBDD;
 
 import java.util.Collections;
@@ -28,7 +28,7 @@ public abstract class AbstractFragmentStats extends Fragment {
      * Common Views
      */
     protected GraphicView mGraphic;
-    protected Podium2 mPodium;
+    protected Podium mPodium;
     protected TextView mTVNbItems, mTVFirstCourse, mTVTypeItems;
 
     /**
@@ -65,7 +65,7 @@ public abstract class AbstractFragmentStats extends Fragment {
      */
     public void getAllViews(View view){
         mGraphic = (GraphicView) view.findViewById(R.id.graphic);
-        mPodium = (Podium2) view.findViewById(R.id.podium);
+        mPodium = (Podium) view.findViewById(R.id.podium);
         mTVNbItems = (TextView) view.findViewById(R.id.nbItems);
         mTVTypeItems = (TextView) view.findViewById(R.id.typeItems);
         mTVFirstCourse = (TextView) view.findViewById(R.id.firstCourse);
@@ -83,7 +83,7 @@ public abstract class AbstractFragmentStats extends Fragment {
                 break;
         }
     }
-    public void fillPodium(Podium2 podium, List<PeriodicItem> list){
+    public void fillPodium(Podium podium, List<PeriodicItem> list){
 
         Collections.sort(list, new Comparator<PeriodicItem>() {
             public int compare(PeriodicItem it1, PeriodicItem it2) {

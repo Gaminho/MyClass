@@ -5,8 +5,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +22,9 @@ import android.widget.Toast;
 import com.example.la.myclass.C;
 import com.example.la.myclass.R;
 import com.example.la.myclass.adapters.AdapterListViewDB;
-import com.example.la.myclass.beans.MyDb;
+import com.example.la.myclass.beans.Database;
 import com.example.la.myclass.utils.MyJSONParser;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -38,7 +35,7 @@ public class FragmentSettings extends Fragment implements View.OnClickListener,
 
     // Variables de classe
     SharedPreferences mSharedPreferences;
-    MyDb mCurrentDB;
+    Database mCurrentDB;
 
     //Views
     protected TextView mTVCurrentDBName, mTVCurrentDBVersion, mTVCurrentDBDate, mTVCurrentDBSize;
@@ -94,16 +91,16 @@ public class FragmentSettings extends Fragment implements View.OnClickListener,
         ((RadioGroup)view.findViewById(R.id.rGroupFrequenceUpdate)).setOnCheckedChangeListener(this);
     }
 
-    public void fillAllViews(MyDb myDb){
-        if(myDb != null) {
-            ((TextView) mRootView.findViewById(R.id.tvCurrentDBName)).setText(myDb.getName());
-            ((TextView) mRootView.findViewById(R.id.tvDBComment)).setText(myDb.getCommentaire());
+    public void fillAllViews(Database database){
+        if(database != null) {
+            ((TextView) mRootView.findViewById(R.id.tvCurrentDBName)).setText(database.getName());
+            ((TextView) mRootView.findViewById(R.id.tvDBComment)).setText(database.getCommentaire());
             ((TextView) mRootView.findViewById(R.id.tvDBFilePath)).setText(String.format("../%s",
-                    myDb.getFilePath().substring(myDb.getFilePath().indexOf(C.NAME_EXPORTED_DB)))
+                    database.getFilePath().substring(database.getFilePath().indexOf(C.NAME_EXPORTED_DB)))
             );
-            ((TextView) mRootView.findViewById(R.id.tvCurrentDBLastUpdate)).setText(C.formatDate(myDb.getLastUpdate(), C.DD_MM_YY));
-            ((TextView) mRootView.findViewById(R.id.tvDBCreationDate)).setText(C.formatDate(myDb.getDate(), C.DD_MM_YY));
-            ((TextView) mRootView.findViewById(R.id.tvCurrentDBSize)).setText(C.formatSize(myDb.getSize()));
+            ((TextView) mRootView.findViewById(R.id.tvCurrentDBLastUpdate)).setText(C.formatDate(database.getLastUpdate(), C.DD_MM_YY));
+            ((TextView) mRootView.findViewById(R.id.tvDBCreationDate)).setText(C.formatDate(database.getDate(), C.DD_MM_YY));
+            ((TextView) mRootView.findViewById(R.id.tvCurrentDBSize)).setText(C.formatSize(database.getSize()));
 
         }
         // Notifications courses
@@ -146,7 +143,7 @@ public class FragmentSettings extends Fragment implements View.OnClickListener,
         final ListView mListDB = (ListView) adv.findViewById(R.id.listOfDB);
 
         //On récupère les bases de données
-        List<MyDb> listDBs = new MyJSONParser().getListDatabaseFromJsonFile();
+        List<Database> listDBs = new MyJSONParser().getListDatabaseFromJsonFile();
 
         if(listDBs.size() == 0) {
             Toast.makeText(getActivity(), "Aucune base de données enregistrée.", Toast.LENGTH_SHORT).show();
@@ -161,13 +158,13 @@ public class FragmentSettings extends Fragment implements View.OnClickListener,
             mListDB.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    MyDb myDB = (MyDb) mListDB.getAdapter().getItem(i);
+                    Database database = (Database) mListDB.getAdapter().getItem(i);
 
-                    if(C.importDB2(getActivity(), myDB.getFilePath())) {
+                    if(C.importDB(getActivity(), database.getFilePath())) {
                         mSharedPreferences.edit()
-                                .putString(C.CURRENT_DB, myDB.getFilePath())
+                                .putString(C.CURRENT_DB, database.getFilePath())
                                 .apply();
-                        fillAllViews(new MyJSONParser().getDatabaseFromJsonFile(myDB.getFilePath()));
+                        fillAllViews(new MyJSONParser().getDatabaseFromJsonFile(database.getFilePath()));
                         createDialog.dismiss();
                     }
                 }
@@ -193,7 +190,7 @@ public class FragmentSettings extends Fragment implements View.OnClickListener,
         createDialog.findViewById(R.id.valid).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(C.importDB2(getActivity(), filePathNewDb)) {
+                if(C.importDB(getActivity(), filePathNewDb)) {
                     mSharedPreferences.edit()
                             .putString(C.CURRENT_DB, filePathNewDb)
                             .apply();
@@ -229,7 +226,7 @@ public class FragmentSettings extends Fragment implements View.OnClickListener,
             @Override
             public void onClick(View view) {
                 if(!"".equals(editNameDb.getText().toString())) {
-                    updateDBDialog(C.exportDB2(getActivity(), editNameDb.getText().toString(), editComDb.getText().toString()));;
+                    updateDBDialog(C.exportDB(getActivity(), editNameDb.getText().toString(), editComDb.getText().toString()));;
                     createDialog.dismiss();
                 }
                 else
