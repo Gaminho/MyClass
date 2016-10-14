@@ -2,6 +2,7 @@ package com.example.la.myclass.activities.course;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.NotificationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.la.myclass.C;
 import com.example.la.myclass.R;
+import com.example.la.myclass.notifications.AbstractNotification;
 
 /**
  * Created by Léa on 01/10/2015.
@@ -50,9 +52,17 @@ public class ActivityCourse extends ActionBarActivity implements FragmentDetails
                 if(getIntent().getLongExtra(COURSE_DAY, 0) != 0) {
                     fragment = FragmentAddOrEditCourse.newInstance(getIntent().getLongExtra(COURSE_DAY, 0));
                 }
-                else
-                    fragment = FragmentAddOrEditCourse.newInstance();
-                break;
+                else {
+                    if(getIntent().getIntExtra(COURSE_ID, -1) != -1) {
+                        fragment = FragmentAddOrEditCourse.newInstance(getIntent().getIntExtra(COURSE_ID, -1));
+                        NotificationManager nMgr = (NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
+                        nMgr.cancel(AbstractNotification.COURSE_END);
+                    }
+                    else
+                        fragment = FragmentAddOrEditCourse.newInstance();
+
+                }
+                    break;
             default:
                 fragment = FragmentDetailsCourse.newInstance(getIntent().getIntExtra(COURSE_ID, 0));
                 break;

@@ -1,6 +1,7 @@
 package com.example.la.myclass.services;
 
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -25,6 +26,9 @@ import java.util.Date;
 
 public class CourseService extends Service {
 
+
+    public static final String NO_ACTION = "noAction";
+
     protected Context mContext;
     protected Course mNextCourse;
     protected Devoir mNextDevoir;
@@ -32,6 +36,17 @@ public class CourseService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+
+        if(intent.getAction() != null){
+            if(intent.getAction().equals(NO_ACTION)){
+                NotificationManager nMgr = (NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
+                nMgr.cancel(AbstractNotification.COURSE_END);
+                stopSelf();
+                return START_NOT_STICKY;
+            }
+        }
+
         Intent intentAlarm = new Intent(mContext, AlarmReceiver.class);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         int requestCode = 0;

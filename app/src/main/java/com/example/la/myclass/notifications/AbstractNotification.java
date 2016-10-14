@@ -54,7 +54,8 @@ public abstract class AbstractNotification {
                 .setContentIntent(mPendingIntent)
                 .setAutoCancel(true)
                 .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
-                .setLights(mLightColor, 3000, 1500);
+                .setLights(mLightColor, 3000, 1500)
+                .setAutoCancel(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             mNotification.notify(requestCode,mBuilder.build());

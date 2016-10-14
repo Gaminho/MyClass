@@ -20,7 +20,6 @@ public class NotificationDatabaseUpdate extends AbstractNotification {
 
     public NotificationDatabaseUpdate(Context context, MyDb myDb) {
         super(context);
-        Log.e("NotifBuilder", "fils");
         this.requestCode = AbstractNotification.DATABASE_UPDATE;
         this.mTitle = "Mise à jour de la base";
         this.mContext = context;
