@@ -24,6 +24,14 @@ import java.util.Date;
 
 public class DatabaseService extends Service {
 
+    // TODO : Make maps service
+    // TODO : Replace physical adresse with lat;long
+    // TODO : save best journey
+    // TODO : make themes for Layout
+    // TODO : Notifications colors
+    // TODO : Day View from calendar
+
+
     public static final String UPDATE_DB = "updateDb";
     public static final String NO_ACTION = "noAction";
 

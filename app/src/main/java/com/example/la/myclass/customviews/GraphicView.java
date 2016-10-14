@@ -431,6 +431,7 @@ public class GraphicView extends View {
         int yOffset = (int) mGraphRect.bottom-5;
         int widthOfItem = (int) (mGraphRect.right - mGraphRect.left-5)/ mNbOfItemsToDisplay;
         float coeffLeftEchelle, coeffRightEchelle;
+
         if(!mDataType.equals(TYPE_DEVOIR)) {
             coeffLeftEchelle = (mGraphRect.bottom - mGraphRect.top - 5) / ((float) (getMaxLeftValue() + getMaxLeftValue() / mNbOfLegendSteps));
             coeffRightEchelle = (mGraphRect.bottom - mGraphRect.top - 5) / ((float) getMaxRightValue() + getMaxRightValue() / mNbOfLegendSteps);
@@ -445,6 +446,7 @@ public class GraphicView extends View {
             mPaint.setColor(mLeftLegendColor);
             for (int i = mCurrentWeekIndex ; i < mCurrentWeekIndex + mNbOfItemsToDisplay; i++) {
                 Item it = (Item) mData.get(i);
+
                 RectF rectF = new RectF(xOffset + 3, (float) (yOffset - coeffLeftEchelle * it.mValueLeft), xOffset + widthOfItem - 3, yOffset);
                 mRootCanvas.drawRect(rectF, mPaint);
                 xOffset += widthOfItem;
@@ -577,9 +579,10 @@ public class GraphicView extends View {
         mNbOfItemsToDisplay = 10;
         for(Devoir devoir : listDevoirs){
             mData.add(new Item(
-                    devoir.getNote(),
+                    devoir.getNote() * 20 / devoir.getBarem(),
                     C.formatDate(devoir.getDate(),C.DD_MM_YY),
                     0));
+            Log.e("Devoir ajouté", devoir.toString() + "\n" + devoir.getNote() * 20 / devoir.getBarem());
         }
         if(mNbOfItemsToDisplay > mData.size() && mData.size() > 0)
             mNbOfItemsToDisplay = mData.size();
