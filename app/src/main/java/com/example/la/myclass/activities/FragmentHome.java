@@ -30,16 +30,15 @@ public class FragmentHome extends Fragment {
     /**
      * Views
      */
-    protected RecyclerView mListViewWeekDays;
-    protected TextView mTextViewCours, mTextViewDevoirs, mTextViewMoney, mTextViewCountDown;
+    private RecyclerView mListViewWeekDays;
+    private TextView mTextViewCours, mTextViewDevoirs, mTextViewMoney, mTextViewCountDown;
 
 
     /**
      * Variables de classe
      */
-    protected Week mActualWeek;
-    protected List<Course> mListCourses;
-    protected CountDownTimer mCountDownTimer;
+    private Week mActualWeek;
+    private List<Course> mListCourses;
 
 
     /**
@@ -77,7 +76,7 @@ public class FragmentHome extends Fragment {
 
     // Utils
 
-    public void getAllViews(View view){
+    private void getAllViews(View view){
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         mListViewWeekDays = (RecyclerView) view.findViewById(R.id.weekList);
@@ -90,7 +89,7 @@ public class FragmentHome extends Fragment {
 
     }
 
-    public void fillBottomBar(){
+    private void fillBottomBar(){
 
 
         mTextViewCours.setText(String.format(Locale.FRANCE, "%d", mListCourses.size()));
@@ -112,7 +111,7 @@ public class FragmentHome extends Fragment {
 
 
 
-    public void fillListWeekViews() {
+    private void fillListWeekViews() {
         CoursesBDD coursesBDD = new CoursesBDD(getActivity());
         coursesBDD.open();
         mListCourses = coursesBDD.getListCourseForAWeek(System.currentTimeMillis());
@@ -120,7 +119,7 @@ public class FragmentHome extends Fragment {
         mListViewWeekDays.setAdapter(new RecyclerViewWeek(getActivity(), mActualWeek, mListCourses));
     }
 
-    public void setUpTimer() {
+    private void setUpTimer() {
 
         CoursesBDD coursesBDD = new CoursesBDD(getActivity());
         coursesBDD.open();
@@ -132,7 +131,7 @@ public class FragmentHome extends Fragment {
 
             long milliseconds = course.getDate() - new Date().getTime();
 
-            mCountDownTimer = new CountDownTimer(milliseconds, C.SECOND) {
+            new CountDownTimer(milliseconds, C.SECOND) {
                 @Override
                 public void onTick(long milliseconds) {
                     mTextViewCountDown.setText(C.formatDate(milliseconds, C.dd_HH_mm_ss));
