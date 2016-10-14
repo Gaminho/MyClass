@@ -4,732 +4,377 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
+    android:orientation="vertical"
     android:background="@color/them100">
 
-    <LinearLayout
+    <!-- GLOBAL STATS -->
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        android:layout_marginTop="8dp">
 
-        <!-- GLOBAL STATS -->
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="5dp"
-            android:layout_marginTop="8dp">
+        <LinearLayout style="@style/CardViewContainer">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/white">
+            <!-- HEADER -->
+            <LinearLayout style="@style/CardViewLayoutTitle">
 
-                <!-- HEADER -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="8dp"
-                    android:gravity="center_vertical">
+                <ImageView style="@style/CardViewLayoutTitleImage" android:src="@drawable/ic_euro_symbol_white_48dp"/>
 
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/ic_euro_symbol_white_48dp"
-                        android:tint="@color/black"/>
+                <TextView style="@style/CardViewLayoutTitleText" android:text="Argent"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:paddingLeft="4dp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:text="Argent"/>
+            </LinearLayout>
+
+            <!-- By States -->
+            <LinearLayout style="@style/CardViewContent">
+
+                <LinearLayout style="@style/CardViewHorizontalItem">
+
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:text="Cours validés"/>
+
+                    <TextView style="@style/CardViewHorizontalItemMiddleText"
+                        android:id="@+id/nbCoursesValidated"
+                        android:text="(130)"/>
+
+                    <TextView style="@style/CardViewHorizontalItemRightText"
+                        android:id="@+id/validated"
+                        android:textColor="@color/green500"
+                        android:text="3099,00€"/>
 
                 </LinearLayout>
 
-                <!-- By States -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:paddingBottom="8dp">
+                <LinearLayout style="@style/CardViewHorizontalItem">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:text="Cours en attente"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="Cours validés"/>
+                    <TextView style="@style/CardViewHorizontalItemMiddleText"
+                        android:id="@+id/nbCoursesWaiting"
+                        android:text="(0)"/>
 
-                        <TextView
-                            android:id="@+id/nbCoursesValidated"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/them500"
-                            android:textSize="10dp"
-                            android:text="(130)"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText"
+                        android:id="@+id/waitingForValidation"
+                        android:textColor="@color/them700"
+                        android:text="0,00€"/>
 
-                        <TextView
-                            android:id="@+id/validated"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:textColor="@color/green500"
-                            android:text="3099,00€"/>
+                </LinearLayout>
 
+                <LinearLayout style="@style/CardViewHorizontalItem">
 
-                    </LinearLayout>
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:text="Cours à venir"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                    <TextView style="@style/CardViewHorizontalItemMiddleText"
+                        android:id="@+id/nbCoursesForeseen"
+                        android:text="(1)"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="Cours en attente"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText"
+                        android:id="@+id/foreseen"
+                        android:textColor="@color/unthem600"
+                        android:text="35,00€"/>
 
-                        <TextView
-                            android:id="@+id/nbCoursesWaiting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/them500"
-                            android:textSize="10dp"
-                            android:text="(0)"/>
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/waitingForValidation"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:textColor="@color/them700"
-                            android:text="0,00€"/>
+                <LinearLayout style="@style/CardViewHorizontalItem">
 
-                    </LinearLayout>
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:text="Cours annulés"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                    <TextView style="@style/CardViewHorizontalItemMiddleText"
+                        android:id="@+id/nbCoursesCanceled"
+                        android:text="(1)"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="Cours à venir"/>
+                    <TextView style="@style/CardViewHorizontalItemRightText"
+                        android:id="@+id/canceled"
+                        android:textColor="@color/red500"
+                        android:text="0,00€"/>
 
-                        <TextView
-                            android:id="@+id/nbCoursesForeseen"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/them500"
-                            android:textSize="10dp"
-                            android:text="(1)"/>
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/foreseen"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:textColor="@color/unthem600"
-                            android:text="35,00€"/>
+                <LinearLayout style="@style/CardViewHorizontalItem">
 
-                    </LinearLayout>
+                    <TextView style="@style/CardViewHorizontalItemLeftText" android:text="Total"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                    <TextView style="@style/CardViewHorizontalItemMiddleText"
+                        android:id="@+id/nbCoursesTotal"
+                        android:text="(131)"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="Cours annulés"/>
-
-                        <TextView
-                            android:id="@+id/nbCoursesCanceled"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/them500"
-                            android:textSize="10dp"
-                            android:text="(1)"/>
-
-                        <TextView
-                            android:id="@+id/canceled"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:textColor="@color/red500"
-                            android:text="0,00€"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="Total"/>
-
-                        <TextView
-                            android:id="@+id/nbCoursesTotal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/them500"
-                            android:textSize="10dp"
-                            android:text="(131)"/>
-
-                        <TextView
-                            android:id="@+id/total"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:textColor="@color/textColor"
-                            android:textStyle="bold"
-                            android:text="3134,00€"/>
-
-                    </LinearLayout>
+                    <TextView style="@style/CardViewHorizontalItemRightText"
+                        android:id="@+id/total"
+                        android:textColor="@color/textColor"
+                        android:textStyle="bold"
+                        android:text="3134,00€"/>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+        </LinearLayout>
 
-        <!-- TOP STATS -->
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="5dp"
-            android:layout_marginTop="8dp">
+    </android.support.v7.widget.CardView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/white">
+    <!-- TOP STATS -->
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        android:layout_marginTop="8dp">
 
-                <!-- HEADER -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="8dp"
-                    android:gravity="center_vertical">
+        <LinearLayout style="@style/CardViewContainer">
 
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/ic_thumb_up_white_48dp"
-                        android:tint="@color/black"/>
+            <!-- HEADER -->
+            <LinearLayout style="@style/CardViewLayoutTitle">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:paddingLeft="4dp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:text="Les tops"/>
+                <ImageView style="@style/CardViewLayoutTitleImage" android:src="@drawable/ic_thumb_up_white_48dp"/>
+
+                <TextView style="@style/CardViewLayoutTitleText" android:text="Les tops"/>
+
+            </LinearLayout>
+
+            <!-- By Pupils -->
+            <LinearLayout style="@style/CardViewContent">
+
+                <TextView style="@style/CardViewSubtitle" android:text="Top élève" />
+
+                <LinearLayout style="@style/CardViewHorizontalItem">
+
+                    <TextView style="@style/CardViewHorizontalItemLeftText"
+                        android:id="@+id/pupil1Name"
+                        android:text="Emile Roux"/>
+
+                    <TextView style="@style/CardViewHorizontalItemMiddleText"
+                        android:id="@+id/pupil1Course"
+                        android:text="(26)"/>
+
+                    <TextView style="@style/CardViewHorizontalItemRightText"
+                        android:id="@+id/pupil1Money"
+                        android:text="3099,00€"/>
+
 
                 </LinearLayout>
+
+                <LinearLayout style="@style/CardViewHorizontalItem">
+
+                    <TextView style="@style/CardViewHorizontalItemLeftText"
+                        android:id="@+id/pupil2Name"
+                        android:text="Adrien Fleury"/>
+
+                    <TextView style="@style/CardViewHorizontalItemMiddleText"
+                        android:id="@+id/pupil2Course"
+                        android:text="(25)"/>
+
+                    <TextView style="@style/CardViewHorizontalItemRightText"
+                        android:id="@+id/pupil2Money"
+                        android:text="0,00€"/>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/CardViewHorizontalItem">
+
+                    <TextView style="@style/CardViewHorizontalItemLeftText"
+                        android:id="@+id/pupil3Name"
+                        android:text="Justine Gouin"/>
+
+                    <TextView style="@style/CardViewHorizontalItemMiddleText"
+                        android:id="@+id/pupil3Course"
+                        android:text="(12)"/>
+
+                    <TextView style="@style/CardViewHorizontalItemRightText"
+                        android:id="@+id/pupil3Money"
+                        android:text="3134,00€"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- By Weeks -->
+            <LinearLayout style="@style/CardViewContent">
+
+                <TextView style="@style/CardViewSubtitle" android:text="Top semaine" />
+
+                <LinearLayout style="@style/CardViewHorizontalItem">
+
+                    <TextView style="@style/CardViewHorizontalItemLeftText"
+                        android:id="@+id/week1Label"
+                        android:text="11/04/16 - 17/04/16"/>
+
+                    <TextView style="@style/CardViewHorizontalItemMiddleText"
+                        android:id="@+id/week1Course"
+                        android:text="(7)"/>
+
+                    <TextView style="@style/CardViewHorizontalItemRightText"
+                        android:id="@+id/week1Money"
+                        android:text="184,00€"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/CardViewHorizontalItem">
+
+                    <TextView style="@style/CardViewHorizontalItemLeftText"
+                        android:id="@+id/week2Label"
+                        android:text="16/05/16 - 22/05/16"/>
+
+                    <TextView style="@style/CardViewHorizontalItemMiddleText"
+                        android:id="@+id/week2Course"
+                        android:text="(5)"/>
+
+                    <TextView style="@style/CardViewHorizontalItemRightText"
+                        android:id="@+id/week2Money"
+                        android:text="125,00€"/>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/CardViewHorizontalItem">
+
+                    <TextView style="@style/CardViewHorizontalItemLeftText"
+                        android:id="@+id/week3Label"
+                        android:text="02/11/16 - 08/11/16"/>
+
+                    <TextView style="@style/CardViewHorizontalItemMiddleText"
+                        android:id="@+id/week3Course"
+                        android:text="(5)"/>
+
+                    <TextView style="@style/CardViewHorizontalItemRightText"
+                        android:id="@+id/week3Money"
+                        android:text="120,00€"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- By Month -->
+            <LinearLayout style="@style/CardViewContent">
+
+                <TextView style="@style/CardViewSubtitle" android:text="Top mois" />
+
+                <LinearLayout style="@style/CardViewHorizontalItem">
+
+                    <TextView style="@style/CardViewHorizontalItemLeftText"
+                        android:id="@+id/month1Label"
+                        android:text="Avril 2016"/>
+
+                    <TextView style="@style/CardViewHorizontalItemMiddleText"
+                        android:id="@+id/month1Course"
+                        android:text="(16)"/>
+
+                    <TextView style="@style/CardViewHorizontalItemRightText"
+                        android:id="@+id/month1Money"
+                        android:text="398,00€"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/CardViewHorizontalItem">
+
+                    <TextView style="@style/CardViewHorizontalItemLeftText"
+                        android:id="@+id/month2Label"
+                        android:text="Mars 2016"/>
+
+                    <TextView style="@style/CardViewHorizontalItemMiddleText"
+                        android:id="@+id/month2Course"
+                        android:text="(17)"/>
+
+                    <TextView style="@style/CardViewHorizontalItemRightText"
+                        android:id="@+id/month2Money"
+                        android:text="390,00€"/>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/CardViewHorizontalItem">
+
+                    <TextView style="@style/CardViewHorizontalItemLeftText"
+                        android:id="@+id/month3Label"
+                        android:text="Novembre 2015"/>
+
+                    <TextView style="@style/CardViewHorizontalItemMiddleText"
+                        android:id="@+id/month3Course"
+                        android:text="(16)"/>
+
+                    <TextView style="@style/CardViewHorizontalItemRightText"
+                        android:id="@+id/month3Money"
+                        android:text="368,00€"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <!-- FLOP STATS -->
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout style="@style/CardViewContainer">
+
+            <!-- HEADER -->
+            <LinearLayout style="@style/CardViewLayoutTitle">
+
+                <ImageView style="@style/CardViewLayoutTitleImage" android:src="@drawable/ic_thumb_down_white_48dp"/>
+
+                <TextView style="@style/CardViewLayoutTitleText" android:text="Les flops"/>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/CardViewContent">
 
                 <!-- By Pupils -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:paddingBottom="8dp">
+                <LinearLayout style="@style/CardViewHorizontalItem">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Top élève"
-                        android:textStyle="bold"
-                        android:textColor="@color/unthem600"/>
+                    <TextView style="@style/CardViewHorizontalItemLeftText"
+                        android:id="@+id/flopPupilName"
+                        android:text="Emile Roux"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                    <TextView style="@style/CardViewHorizontalItemMiddleText"
+                        android:id="@+id/flopPupilCourse"
+                        android:text="(26)"/>
 
-                        <TextView
-                            android:id="@+id/pupil1Name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="Emile Roux"/>
-
-                        <TextView
-                            android:id="@+id/pupil1Course"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/them500"
-                            android:textSize="10dp"
-                            android:text="(26)"/>
-
-                        <TextView
-                            android:id="@+id/pupil1Money"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:text="3099,00€"/>
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/pupil2Name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="Adrien Fleury"/>
-
-                        <TextView
-                            android:id="@+id/pupil2Course"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/them500"
-                            android:textSize="10dp"
-                            android:text="(25)"/>
-
-                        <TextView
-                            android:id="@+id/pupil2Money"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:text="0,00€"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/pupil3Name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="Justine Gouin"/>
-
-                        <TextView
-                            android:id="@+id/pupil3Course"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/them500"
-                            android:textSize="10dp"
-                            android:text="(12)"/>
-
-                        <TextView
-                            android:id="@+id/pupil3Money"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:text="3134,00€"/>
-
-                    </LinearLayout>
+                    <TextView style="@style/CardViewHorizontalItemRightText"
+                        android:id="@+id/flopPupilMoney"
+                        android:text="3099,00€"/>
 
                 </LinearLayout>
 
-                <!-- By Weeks -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:paddingBottom="8dp">
+                <!-- By Week -->
+                <LinearLayout style="@style/CardViewHorizontalItem">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Top semaine"
-                        android:textStyle="bold"
-                        android:textColor="@color/unthem600"/>
+                    <TextView style="@style/CardViewHorizontalItemLeftText"
+                        android:id="@+id/flopWeekLabel"
+                        android:text="11/04/16 - 17/04/16"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                    <TextView style="@style/CardViewHorizontalItemMiddleText"
+                        android:id="@+id/flopWeekCourse"
+                        android:text="(7)"/>
 
-                        <TextView
-                            android:id="@+id/week1Label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="11/04/16 - 17/04/16"/>
-
-                        <TextView
-                            android:id="@+id/week1Course"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/them500"
-                            android:textSize="10dp"
-                            android:text="(7)"/>
-
-                        <TextView
-                            android:id="@+id/week1Money"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:text="184,00€"/>
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/week2Label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="16/05/16 - 22/05/16"/>
-
-                        <TextView
-                            android:id="@+id/week2Course"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/them500"
-                            android:textSize="10dp"
-                            android:text="(5)"/>
-
-                        <TextView
-                            android:id="@+id/week2Money"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:text="125,00€"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/week3Label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="02/11/16 - 08/11/16"/>
-
-                        <TextView
-                            android:id="@+id/week3Course"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/them500"
-                            android:textSize="10dp"
-                            android:text="(5)"/>
-
-                        <TextView
-                            android:id="@+id/week3Money"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:text="120,00€"/>
-
-                    </LinearLayout>
+                    <TextView style="@style/CardViewHorizontalItemRightText"
+                        android:id="@+id/flopWeekMoney"
+                        android:text="184,00€"/>
 
                 </LinearLayout>
 
                 <!-- By Month -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:paddingBottom="8dp">
+                <LinearLayout style="@style/CardViewHorizontalItem">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Top mois"
-                        android:textStyle="bold"
-                        android:textColor="@color/unthem600"/>
+                    <TextView style="@style/CardViewHorizontalItemLeftText"
+                        android:id="@+id/flopMonthLabel"
+                        android:text="Avril 2016"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                    <TextView style="@style/CardViewHorizontalItemMiddleText"
+                        android:id="@+id/flopMonthCourse"
+                        android:text="(16)"/>
 
-                        <TextView
-                            android:id="@+id/month1Label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="Avril 2016"/>
-
-                        <TextView
-                            android:id="@+id/month1Course"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/them500"
-                            android:textSize="10dp"
-                            android:text="(16)"/>
-
-                        <TextView
-                            android:id="@+id/month1Money"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:text="398,00€"/>
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/month2Label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="Mars 2016"/>
-
-                        <TextView
-                            android:id="@+id/month2Course"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/them500"
-                            android:textSize="10dp"
-                            android:text="(17)"/>
-
-                        <TextView
-                            android:id="@+id/month2Money"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:text="390,00€"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/month3Label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="Novembre 2015"/>
-
-                        <TextView
-                            android:id="@+id/month3Course"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/them500"
-                            android:textSize="10dp"
-                            android:text="(16)"/>
-
-                        <TextView
-                            android:id="@+id/month3Money"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:text="368,00€"/>
-
-                    </LinearLayout>
+                    <TextView style="@style/CardViewHorizontalItemRightText"
+                        android:id="@+id/flopMonthMoney"
+                        android:text="398,00€"/>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+        </LinearLayout>
 
-        <!-- FLOP STATS -->
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="5dp"
-            android:layout_marginTop="8dp">
+    </android.support.v7.widget.CardView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/white">
-
-                <!-- HEADER -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="8dp"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/ic_thumb_down_white_48dp"
-                        android:tint="@color/black"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:paddingLeft="4dp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:text="Les flops"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:paddingBottom="8dp">
-
-                    <!-- By Pupils -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/flopPupilName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="Emile Roux"/>
-
-                        <TextView
-                            android:id="@+id/flopPupilCourse"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/them500"
-                            android:textSize="10dp"
-                            android:text="(26)"/>
-
-                        <TextView
-                            android:id="@+id/flopPupilMoney"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:text="3099,00€"/>
-
-                    </LinearLayout>
-
-                    <!-- By Week -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/flopWeekLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="11/04/16 - 17/04/16"/>
-
-                        <TextView
-                            android:id="@+id/flopWeekCourse"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/them500"
-                            android:textSize="10dp"
-                            android:text="(7)"/>
-
-                        <TextView
-                            android:id="@+id/flopWeekMoney"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:text="184,00€"/>
-
-                    </LinearLayout>
-
-                    <!-- By Month -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/flopMonthLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:text="Avril 2016"/>
-
-                        <TextView
-                            android:id="@+id/flopMonthCourse"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
-                            android:textColor="@color/them500"
-                            android:textSize="10dp"
-                            android:text="(16)"/>
-
-                        <TextView
-                            android:id="@+id/flopMonthMoney"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:text="398,00€"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-    </LinearLayout>
-
-</LinearLayout>
+</LinearLayout> <!-- 735 / 529 / 381 -->

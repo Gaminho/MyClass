@@ -129,15 +129,84 @@
         <item name="android:background">@drawable/bkg_btn_negative</item>
         <item name="android:textColor">@color/them50</item>
     </style>
-        <!--
 
-                <TextView
-                    android:padding="5dp"
-                    android:text="Oui"
-                    android:textSize="14dp"
-                    android:background="@drawable/bkg_btn_positive"
-                    android:textColor="@color/them50"/>
+    <style name="CardViewContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/white</item>
+    </style>
 
-        -->
+    <style name="CardViewContent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="CardViewLayoutTitle" parent="CardViewHorizontalItem">
+        <item name="android:padding">8dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="CardViewLayoutTitleImage">
+        <item name="android:layout_width">15dp</item>
+        <item name="android:layout_height">15dp</item>
+        <item name="android:tint">@color/black</item>
+    </style>
+
+    <style name="CardViewLayoutTitleText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="CardViewSubtitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/unthem600</item>
+    </style>
+
+    <style name="CardViewTitle3">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/them700</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:textSize">10dp</item>
+    </style>
+
+    <style name="CardViewHorizontalItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="CardViewHorizontalItemLeftOrRightText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="CardViewHorizontalItemLeftText" parent="CardViewHorizontalItemLeftOrRightText">
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+    <style name="CardViewHorizontalItemRightText" parent="CardViewHorizontalItemLeftOrRightText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">right</item>
+    </style>
+
+    <style name="CardViewHorizontalItemMiddleText" parent="CardViewHorizontalItemLeftOrRightText">
+        <item name="android:textColor">@color/them500</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:textSize">10dp</item>
+    </style>
 
 </resources>

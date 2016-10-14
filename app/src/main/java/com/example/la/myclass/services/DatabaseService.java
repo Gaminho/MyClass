@@ -29,7 +29,11 @@ public class DatabaseService extends Service {
     // TODO : save best journey
     // TODO : make themes for Layout
     // TODO : Notifications colors
-    // TODO : Day View from calendar
+    // TODO : Day view from calendar
+    // TODO : Notification course reminder  => plan a journey / use habits journey
+    // TODO : Notification for new weeks
+    // TODO : Change notification text for devoir multi-pupils
+    // TODO : Notification course depart
 
 
     public static final String UPDATE_DB = "updateDb";
