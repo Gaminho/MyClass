@@ -566,4 +566,13 @@ public class CoursesBDD {
                 + COL_STATE + " != " + Course.CANCELED;
         return getCourseWithCriteria(criteria);
     }
+
+    public static List<Course> getForeseenCourse(Context context){
+        CoursesBDD coursesBDD = new CoursesBDD(context);
+        coursesBDD.open();
+        List<Course> devoirList = coursesBDD.getCoursesWithState(Course.FORESEEN);
+        coursesBDD.close();
+
+        return devoirList;
+    }
 }

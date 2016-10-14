@@ -235,6 +235,15 @@ public class DevoirBDD {
         return devoir;
     }
 
+    public static List<Devoir> getForeseenDevoir(Context context){
+        DevoirBDD devoirBDD = new DevoirBDD(context);
+        devoirBDD.open();
+        List<Devoir> devoirList = devoirBDD.getDevoirsWithState(Devoir.STATE_PREPARATING);
+        devoirBDD.close();
+
+        return devoirList;
+    }
+
     public static Devoir getDevoirWithId(Context context, int devoirID){
         DevoirBDD devoirBDD = new DevoirBDD(context);
         devoirBDD.open();

@@ -83,14 +83,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             }
             else
                 Log.e("AlarmReceiver", "Pas de notification bdd");
-            /*
-            if(C.updateDB(context)) {
-                intent = new Intent(context, DatabaseService.class);
-                context.startService(intent);
-            }
-            else
-                Toast.makeText(context, "Impossible de mettre à jour la base de données.", Toast.LENGTH_SHORT).show();
-                */
+            
         }
 
     }

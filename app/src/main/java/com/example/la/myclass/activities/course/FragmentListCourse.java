@@ -61,24 +61,6 @@ public class FragmentListCourse extends AbstractFragmentList implements AdapterV
         super.onCreate(savedInstanceState);
         mState = getArguments().getInt(COURSES_STATE, Course.ALL_COURSES);
 
-        /*
-        CoursesBDD coursesBDD = new CoursesBDD(getActivity());
-        coursesBDD.open();
-        List<Course> list = coursesBDD.getCoursesWithState(Course.FORESEEN);
-
-        if(list.size()>0) {
-            for (Course course : list) {
-                if (new Date().getTime() > course.getDate()) {
-                    course.setState(Course.WAITING_FOT_VALIDATION);
-                    coursesBDD.updateCourse(course.getId(), course);
-                }
-            }
-        }
-
-        coursesBDD.close();
-
-        */
-
         mFilteringLabels.add(1, "");
         mFilteringLabels.add(2, "");
     }

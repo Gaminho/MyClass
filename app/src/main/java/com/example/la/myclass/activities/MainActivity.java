@@ -18,6 +18,7 @@ import com.example.la.myclass.activities.pupil.FragmentListPupil;
 import com.example.la.myclass.services.CourseService;
 import com.example.la.myclass.activities.stats.FragmentStats;
 import com.example.la.myclass.services.DatabaseService;
+import com.example.la.myclass.services.DevoirService;
 
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks{
@@ -48,6 +49,8 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         Intent i = new Intent(MainActivity.this, CourseService.class);
         startService(i);
         i = new Intent(MainActivity.this, DatabaseService.class);
+        startService(i);
+        i = new Intent(MainActivity.this, DevoirService.class);
         startService(i);
     }
 

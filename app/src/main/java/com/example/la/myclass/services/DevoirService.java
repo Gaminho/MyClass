@@ -11,36 +11,36 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.la.myclass.C;
+import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.beans.Devoir;
+import com.example.la.myclass.database.CoursesBDD;
 import com.example.la.myclass.database.DevoirBDD;
 import com.example.la.myclass.notifications.AbstractNotification;
-import com.example.la.myclass.beans.Course;
-import com.example.la.myclass.database.CoursesBDD;
 
 import java.util.Date;
-
+import java.util.List;
 
 /**
- * Created by ariche on 07/10/2016.
+ * Created by ariche on 14/10/2016.
  */
 
-public class CourseService extends Service {
-
+public class DevoirService extends Service{
 
     public static final String NO_ACTION = "noAction";
+    public static final long MAX_DELAY_VALIDATION = 11 * C.HOUR;
 
     protected Context mContext;
-    protected Course mNextCourse;
+    protected Devoir mNextDevoir;
 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
 
-        if(intent.getAction() != null){
-            if(intent.getAction().equals(NO_ACTION)){
+        if (intent.getAction() != null) {
+            if (intent.getAction().equals(NO_ACTION)) {
                 NotificationManager nMgr = (NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
-                nMgr.cancel(AbstractNotification.COURSE_END);
+                nMgr.cancel(AbstractNotification.DEVOIR_VALIDATION);
                 stopSelf();
                 return START_NOT_STICKY;
             }
@@ -51,28 +51,26 @@ public class CourseService extends Service {
         int requestCode = 0;
         long alarmDate = 0;
 
-        for(Course course : CoursesBDD.getForeseenCourse(mContext)){
-            if(course.getDate() + course.getDuration() * C.MINUTE + C.MINUTE < System.currentTimeMillis()) {
-                CoursesBDD.changeCourseState(mContext, course, Course.WAITING_FOT_VALIDATION);
-                Log.e("CourseService", "Changement d'etat : " + course.toString());
-                Log.e("CourseService", "Changement d'etat : " + new Date(course.getDate()
-                        + course.getDuration() * C.MINUTE + C.HOUR)
-                        +"\n"+course.toString());
+        for(Devoir devoir : DevoirBDD.getForeseenDevoir(mContext)){
+            if(devoir.getDate() + MAX_DELAY_VALIDATION < System.currentTimeMillis()) {
+                DevoirBDD.changeDevoirState(mContext, devoir, Devoir.STATE_WAITING_FOR_VALIDATION);
+                Log.e("DevoirService", "Changement d'etat : " + devoir.toString());
             }
         }
 
-        mNextCourse = CoursesBDD.getNextCourse(mContext);
-        if(mNextCourse != null) {
-            Log.e("CourseService", "Next Course : " + new Date(mNextCourse.getDate()));
-            intentAlarm.putExtra("courseID", mNextCourse.getId());
+        mNextDevoir = DevoirBDD.getNextDevoir(mContext);
+        if(mNextDevoir != null) {
+            Log.e("DevoirService", "Next Devoir : " + new Date(mNextDevoir.getDate()) + "\n" + mNextDevoir.toString());
+            intentAlarm.putExtra("devoirID", mNextDevoir.getId());
 
-            if (mNextCourse.getDate() > System.currentTimeMillis()) {
-                alarmDate = mNextCourse.getDate();
-                requestCode = AbstractNotification.COURSE_BEGIN;
+            if(mNextDevoir.getDate() > System.currentTimeMillis()){
+                alarmDate = mNextDevoir.getDate();
+                requestCode = AbstractNotification.DEVOIR_BEGIN;
             }
-            else if (mNextCourse.getDate() + mNextCourse.getDuration() * C.MINUTE > System.currentTimeMillis()) {
-                alarmDate = mNextCourse.getDate() + mNextCourse.getDuration() * C.MINUTE;
-                requestCode = AbstractNotification.COURSE_END;
+
+            else if(mNextDevoir.getDate() + MAX_DELAY_VALIDATION > System.currentTimeMillis()){
+                alarmDate = mNextDevoir.getDate() + 10 * C.HOUR;
+                requestCode = AbstractNotification.DEVOIR_VALIDATION;
             }
 
             intentAlarm.putExtra("requestCode", requestCode);
@@ -81,7 +79,6 @@ public class CourseService extends Service {
                             intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT)
             );
         }
-
         stopSelf();
 
         return START_NOT_STICKY;
@@ -92,7 +89,6 @@ public class CourseService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
-
 
     @Override
     public void onCreate() {
