@@ -2,6 +2,7 @@ package com.example.la.myclass.adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +62,6 @@ public class AdapterListViewDB extends BaseAdapter {
         ((TextView) rowView.findViewById(R.id.tvDBFilePath)).setText(String.format("../%s",
                 myDB.getFilePath().substring(myDB.getFilePath().indexOf(C.NAME_EXPORTED_DB)))
         );
-
 
         if(myDB.getFilePath().equals(mSharedPreferences.getString(C.CURRENT_DB, "")))
             rowView.findViewById(R.id.currentDB).setVisibility(View.VISIBLE);

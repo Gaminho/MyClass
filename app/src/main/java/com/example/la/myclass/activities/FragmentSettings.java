@@ -162,12 +162,12 @@ public class FragmentSettings extends Fragment implements View.OnClickListener,
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     MyDb myDB = (MyDb) mListDB.getAdapter().getItem(i);
-                    mSharedPreferences.edit().putString(C.CURRENT_DB, myDB.getName()).apply();
 
                     if(C.importDB2(getActivity(), myDB.getFilePath())) {
                         mSharedPreferences.edit()
                                 .putString(C.CURRENT_DB, myDB.getFilePath())
                                 .apply();
+                        fillAllViews(new MyJSONParser().getDatabaseFromJsonFile(myDB.getFilePath()));
                         createDialog.dismiss();
                     }
                 }
@@ -197,6 +197,7 @@ public class FragmentSettings extends Fragment implements View.OnClickListener,
                     mSharedPreferences.edit()
                             .putString(C.CURRENT_DB, filePathNewDb)
                             .apply();
+                    fillAllViews(new MyJSONParser().getDatabaseFromJsonFile(filePathNewDb));
                     createDialog.dismiss();
                 }
             }

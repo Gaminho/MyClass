@@ -229,7 +229,7 @@ public class C {
         SharedPreferences sharedPreferences =
                 context.getSharedPreferences(C.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
 
-        String backupDBPath = sharedPreferences.getString(C.CURRENT_DB, "nodb");
+        String backupDBPath = sharedPreferences.getString(C.CURRENT_DB, C.NO_DB);
 
         if(!new File(backupDBPath).exists()) {
             Toast.makeText(context, "La base de données est introuvable.", Toast.LENGTH_SHORT).show();
