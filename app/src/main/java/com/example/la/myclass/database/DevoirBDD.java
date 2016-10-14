@@ -188,7 +188,7 @@ public class DevoirBDD {
 
     public List<Devoir> getDevoirsBetweenTwoDates(long start, long end){
 
-        Cursor c = bdd.query(TABLE_DEVOIRS, DEVOIR_FIELDS, null, null, null, null, null);
+        Cursor c = bdd.query(TABLE_DEVOIRS, DEVOIR_FIELDS, COL_STATE + " != " + Devoir.STATE_CANCELED, null, null, null, null);
         List<Devoir> list = new ArrayList<>();
         if (c.getCount() == 0)
             return list;

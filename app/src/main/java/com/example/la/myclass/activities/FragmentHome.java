@@ -21,6 +21,7 @@ import com.example.la.myclass.beans.periodic.Week;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -28,24 +29,27 @@ import java.util.concurrent.TimeUnit;
  */
 public class FragmentHome extends Fragment {
 
-    // Views
+    /**
+     * Views
+     */
     protected RecyclerView mListViewWeekDays;
-
     protected TextView mTextViewCours, mTextViewDevoirs, mTextViewMoney, mTextViewCountDown;
 
 
-    // Variables de classe
+    /**
+     * Variables de classe
+     */
     protected Week mActualWeek;
     protected List<Course> mListCourses;
-    protected List<Devoir> mListDevoirs;
     protected CountDownTimer mCountDownTimer;
 
 
-    // Fragment life cycle
+    /**
+     * Fragment Life Cycle
+     */
     public static FragmentHome newInstance() {
         return new FragmentHome();
     }
-
     public FragmentHome() {
     }
 
@@ -53,19 +57,7 @@ public class FragmentHome extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mActualWeek = new Week();
-
-        CoursesBDD coursesBDD = new CoursesBDD(getActivity());
-        coursesBDD.open();
-        mListCourses = coursesBDD.getCoursesBetweenTwoDates(mActualWeek.getBeginning(), mActualWeek.getEnding());
-        coursesBDD.close();
-
-        DevoirBDD devoirBDD = new DevoirBDD(getActivity());
-        devoirBDD.open();
-        mListDevoirs = devoirBDD.getDevoirsBetweenTwoDates(mActualWeek.getBeginning(), mActualWeek.getEnding());
-        devoirBDD.close();
-
     }
 
     @Override
@@ -76,7 +68,6 @@ public class FragmentHome extends Fragment {
 
         fillListWeekViews();
         fillBottomBar();
-
         setUpTimer();
 
         return view;
@@ -104,55 +95,31 @@ public class FragmentHome extends Fragment {
 
     public void fillBottomBar(){
 
-        String nbCourse = ""+0;
-        if(mListCourses != null)
-            nbCourse = ""+mListCourses.size();
 
-        mTextViewCours.setText(nbCourse);
+        mTextViewCours.setText(String.format(Locale.FRANCE, "%d", mListCourses.size()));
 
-        String nbDevoirs = ""+0;
-        if(mListDevoirs != null)
-            nbDevoirs = ""+mListDevoirs.size();
-
-        mTextViewDevoirs.setText(nbDevoirs);
-
-        double money = 0;
-        if(mListCourses != null)
-            for(Course course : mListCourses)
-                money = money + course.getMoney();
-
-        mTextViewMoney.setText(String.format("%.2f", money));
-
-    }
-
-
-    public Course getNextCourse(){
-        CoursesBDD coursesBDD = new CoursesBDD(getActivity());
-        coursesBDD.open();
-        List<Course> list = coursesBDD.getCoursesWithState(Course.FORESEEN);
-        coursesBDD.close();
-
-        if (list != null)
-            return list.get(0);
-
-        return null;
-    }
-
-    public Devoir getNextDevoir(){
         DevoirBDD devoirBDD = new DevoirBDD(getActivity());
         devoirBDD.open();
-        List<Devoir> list = devoirBDD.getDevoirsWithState(Devoir.STATE_PREPARATING);
+        mTextViewDevoirs.setText(String.format(Locale.FRANCE, "%d",
+                devoirBDD.getListDevoirForAWeek(System.currentTimeMillis()).size()));
         devoirBDD.close();
 
-        if (list != null)
-            return list.get(0);
+        double money = 0;
+        for(Course course : mListCourses)
+            money +=  course.getMoney();
 
-        return null;
+        mTextViewMoney.setText(String.format(Locale.FRANCE, "%.2f", money));
+
     }
+
 
 
 
     public void fillListWeekViews() {
+        CoursesBDD coursesBDD = new CoursesBDD(getActivity());
+        coursesBDD.open();
+        mListCourses = coursesBDD.getListCourseForAWeek(System.currentTimeMillis());
+        coursesBDD.close();
         mListViewWeekDays.setAdapter(new RecyclerViewWeek(getActivity(), mActualWeek, mListCourses));
     }
 
@@ -171,14 +138,7 @@ public class FragmentHome extends Fragment {
             mCountDownTimer = new CountDownTimer(milliseconds, C.SECOND) {
                 @Override
                 public void onTick(long milliseconds) {
-
-                    String str = String.format("%02d:%02d:%02d",
-                            TimeUnit.MILLISECONDS.toHours(milliseconds),
-                            TimeUnit.MILLISECONDS.toMinutes(milliseconds) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(milliseconds)),
-                            TimeUnit.MILLISECONDS.toSeconds(milliseconds) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliseconds))
-                    );
-
-                    mTextViewCountDown.setText(str);
+                    mTextViewCountDown.setText(C.formatDate(milliseconds, C.dd_HH_mm_ss));
                 }
 
                 @Override
@@ -187,19 +147,6 @@ public class FragmentHome extends Fragment {
                 }
             }.start();
         }
-    }
-
-
-    public int getWaitingForValidationCourses(){
-        CoursesBDD coursesBDD = new CoursesBDD(getActivity());
-        coursesBDD.open();
-        List<Course> list = coursesBDD.getCoursesWithState(Course.WAITING_FOT_VALIDATION);
-        coursesBDD.close();
-
-        if(list == null)
-            return 0;
-
-        return list.size();
     }
 
 }

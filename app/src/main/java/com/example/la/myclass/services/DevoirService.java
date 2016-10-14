@@ -27,7 +27,7 @@ import java.util.List;
 public class DevoirService extends Service{
 
     public static final String NO_ACTION = "noAction";
-    public static final long MAX_DELAY_VALIDATION = 11 * C.HOUR;
+    public static final long MAX_DELAY_VALIDATION = 10 * C.HOUR + 5 * C.MINUTE;
 
     protected Context mContext;
     protected Devoir mNextDevoir;

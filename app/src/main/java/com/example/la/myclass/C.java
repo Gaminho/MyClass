@@ -31,6 +31,7 @@ import java.io.InputStreamReader;
 import java.nio.channels.FileChannel;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Gaminho on 23/08/2016.
@@ -82,7 +83,7 @@ public class C {
      */
     public static final String NO_DB = "Aucune base de données n'a été exportée";
     public static final String NAME_EXPORTED_DB = "myClassDB_";
-    public static final String SYSTEM_PATH_TO_DATABASE = "/data/com.example.la.myclass/databases/";
+    private static final String SYSTEM_PATH_TO_DATABASE = "/data/com.example.la.myclass/databases/";
     /**
      * Method to export the new database
      * @param context
@@ -222,10 +223,7 @@ public class C {
      */
     public static final String[] DAYS = {"","Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"};
     public static final String[] MONTHS = {"Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"};
-    public static final int DATE_FORMAT_LONG_DAY = 0;
-    public static final int DATE_FORMAT_SHORT_DAY = 1;
-    public static final int DATE_FORMAT_LONG_MONTH = 2;
-    public static final int DATE_FORMAT_SHORT_MONTH = 3;
+    public static final int DATE_FORMAT_SHORT_DAYS = 3;
     public static final int DATE_FORMAT_FULL_DATE = 4;
     public static final int DAY_DATE_D_MONTH_YEAR = 5;
     public static final int DAY_DATE_D_MONTH = 6;
@@ -241,25 +239,19 @@ public class C {
         calendar.setTime(new Date(milliseconds));
 
         switch(format){
-            case DATE_FORMAT_LONG_DAY :
-                return null;
-            case DATE_FORMAT_SHORT_DAY :
-                return null;
-            case DATE_FORMAT_SHORT_MONTH :
-                return String.format("%s %02d/%02d/%02d",
+            case DATE_FORMAT_SHORT_DAYS:
+                return String.format(Locale.FRANCE,"%s %02d/%02d/%02d",
                         DAYS[calendar.get(Calendar.DAY_OF_WEEK)].substring(0,2)+".",
                         calendar.get(Calendar.DAY_OF_MONTH),
                         (calendar.get(Calendar.MONTH) + 1),
                         (calendar.get(Calendar.YEAR) - 2000));
-            case DATE_FORMAT_LONG_MONTH :
-                return null;
             case DD_MM_YY :
-                return String.format("%02d/%02d/%02d",
+                return String.format(Locale.FRANCE,"%02d/%02d/%02d",
                         calendar.get(Calendar.DAY_OF_MONTH),
                         (calendar.get(Calendar.MONTH) + 1),
                         (calendar.get(Calendar.YEAR) - 2000));
             case DATE_FORMAT_FULL_DATE :
-                return String.format("%02d/%02d/%02d %02dh%02d:%02d",
+                return String.format(Locale.FRANCE,"%02d/%02d/%02d %02dh%02d:%02d",
                         calendar.get(Calendar.DAY_OF_MONTH),
                         (calendar.get(Calendar.MONTH) + 1),
                         (calendar.get(Calendar.YEAR) - 2000),
@@ -267,26 +259,26 @@ public class C {
                         calendar.get(Calendar.MINUTE),
                         calendar.get(Calendar.SECOND));
             case DAY_DATE_D_MONTH_YEAR:
-                return String.format("%s %02d %s %d",
+                return String.format(Locale.FRANCE,"%s %02d %s %d",
                         DAYS[calendar.get(Calendar.DAY_OF_WEEK)],
                         calendar.get(Calendar.DAY_OF_MONTH),
                         MONTHS[calendar.get(Calendar.MONTH)],
                         calendar.get(Calendar.YEAR));
             case DAY_DATE_D_MONTH:
-                return String.format("%s %02d %s",
+                return String.format(Locale.FRANCE,"%s %02d %s",
                         DAYS[calendar.get(Calendar.DAY_OF_WEEK)],
                         calendar.get(Calendar.DAY_OF_MONTH),
                         MONTHS[calendar.get(Calendar.MONTH)]);
             case MONTH_YEAR:
-                return String.format("%s %d",
+                return String.format(Locale.FRANCE,"%s %d",
                         MONTHS[calendar.get(Calendar.MONTH)],
                         calendar.get(Calendar.YEAR));
             case HH_mm:
-                return String.format("%02dh%02d",
+                return String.format(Locale.FRANCE,"%02dh%02d",
                         calendar.get(Calendar.HOUR_OF_DAY),
                         calendar.get(Calendar.MINUTE));
             case HH_mm_ss:
-                return String.format("%02dh%02d:%02d",
+                return String.format(Locale.FRANCE,"%02dh%02d:%02d",
                         calendar.get(Calendar.HOUR_OF_DAY),
                         calendar.get(Calendar.MINUTE),
                         calendar.get(Calendar.SECOND));
@@ -298,9 +290,18 @@ public class C {
                 int minut = (int) (milliseconds/MINUTE);
                 milliseconds -= minut*MINUTE;
                 int second = (int) (milliseconds/SECOND);
-                return String.format("%dj. %02dh%02d:%02d", jour,hour,minut,second);
+                String str = "";
+                if(jour > 0)
+                    str += String.format(Locale.FRANCE, "%dj. ", jour);
+                if(hour > 0)
+                    str += String.format(Locale.FRANCE, "%dh", hour);
+                if(minut > 0)
+                    str += String.format(Locale.FRANCE, "%02d:", minut);
+                if(second > 0)
+                    str += String.format(Locale.FRANCE, "%02d", second);
+                return str;
             case YYYYMMDD_HHMMSS:
-                return String.format("%d%02d%02d_%02d%02d%02d",
+                return String.format(Locale.FRANCE,"%d%02d%02d_%02d%02d%02d",
                         calendar.get(Calendar.YEAR),
                         (calendar.get(Calendar.MONTH)+1),
                         calendar.get(Calendar.DAY_OF_MONTH),

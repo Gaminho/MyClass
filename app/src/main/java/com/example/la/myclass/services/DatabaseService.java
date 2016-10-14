@@ -34,6 +34,7 @@ public class DatabaseService extends Service {
     // TODO : Notification for new weeks
     // TODO : Change notification text for devoir multi-pupils
     // TODO : Notification course depart
+    // TODO : Correct bugs of current week number of courses and devoirs
 
 
     public static final String UPDATE_DB = "updateDb";
