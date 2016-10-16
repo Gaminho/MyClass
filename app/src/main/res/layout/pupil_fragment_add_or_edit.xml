@@ -6,10 +6,8 @@
     android:background="@color/them100">
 
     <!-- Informations générales  -->
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+    <android.support.v7.widget.CardView style="@style/CardViewInformation">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -17,15 +15,7 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="Informations générales"
-                android:focusable="true"
-                android:focusableInTouchMode="true"/>
+            <TextView style="@style/CardViewLayoutTitleText" android:text="Informations générales" android:focusable="true" android:focusableInTouchMode="true"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -71,12 +61,7 @@
 
                     </android.support.v7.widget.CardView>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sexe"
-                        android:textColor="@color/them700"
-                        android:textSize="10dp"/>
+                    <TextView style="@style/CardViewTitle3" android:text="Sexe"/>
 
                     <RadioGroup
                         android:id="@+id/rGroupSexe"
@@ -122,12 +107,7 @@
                     android:layout_marginLeft="0dp"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Prénom"
-                        android:textColor="@color/them700"
-                        android:textSize="10dp"/>
+                    <TextView style="@style/CardViewTitle3" android:text="Prénom"/>
 
                     <EditText
                         android:id="@+id/firstname"
@@ -138,12 +118,7 @@
                         android:textColor="@color/textColor"
                         android:hint="Prénom"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nom"
-                        android:textColor="@color/them700"
-                        android:textSize="10dp"/>
+                    <TextView style="@style/CardViewTitle3" android:text="Nom"/>
 
                     <EditText
                         android:id="@+id/lastname"
@@ -154,12 +129,7 @@
                         android:textColor="@color/textColor"
                         android:hint="Nom"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Classe"
-                        android:textColor="@color/them700"
-                        android:textSize="10dp"/>
+                    <TextView style="@style/CardViewTitle3" android:text="Classe"/>
 
                     <Spinner
                         android:id="@+id/spinnerClass"
@@ -176,91 +146,54 @@
 
     </android.support.v7.widget.CardView>
 
-    <!-- Coordonnées  -->
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp">
+    <android.support.v7.widget.CardView style="@style/CardViewInformation">
 
-        <LinearLayout
+    <!-- Coordonnées  -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView style="@style/CardViewLayoutTitleText" android:text="Coordonnées"/>
+
+        <TextView style="@style/CardViewTitle3" android:text="Personnel"/>
+
+        <EditText
+            android:id="@+id/tel1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:inputType="numberSigned"
+            android:textSize="16dp"
+            android:hint="Tél. Personnel"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12dp"
-                android:layout_marginBottom="8dp"
-                android:paddingLeft="0dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="Coordonnées"
-                android:focusable="true"
-                android:focusableInTouchMode="true"/>
+        <TextView style="@style/CardViewTitle3" android:text="Parent"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Personnel"
-                android:textColor="@color/them700"
-                android:textSize="10dp"
-                android:gravity="bottom"/>
+        <EditText
+            android:id="@+id/tel2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:textSize="16dp"
+            android:hint="Tél. Parent"/>
 
-            <EditText
-                android:id="@+id/tel1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberSigned"
-                android:textSize="16dp"
-                android:hint="Tél. Personnel"/>
+        <TextView style="@style/CardViewTitle3" android:text="Adresse"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Parent"
-                android:textColor="@color/them700"
-                android:textSize="10dp"
-                android:gravity="bottom"/>
+        <EditText
+            android:id="@+id/adress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:inputType="textCapSentences|textPostalAddress|textMultiLine"
+            android:hint="Adresse"/>
 
-            <EditText
-                android:id="@+id/tel2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberSigned"
-                android:textSize="16dp"
-                android:hint="Tél. Parent"/>
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Adresse"
-                android:textColor="@color/them700"
-                android:textSize="10dp"
-                android:gravity="bottom"/>
-
-            <EditText
-                android:id="@+id/adress"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16dp"
-                android:inputType="textCapSentences|textPostalAddress|textMultiLine"
-                android:hint="Adresse"/>
-
-        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 
     <!-- Rémunération  -->
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp">
+    <android.support.v7.widget.CardView style="@style/CardViewInformation">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -268,25 +201,9 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12dp"
-                android:layout_marginBottom="8dp"
-                android:paddingLeft="0dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="Rémunération"
-                android:focusable="true"
-                android:focusableInTouchMode="true"/>
+            <TextView style="@style/CardViewLayoutTitleText" android:text="Rémunération"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tarif horaire"
-                android:textColor="@color/them700"
-                android:textSize="10dp"
-                android:gravity="bottom"/>
+            <TextView style="@style/CardViewTitle3" android:text="Tarif horaire"/>
 
             <EditText
                 android:id="@+id/price"
@@ -297,13 +214,9 @@
                 android:hint="Tarif / heure"
                 android:textSize="16dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Type"
-                android:textColor="@color/them700"
-                android:textSize="10dp"
-                android:gravity="bottom"/>
+
+            <TextView style="@style/CardViewTitle3" android:text="Type"/>
+
 
             <RadioGroup
                 android:id="@+id/rGroupPaiementType"
@@ -328,13 +241,7 @@
 
             </RadioGroup>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fréquence"
-                android:textColor="@color/them700"
-                android:textSize="10dp"
-                android:gravity="bottom"/>
+            <TextView style="@style/CardViewTitle3" android:text="Fréquence"/>
 
             <RadioGroup
                 android:id="@+id/rGroupFrequency"

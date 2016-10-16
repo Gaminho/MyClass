@@ -34,7 +34,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Created by Gaminho on 23/08/2016.
+ * 23/08/2016.
  */
 public class C {
 
@@ -63,7 +63,7 @@ public class C {
         FileInputStream fin = new FileInputStream(file);
         BufferedReader reader = new BufferedReader(new InputStreamReader(fin));
         StringBuilder sb = new StringBuilder();
-        String line = null;
+        String line;
         Boolean firstLine = true;
         while ((line = reader.readLine()) != null) {
             if(firstLine){
@@ -84,9 +84,10 @@ public class C {
     public static final String NO_DB = "Aucune base de données n'a été exportée";
     public static final String NAME_EXPORTED_DB = "myClassDB_";
     private static final String SYSTEM_PATH_TO_DATABASE = "/data/com.example.la.myclass/databases/";
+
     /**
      * Method to export the new database
-     * @param context
+     * @param context : the context of the execution
      * @param name : name of the new database
      * @param comment : comment about the new database
      * @return

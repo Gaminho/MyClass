@@ -50,7 +50,6 @@ public class FragmentHome extends Fragment {
     public FragmentHome() {
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,11 +70,10 @@ public class FragmentHome extends Fragment {
     }
 
 
-
-
-
-    // Utils
-
+    /**
+     * Utils
+     * @param view : the root view
+     */
     private void getAllViews(View view){
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -108,9 +106,6 @@ public class FragmentHome extends Fragment {
 
     }
 
-
-
-
     private void fillListWeekViews() {
         CoursesBDD coursesBDD = new CoursesBDD(getActivity());
         coursesBDD.open();
@@ -120,7 +115,6 @@ public class FragmentHome extends Fragment {
     }
 
     private void setUpTimer() {
-
         CoursesBDD coursesBDD = new CoursesBDD(getActivity());
         coursesBDD.open();
         List<Course> list = coursesBDD.getCoursesWithState(Course.FORESEEN);
