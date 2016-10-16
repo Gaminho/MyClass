@@ -1,10 +1,8 @@
 package com.example.la.myclass.activities.devoir;
 
-import android.app.Fragment;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,113 +11,106 @@ import android.widget.TextView;
 
 import com.example.la.myclass.C;
 import com.example.la.myclass.R;
-import com.example.la.myclass.database.DevoirBDD;
+import com.example.la.myclass.activities.AbstractFragmentDetails;
 import com.example.la.myclass.beans.Devoir;
+import com.example.la.myclass.database.DevoirBDD;
+
+import java.util.Locale;
 
 /**
- * Created by Léa on 05/10/2015.
+ * 17/10/2016.
  */
-public class FragmentDetailsDevoir extends Fragment implements View.OnClickListener{
 
-    // BUNDLE
-    static final String DEVOIR_ID = "devoir_id";
+public class FragmentDetailsDevoir extends AbstractFragmentDetails {
 
-
-    // Views
-    protected TextView mTVPupilName, mTVDate, mTVNote, mTVTheme, mTVMemo, mTVType;
-    protected LinearLayout mLLEditDevoir;
-    protected CardView mCVRemarque;
-    protected View mRootView;
-
-    //Variables de classe
+    /**
+     * Variables de classe
+     */
     protected Devoir mDevoir;
+    protected FragmentDetailsDevoir.DevoirDetailsInterface mListener;
 
-
-    // Fragment life cycle
-
+    /**
+     * Fragment Life Cycle
+     */
     public static FragmentDetailsDevoir newInstance(int id) {
         FragmentDetailsDevoir fragmentDetailsDevoir = new FragmentDetailsDevoir();
         Bundle args = new Bundle();
-        args.putInt(DEVOIR_ID, id);
+        args.putInt(ActivityDevoir.DEVOIR_ID, id);
         fragmentDetailsDevoir.setArguments(args);
         return fragmentDetailsDevoir;
     }
-
-    public FragmentDetailsDevoir() {
-    }
-
+    public FragmentDetailsDevoir() {}
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().get(DEVOIR_ID) != null)
-            mDevoir = getDevoirWithId(getActivity(), getArguments().getInt(DEVOIR_ID));
+        if (getArguments().get(ActivityDevoir.DEVOIR_ID) != null)
+            mDevoir = DevoirBDD.getDevoirWithId(getActivity(),getArguments().getInt(ActivityDevoir.DEVOIR_ID));
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (FragmentDetailsDevoir.DevoirDetailsInterface) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Activity must implement PupilDetailsInterface.");
+        }
+    }
 
-        mRootView = inflater.inflate(R.layout.devoir_fragment_details, container, false);
-        getAllViews(mRootView);
-
-        if(mDevoir != null)
-            fillDevoirDetails();
-
-        return mRootView;
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
 
-    // Utils
-
-    public void getAllViews(View view){
-
-        mTVPupilName = (TextView) view.findViewById(R.id.pupilName);
-        mTVDate = (TextView) view.findViewById(R.id.date);
-        mTVNote = (TextView) view.findViewById(R.id.note);
-        mTVMemo = (TextView) view.findViewById(R.id.memo);
-        mTVTheme = (TextView) view.findViewById(R.id.theme);
-        mTVType = (TextView) view.findViewById(R.id.bareme);
-        mCVRemarque = (CardView) view.findViewById(R.id.remarquesCV);
-        mLLEditDevoir = (LinearLayout) view.findViewById(R.id.edit);
-        mLLEditDevoir.setOnClickListener(this);
-
-    }
-
-    public void fillDevoirDetails(){
-        mTVPupilName.setText(mDevoir.getPupil().getFullName());
-        mTVDate.setText(C.formatDate(mDevoir.getDate(), C.DAY_DATE_D_MONTH_YEAR));
-        mTVTheme.setText(mDevoir.getTheme());
-        mTVMemo.setText(mDevoir.getCommentaire());
+    /**
+     * Implementing abstracts functions from AbstractFragmentList
+     */
+    @Override
+    protected View setContent(Context context, ViewGroup container) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.devoir_fragment_details, container, false);
+        // TODO : clean up view
+        ((TextView) view.findViewById(R.id.pupilName)).setText(mDevoir.getPupil().getFullName());
+        ((TextView) view.findViewById(R.id.date)).setText(C.formatDate(mDevoir.getDate(), C.DAY_DATE_D_MONTH_YEAR));
 
         if(mDevoir.getNote() > 0)
-            mTVNote.setText(String.format("%.2f/%02d", mDevoir.getNote(), mDevoir.getBarem()));
+            ((TextView) view.findViewById(R.id.note)).setText(String.format(Locale.FRANCE,"%.2f/%02d", mDevoir.getNote(), mDevoir.getBarem()));
         else
-            mTVNote.setText(String.format("-/%02d", mDevoir.getBarem()));
+            ((TextView) view.findViewById(R.id.note)).setText(String.format(Locale.FRANCE,"-/%02d", mDevoir.getBarem()));
 
-        mTVType.setText(mDevoir.getTypeLabel(mDevoir.getType()));
+        ((TextView) view.findViewById(R.id.memo)).setText(mDevoir.getCommentaire());
+        ((TextView) view.findViewById(R.id.theme)).setText(mDevoir.getTheme());
+        ((TextView) view.findViewById(R.id.bareme)).setText(mDevoir.getTypeLabel(mDevoir.getType()));
 
+        return view;
     }
 
-
-    public static Devoir getDevoirWithId(Context context, int id){
-        DevoirBDD devoirBDD = new DevoirBDD(context);
-        devoirBDD.open();
-        Devoir devoir = devoirBDD.getDevoirWithId(id);
-        Log.e("LOGIGI","DEVOIR="+devoir.toString());
-        devoirBDD.close();
-        return devoir;
+    @Override
+    protected void setLeftAction(LinearLayout leftLayout, TextView leftLabel, TextView leftIcon) {
+        leftLayout.setVisibility(View.VISIBLE);
+        leftLabel.setText("Modifier");
+        leftIcon.setText("{fa-edit} ");
+        leftLayout.setOnClickListener(this);
     }
+
+    @Override
+    protected void setRightAction(LinearLayout rightLayout, TextView rightLabel, TextView rightIcon) {
+        rightLayout.setVisibility(View.GONE);
+    }
+
 
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
-            case R.id.edit:
+            case R.id.leftAction:
                 getFragmentManager().beginTransaction().replace(R.id.default_container, FragmentAddOrEditDevoir.newInstance(mDevoir.getId())).commit();
                 break;
         }
     }
-
-    // Interface
 
     public interface DevoirDetailsInterface{
         void goBack();

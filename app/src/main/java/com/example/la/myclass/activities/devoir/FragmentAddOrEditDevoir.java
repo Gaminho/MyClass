@@ -87,7 +87,7 @@ public class FragmentAddOrEditDevoir extends AbstractFragmentAddOrEdit implement
         mDevoir.setDate(mCalendar.getTimeInMillis());
 
         if(getArguments() != null && getArguments().getInt(DEVOIR_ID,-1) != -1) {
-            mDevoir = FragmentDetailsDevoir.getDevoirWithId(getActivity(), getArguments().getInt(DEVOIR_ID));
+            mDevoir = DevoirBDD.getDevoirWithId(getActivity(), getArguments().getInt(DEVOIR_ID));
             mCalendar.setTimeInMillis(mDevoir.getDate());
             mCurrentMod = EDITING;
         }
