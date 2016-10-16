@@ -1,458 +1,115 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:background="@color/them100">
 
-    <!-- Informations -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <!-- Informations générales  -->
+    <android.support.v7.widget.CardView style="@style/CardViewInformation" android:layout_marginTop="0dp">
 
-        <!-- Actions -->
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/them700"
-            android:elevation="3dp"
-            android:translationZ="2dp">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/edit"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginLeft="10dp">
+            <!-- INFOS -->
+            <LinearLayout style="@style/CardViewContainer" android:padding="10dp">
+                <!-- HEADER -->
+                <LinearLayout style="@style/CardViewLayoutTitle" android:padding="0dp">
+                    <TextView style="@style/CardViewLayoutTitleText" android:text="Informations générales"/>
+                </LinearLayout>
 
-                <com.joanzapata.iconify.widget.IconTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="{fa-edit} "
-                    android:textColor="@color/unthem300"
-                    android:gravity="center_vertical"
-                    android:textSize="25dp"/>
+                <LinearLayout style="@style/CardViewInfoContent">
+                    <!-- LEFT PANEL -->
+                    <LinearLayout
+                        android:layout_width="110dp"
+                        android:layout_height="match_parent"
+                        android:minHeight="110dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Modifier"
-                    android:textColor="@color/white"
-                    android:gravity="center_vertical"
-                    android:textSize="20dp"/>
+                        <ImageView
+                            android:id="@+id/avatar"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/woman"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/suivi"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <com.joanzapata.iconify.widget.IconTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="{fa-line-chart} "
-                    android:textColor="@color/unthem300"
-                    android:gravity="center_vertical"
-                    android:textSize="25dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Suivi"
-                    android:textColor="@color/white"
-                    android:gravity="center_vertical"
-                    android:textSize="20dp"/>
+                    </LinearLayout>
+                    <!-- RIGHT PANEL -->
+                    <LinearLayout style="@style/CardViewInfoContent" android:orientation="vertical" android:padding="0dp">
+                        <!-- NOMS -->
+                        <TextView style="@style/CardViewTitle3" android:text="Nom"/>
+                        <TextView style="@style/PupilInfo" android:id="@+id/name" android:text="Wael Herzi"/>
+                        <!-- CLASSE -->
+                        <TextView style="@style/CardViewTitle3" android:text="Classe"/>
+                        <TextView style="@style/PupilInfo" android:id="@+id/level" android:text="Seconde"/>
+                        <!-- SINCE -->
+                        <TextView style="@style/CardViewTitle3" android:text="Depuis"/>
+                        <TextView style="@style/PupilInfo" android:id="@+id/since" android:text="Depuis Septembre 2012"/>
+                    </LinearLayout>
+                </LinearLayout>
 
             </LinearLayout>
+            <!-- ACTIF -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/isActive"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="4dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                app:cardBackgroundColor="@color/green500"/>
 
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <!-- Coordonnees -->
+    <android.support.v7.widget.CardView style="@style/CardViewInformation">
+        <LinearLayout style="@style/CardViewContainer" android:padding="10dp">
+            <!-- HEADER -->
+            <LinearLayout style="@style/CardViewLayoutTitle" android:padding="0dp">
+                <TextView style="@style/CardViewLayoutTitleText" android:text="Coordonnées"/>
+            </LinearLayout>
+            <!-- TEL1 -->
+            <TextView style="@style/CardViewTitle3" android:text="Personnel"/>
+            <LinearLayout style="@style/CardViewHorizontalItem">
+                <TextView style="@style/CardViewHorizontalItemLeftText" android:id="@+id/tel1" android:textSize="16dp"/>
+                <com.joanzapata.iconify.widget.IconTextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/call1" android:layout_marginRight="10dp" android:text="{fa-phone}" android:textSize="20dp" android:textColor="@color/green800"/>
+            </LinearLayout>
+            <!-- TEL2 -->
+            <TextView style="@style/CardViewTitle3" android:text="Parent"/>
+            <LinearLayout style="@style/CardViewHorizontalItem">
+                <TextView style="@style/CardViewHorizontalItemLeftText" android:id="@+id/tel2" android:textSize="16dp"/>
+                <com.joanzapata.iconify.widget.IconTextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/call2" android:layout_marginRight="10dp" android:text="{fa-phone}" android:textSize="20dp" android:textColor="@color/green800"/>
+            </LinearLayout>
+            <!-- ADRESSE-->
+            <TextView style="@style/CardViewTitle3" android:text="Adresse"/>
+            <LinearLayout style="@style/CardViewHorizontalItem">
+                <TextView style="@style/CardViewHorizontalItemLeftText" android:id="@+id/adress" android:textSize="16dp"/>
+                <com.joanzapata.iconify.widget.IconTextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/goTo" android:layout_marginRight="10dp" android:text="{fa-map}" android:textSize="20dp" android:textColor="@color/unthem800"/>
+            </LinearLayout>
         </LinearLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="5dp">
+    </android.support.v7.widget.CardView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <!-- Informations générales  -->
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="10dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="12dp"
-                                android:textColor="@color/black"
-                                android:textStyle="bold"
-                                android:text="Informations générales"
-                                android:focusable="true"
-                                android:focusableInTouchMode="true"/>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:paddingTop="10dp"
-                                android:gravity="center_vertical">
-
-                                <LinearLayout
-                                    android:layout_width="110dp"
-                                    android:layout_height="match_parent"
-                                    android:minHeight="110dp">
-
-                                    <ImageView
-                                        android:id="@+id/avatar"
-                                        android:layout_width="100dp"
-                                        android:layout_height="100dp"
-                                        android:src="@drawable/woman"/>
-
-                                </LinearLayout>
-
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center_vertical"
-                                    android:layout_marginLeft="0dp"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Nom"
-                                        android:textColor="@color/them700"
-                                        android:textSize="10dp"/>
-
-                                    <TextView
-                                        android:id="@+id/name"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:inputType="textCapWords"
-                                        android:textSize="16dp"
-                                        android:textColor="@color/textColor"
-                                        android:text="Wael Herzi"/>
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Classe"
-                                        android:layout_marginTop="2dp"
-                                        android:textColor="@color/them700"
-                                        android:textSize="10dp"/>
-
-                                    <TextView
-                                        android:id="@+id/level"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:inputType="textCapWords"
-                                        android:textSize="16dp"
-                                        android:textColor="@color/textColor"
-                                        android:text="Seconde"/>
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Depuis"
-                                        android:layout_marginTop="2dp"
-                                        android:textColor="@color/them700"
-                                        android:textSize="10dp"/>
-
-                                    <TextView
-                                        android:id="@+id/since"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:inputType="textCapWords"
-                                        android:textSize="16dp"
-                                        android:textColor="@color/textColor"
-                                        android:text="Depuis Septembre 2012"/>
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/isActive"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_margin="4dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentTop="true"
-                            app:cardBackgroundColor="@color/green500"/>
-
-                    </RelativeLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <!-- Coordonnées  -->
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginLeft="8dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12dp"
-                            android:layout_marginBottom="8dp"
-                            android:paddingLeft="0dp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:text="Coordonnées"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"/>
-
-                        <!-- TELEPHONE -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="2dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Personnel"
-                                android:textColor="@color/them700"
-                                android:textSize="10dp"
-                                android:gravity="bottom"/>
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <TextView
-                                    android:id="@+id/tel1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="0659530080"
-                                    android:textColor="@color/textColor"
-                                    android:textSize="16dp"/>
-
-                                <com.joanzapata.iconify.widget.IconTextView
-                                    android:id="@+id/call1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerVertical="true"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_marginRight="10dp"
-                                    android:textSize="20dp"
-                                    android:textColor="#2e7d32"
-                                    android:text="{fa-phone}"/>
-
-                            </RelativeLayout>
-
-                        </LinearLayout>
-
-                        <!-- TEL PARENT -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="2dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Parent"
-                                android:textColor="@color/them700"
-                                android:textSize="10dp"
-                                android:gravity="bottom"/>
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <TextView
-                                    android:id="@+id/tel2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/textColor"
-                                    android:text="0659530080"
-                                    android:textSize="16dp"/>
-
-                                <com.joanzapata.iconify.widget.IconTextView
-                                    android:id="@+id/call2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerVertical="true"
-                                    android:layout_alignParentRight="true"
-                                    android:textSize="20dp"
-                                    android:layout_marginRight="10dp"
-                                    android:textColor="#2e7d32"
-                                    android:text="{fa-phone}"/>
-
-                            </RelativeLayout>
-
-                        </LinearLayout>
-
-                        <!-- TEL PARENT -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="2dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Adresse"
-                                android:textColor="@color/them700"
-                                android:textSize="10dp"
-                                android:gravity="bottom"/>
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <com.joanzapata.iconify.widget.IconTextView
-                                    android:id="@+id/goTo"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerVertical="true"
-                                    android:layout_alignParentRight="true"
-                                    android:textSize="20dp"
-                                    android:layout_marginRight="10dp"
-                                    android:textColor="#ffb300"
-                                    android:text="{fa-map}"/>
-
-                                <TextView
-                                    android:id="@+id/adress"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_toLeftOf="@+id/goTo"
-                                    android:layout_alignParentLeft="true"
-                                    android:textColor="@color/textColor"
-                                    android:text="13 place de Leyre, Caudéran, Bordeaux"
-                                    android:textSize="16dp"/>
-
-                            </RelativeLayout>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <!-- Argent  -->
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginLeft="8dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12dp"
-                            android:layout_marginBottom="8dp"
-                            android:paddingLeft="0dp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:text="Rémunération"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Tarif horaire"
-                            android:textColor="@color/them700"
-                            android:textSize="10dp"
-                            android:gravity="bottom"/>
-
-                        <TextView
-                            android:id="@+id/price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:inputType="numberDecimal"
-                            android:gravity="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="16dp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Type"
-                            android:textColor="@color/them700"
-                            android:textSize="10dp"
-                            android:layout_marginTop="2dp"
-                            android:gravity="bottom"/>
-
-                        <TextView
-                            android:id="@+id/type"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:inputType="numberDecimal"
-                            android:gravity="center"
-                            android:hint="Déclaré"
-                            android:textColor="@color/textColor"
-                            android:textSize="16dp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Fréquence"
-                            android:textColor="@color/them700"
-                            android:textSize="10dp"
-                            android:layout_marginTop="2dp"
-                            android:gravity="bottom"/>
-
-                        <TextView
-                            android:id="@+id/frequency"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:inputType="numberDecimal"
-                            android:gravity="center"
-                            android:hint="Régulier"
-                            android:textColor="@color/textColor"
-                            android:textSize="16dp"/>
-
-
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
+    <!-- Argent  -->
+    <android.support.v7.widget.CardView style="@style/CardViewInformation">
+        <LinearLayout style="@style/CardViewContainer" android:padding="10dp">
+            <!-- HEADER -->
+            <LinearLayout style="@style/CardViewLayoutTitle" android:padding="0dp">
+                <TextView style="@style/CardViewLayoutTitleText" android:text="Rémunération"/>
             </LinearLayout>
-
-        </ScrollView>
-
-    </LinearLayout>
-
+            <!-- TARIF -->
+            <TextView style="@style/CardViewTitle3" android:text="Tarif horaire"/>
+            <TextView style="@style/PupilInfo" android:id="@+id/price"/>
+            <!-- TYPE -->
+            <TextView style="@style/CardViewTitle3" android:text="Type de rémunération"/>
+            <TextView style="@style/PupilInfo" android:id="@+id/type"/>
+            <!-- FREQUENCE -->
+            <TextView style="@style/CardViewTitle3" android:text="Fréquence"/>
+            <TextView style="@style/PupilInfo" android:id="@+id/frequency"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>
+<!-- 457 / 115 -->

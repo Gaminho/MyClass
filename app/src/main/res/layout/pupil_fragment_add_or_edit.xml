@@ -6,23 +6,16 @@
     android:background="@color/them100">
 
     <!-- Informations générales  -->
-    <android.support.v7.widget.CardView style="@style/CardViewInformation">
+    <android.support.v7.widget.CardView style="@style/CardViewInformation" android:layout_marginTop="0dp">
 
+        <LinearLayout style="@style/CardViewContainer" android:padding="10dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
+            <!-- HEADER -->
+            <LinearLayout style="@style/CardViewLayoutTitle" android:padding="0dp">
+                <TextView style="@style/CardViewLayoutTitleText" android:text="Informations générales" android:focusable="true" android:focusableInTouchMode="true"/>
+            </LinearLayout>
 
-            <TextView style="@style/CardViewLayoutTitleText" android:text="Informations générales" android:focusable="true" android:focusableInTouchMode="true"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="10dp"
-                android:gravity="center_vertical">
+            <LinearLayout style="@style/CardViewInfoContent">
 
                 <LinearLayout
                     android:layout_width="110dp"
@@ -63,81 +56,36 @@
 
                     <TextView style="@style/CardViewTitle3" android:text="Sexe"/>
 
-                    <RadioGroup
-                        android:id="@+id/rGroupSexe"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <com.joanzapata.iconify.widget.IconTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
-                            android:gravity="center"
-                            android:text="{fa-male}"/>
-
-                        <RadioButton
-                            android:id="@+id/rbMale"
-                            android:checked="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"/>
-
-
-                        <com.joanzapata.iconify.widget.IconTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
-                            android:gravity="center"
-                            android:text="{fa-female}"/>
-
-                        <RadioButton
-                            android:id="@+id/rbFemale"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-
+                    <RadioGroup style="@style/RadioGroupStyle" android:id="@+id/rGroupSexe" android:layout_height="match_parent" android:gravity="center_vertical">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/woman"/>
+                        <RadioButton style="@style/RadioButtonReminder" android:id="@+id/rbFemale" />
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/man"/>
+                        <RadioButton style="@style/RadioButtonReminder" android:id="@+id/rbMale" android:checked="true"/>
                     </RadioGroup>
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_marginLeft="0dp"
-                    android:orientation="vertical">
-
+                <LinearLayout style="@style/CardViewContent" android:padding="0dp">
+                    <!-- PRENOM -->
                     <TextView style="@style/CardViewTitle3" android:text="Prénom"/>
-
-                    <EditText
-                        android:id="@+id/firstname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textCapWords"
-                        android:textSize="16dp"
-                        android:textColor="@color/textColor"
-                        android:hint="Prénom"/>
-
+                    <EditText style="@style/EditTextInfos" android:id="@+id/firstname" android:inputType="textCapWords" android:hint="Prénom"/>
+                    <!-- NOM -->
                     <TextView style="@style/CardViewTitle3" android:text="Nom"/>
-
-                    <EditText
-                        android:id="@+id/lastname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textCapWords"
-                        android:textSize="16dp"
-                        android:textColor="@color/textColor"
-                        android:hint="Nom"/>
-
+                    <EditText style="@style/EditTextInfos" android:id="@+id/lastname" android:inputType="textCapWords" android:hint="Nom"/>
+                    <!-- CLASSE -->
                     <TextView style="@style/CardViewTitle3" android:text="Classe"/>
-
                     <Spinner
                         android:id="@+id/spinnerClass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:popupBackground="@drawable/spinner_dropdown_3"
                         android:background="@drawable/spinner_dropdown_3"/>
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -146,136 +94,45 @@
 
     </android.support.v7.widget.CardView>
 
+    <!-- Coordonnees -->
     <android.support.v7.widget.CardView style="@style/CardViewInformation">
+        <!-- Coordonnées  -->
+        <LinearLayout style="@style/CardViewContainer" android:padding="10dp">
+            <TextView style="@style/CardViewLayoutTitleText" android:text="Coordonnées"/>
+            <!-- TEL1 -->
+            <TextView style="@style/CardViewTitle3" android:text="Personnel" />
 
-    <!-- Coordonnées  -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-        <TextView style="@style/CardViewLayoutTitleText" android:text="Coordonnées"/>
-
-        <TextView style="@style/CardViewTitle3" android:text="Personnel"/>
-
-        <EditText
-            android:id="@+id/tel1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned"
-            android:textSize="16dp"
-            android:hint="Tél. Personnel"/>
-
-        <TextView style="@style/CardViewTitle3" android:text="Parent"/>
-
-        <EditText
-            android:id="@+id/tel2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned"
-            android:textSize="16dp"
-            android:hint="Tél. Parent"/>
-
-        <TextView style="@style/CardViewTitle3" android:text="Adresse"/>
-
-        <EditText
-            android:id="@+id/adress"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            android:inputType="textCapSentences|textPostalAddress|textMultiLine"
-            android:hint="Adresse"/>
-
-    </LinearLayout>
-
-
+            <EditText style="@style/EditTextInfos" android:id="@+id/tel1" android:inputType="numberSigned" android:hint="Tél. Personnel"/>
+            <!-- TEL2 -->
+            <TextView style="@style/CardViewTitle3" android:text="Parent"/>
+            <EditText style="@style/EditTextInfos" android:id="@+id/tel2" android:inputType="numberSigned" android:hint="Tél. Parent"/>
+            <!-- ADRESSE -->
+            <TextView style="@style/CardViewTitle3" android:text="Adresse"/>
+            <EditText style="@style/EditTextInfos" android:id="@+id/adress" android:inputType="textCapSentences|textPostalAddress|textMultiLine" android:hint="Adresse"/>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 
     <!-- Rémunération  -->
     <android.support.v7.widget.CardView style="@style/CardViewInformation">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-
+        <LinearLayout style="@style/CardViewContainer" android:padding="10dp">
             <TextView style="@style/CardViewLayoutTitleText" android:text="Rémunération"/>
-
+            <!-- TARIF HORAIRE-->
             <TextView style="@style/CardViewTitle3" android:text="Tarif horaire"/>
-
-            <EditText
-                android:id="@+id/price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:gravity="center"
-                android:hint="Tarif / heure"
-                android:textSize="16dp"/>
-
-
+            <EditText style="@style/EditTextInfos" android:id="@+id/price" android:inputType="numberDecimal" android:hint="Tarif / heure" android:gravity="center"/>
+            <!-- TYPE-->
             <TextView style="@style/CardViewTitle3" android:text="Type"/>
-
-
-            <RadioGroup
-                android:id="@+id/rGroupPaiementType"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/rbAgency"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="16dp"
-                    android:text="Déclaré"/>
-
-                <RadioButton
-                    android:id="@+id/rbBlack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="16dp"
-                    android:text="Non déclaré"/>
-
+            <RadioGroup style="@style/RadioGroupStyle" android:id="@+id/rGroupPaiementType">
+                <RadioButton style="@style/RadioButtonReminder" android:id="@+id/rbAgency" android:text="Déclaré"/>
+                <RadioButton style="@style/RadioButtonReminder" android:id="@+id/rbBlack" android:text="Non déclaré"/>
             </RadioGroup>
-
+            <!-- FREQUENCE-->
             <TextView style="@style/CardViewTitle3" android:text="Fréquence"/>
-
-            <RadioGroup
-                android:id="@+id/rGroupFrequency"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/rbRegular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="16dp"
-                    android:text="Rég."/>
-
-                <RadioButton
-                    android:id="@+id/rbOccasionaly"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:textSize="16dp"
-                    android:text="Occa."/>
-
-                <RadioButton
-                    android:id="@+id/rbTemporaly"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:textSize="16dp"
-                    android:text="Temp."/>
-
+            <RadioGroup style="@style/RadioGroupStyle" android:id="@+id/rGroupFrequency">
+                <RadioButton style="@style/RadioButtonReminder" android:id="@+id/rbRegular" android:text="Rég."/>
+                <RadioButton style="@style/RadioButtonReminder" android:id="@+id/rbOccasionaly" android:text="Occa."/>
+                <RadioButton style="@style/RadioButtonReminder" android:id="@+id/rbTemporaly" android:text="Temp."/>
             </RadioGroup>
-
         </LinearLayout>
-
     </android.support.v7.widget.CardView>
 
-</LinearLayout>
+</LinearLayout> <!-- 280 / 138 -->

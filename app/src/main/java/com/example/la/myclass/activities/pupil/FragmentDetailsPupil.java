@@ -2,14 +2,12 @@ package com.example.la.myclass.activities.pupil;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,36 +17,27 @@ import android.widget.TextView;
 
 import com.example.la.myclass.C;
 import com.example.la.myclass.R;
+import com.example.la.myclass.activities.AbstractFragmentDetails;
 import com.example.la.myclass.activities.MainActivity;
-import com.example.la.myclass.adapters.RecyclerViewPupil;
-import com.example.la.myclass.database.PupilsBDD;
 import com.example.la.myclass.beans.Pupil;
+import com.example.la.myclass.database.PupilsBDD;
 
 import java.io.File;
 
 /**
- * Created by Léa on 28/09/2015.
+ * Created by ariche on 16/10/2016.
  */
-public class FragmentDetailsPupil extends Fragment implements View.OnClickListener {
 
-    // Views
-    protected TextView mTextViewName, mTextViewClass, mTextViewType, mTextViewFrequency, mTextViewPrice, mTextViewAdress;
-    protected TextView mTextViewSince, mTextViewTel1, mTextViewTel2;
-    protected LinearLayout mButtonEdit, mButtonSuivi;
-    protected ImageView mImageViewAvatar;
-    protected CardView mCVActivePupil;
-    protected TextView mTextViewCall1, mTextViewCall2, mTextViewGoTo, mTextViewCall, mTextViewResults;
+public class FragmentDetailsPupil extends AbstractFragmentDetails {
 
-    //Interface
-    protected PupilDetailsInterface mListener;
-
-    
-    //Variables de classe
+    /**
+     * Variables de classe
+     */
     protected Pupil mPupil;
-
-
-    // Fragment life cycle
-
+    protected FragmentDetailsPupil.PupilDetailsInterface mListener;
+    /**
+     * Fragment Life Cycle
+     */
     public static FragmentDetailsPupil newInstance(int pupilID) {
         FragmentDetailsPupil fragmentDetailsPupil = new FragmentDetailsPupil();
         Bundle args = new Bundle();
@@ -56,34 +45,21 @@ public class FragmentDetailsPupil extends Fragment implements View.OnClickListen
         fragmentDetailsPupil.setArguments(args);
         return fragmentDetailsPupil;
     }
-    public FragmentDetailsPupil() {
-    }
-
+    public FragmentDetailsPupil() {}
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (getArguments().get(ActivityPupil.PUPIL_ID) != null)
-            mPupil = getPupilWithID(getActivity(), getArguments().getInt(ActivityPupil.PUPIL_ID));
-    }
+            mPupil = PupilsBDD.getPupileWithId(getActivity(),getArguments().getInt(ActivityPupil.PUPIL_ID));
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.pupil_fragment_details, container, false);
-        getAllViews(view);
-
-        if(mPupil != null)
-            fillPupilDetails();
-
-        return view;
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (PupilDetailsInterface) activity;
+            mListener = (FragmentDetailsPupil.PupilDetailsInterface) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException("Activity must implement PupilDetailsInterface.");
         }
@@ -95,91 +71,102 @@ public class FragmentDetailsPupil extends Fragment implements View.OnClickListen
         mListener = null;
     }
 
+    /**
+     * Implementing abstracts functions from AbstractFragmentList
+     */
+    @Override
+    protected View setContent(Context context, ViewGroup container) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.pupil_fragment_details, container, false);
 
-    // Utils
-
-    public void getAllViews(View view) {
-
-        mButtonEdit = (LinearLayout) view.findViewById(R.id.edit);
-        mButtonEdit.setOnClickListener(this);
-
-        mButtonSuivi = (LinearLayout) view.findViewById(R.id.suivi);
-        mButtonSuivi.setOnClickListener(this);
-
-        mImageViewAvatar = (ImageView) view.findViewById(R.id.avatar);
-        mTextViewName = (TextView) view.findViewById(R.id.name);
-        mTextViewClass = (TextView) view.findViewById(R.id.level);
-        mTextViewSince = (TextView) view.findViewById(R.id.since);
-
-
-        mTextViewAdress = (TextView) view.findViewById(R.id.adress);
-        mTextViewTel1 = (TextView) view.findViewById(R.id.tel1);
-        mTextViewTel1.setVisibility(View.GONE);
-        mTextViewTel2 = (TextView) view.findViewById(R.id.tel2);
-        mTextViewTel2.setVisibility(View.GONE);
-
-        mTextViewCall1 = (TextView) view.findViewById(R.id.call1);
-        mTextViewCall1.setOnClickListener(this);
-        mTextViewCall2 = (TextView) view.findViewById(R.id.call2);
-        mTextViewCall2.setOnClickListener(this);
-        mTextViewGoTo = (TextView) view.findViewById(R.id.goTo);
-        mTextViewGoTo.setOnClickListener(this);
-
-
-        mTextViewType = (TextView) view.findViewById(R.id.type);
-        mTextViewFrequency = (TextView) view.findViewById(R.id.frequency);
-        mTextViewPrice = (TextView) view.findViewById(R.id.price);
-
-        mCVActivePupil = (CardView) view.findViewById(R.id.isActive);
-        mCVActivePupil.setOnClickListener(this);
-    }
-
-    public void fillPupilDetails(){
-
-        mTextViewName.setText(mPupil.getFullName());
-        mTextViewClass.setText(getActivity().getResources().getStringArray(R.array.classes)[mPupil.getLevel()]);
-        mTextViewSince.setText(String.format("Depuis %s", C.formatDate(mPupil.getSinceDate(), C.MONTH_YEAR)));
+        ((TextView) view.findViewById(R.id.name)).setText(mPupil.getFullName());
+        ((TextView) view.findViewById(R.id.level)).setText(getActivity().getResources().getStringArray(R.array.classes)[mPupil.getLevel()]);
+        ((TextView) view.findViewById(R.id.since)).setText(String.format("Depuis %s", C.formatDate(mPupil.getSinceDate(), C.MONTH_YEAR)));
+        ImageView imageView = (ImageView) view.findViewById(R.id.avatar);
 
         if(!"".equals(mPupil.getImgPath()) && new File(mPupil.getImgPath()).exists())
-            mImageViewAvatar.setImageBitmap(BitmapFactory.decodeFile(mPupil.getImgPath()));
+            imageView.setImageBitmap(BitmapFactory.decodeFile(mPupil.getImgPath()));
         else{
             if(mPupil.getSex() == Pupil.SEXE_FEMALE)
-                mImageViewAvatar.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.woman));
+                imageView.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.woman));
             else
-                mImageViewAvatar.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.man));
+                imageView.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.man));
         }
 
-
+        ((TextView) view.findViewById(R.id.adress)).setText(mPupil.getAdress());
         if(mPupil.getTel1() != 0) {
-            mTextViewTel1.setVisibility(View.VISIBLE);
-            mTextViewTel1.setText(String.format("%010d",mPupil.getTel1()));
+            ((TextView) view.findViewById(R.id.tel1)).setText(String.format("%010d", mPupil.getTel1()));
+            view.findViewById(R.id.call1).setOnClickListener(this);
         }
-
         if(mPupil.getTel2() != 0) {
-            mTextViewTel2.setVisibility(View.VISIBLE);
-            mTextViewTel2.setText(String.format("%010d",mPupil.getTel2()));
+            ((TextView) view.findViewById(R.id.tel2)).setText(String.format("%010d", mPupil.getTel2()));
+            view.findViewById(R.id.call2).setOnClickListener(this);
         }
 
-        mTextViewAdress.setText(mPupil.getAdress());
+        view.findViewById(R.id.goTo).setOnClickListener(this);
+        view.findViewById(R.id.isActive).setOnClickListener(this);
 
-        mTextViewType.setText(getActivity().getResources().getStringArray(R.array.types)[mPupil.getType()]);
-        mTextViewFrequency.setText(getActivity().getResources().getStringArray(R.array.frequencies)[mPupil.getFrequency()]);
-        mTextViewPrice.setText(String.format("%.2f €", mPupil.getPrice()));
+        ((TextView) view.findViewById(R.id.type)).setText(getResources().getStringArray(R.array.types)[mPupil.getType()]);
+        ((TextView) view.findViewById(R.id.frequency)).setText(getResources().getStringArray(R.array.frequencies)[mPupil.getFrequency()]);
+        ((TextView) view.findViewById(R.id.price)).setText(String.format("%.2f €", mPupil.getPrice()));
 
-
-        if(mPupil.getState() == Pupil.DESACTIVE)
-            mCVActivePupil.setBackgroundColor(getResources().getColor(R.color.red500));
-
+        return view;
     }
 
-    public static Pupil getPupilWithID(Context context, int id){
-        PupilsBDD pupilsBDD = new PupilsBDD(context);
-        pupilsBDD.open();
-        Pupil pupil = pupilsBDD.getPupilWithId(id);
-        pupilsBDD.close();
-        return pupil;
+    @Override
+    protected void setLeftAction(LinearLayout leftLayout, TextView leftLabel, TextView leftIcon) {
+        leftLayout.setVisibility(View.VISIBLE);
+        leftLabel.setText("Modifier");
+        leftIcon.setText("{fa-edit} ");
+        leftLayout.setOnClickListener(this);
     }
 
+    @Override
+    protected void setRightAction(LinearLayout rightLayout, TextView rightLabel, TextView rightIcon) {
+        rightLayout.setVisibility(View.VISIBLE);
+        rightLabel.setText("Suivi");
+        rightIcon.setText("{fa-line-chart} ");
+        rightLayout.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()) {
+            case R.id.leftAction:
+                getFragmentManager().beginTransaction().replace(R.id.default_container, FragmentAddOrEditPupil.newInstance(mPupil.getId())).commit();
+                break;
+            case R.id.rightAction:
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra(MainActivity.NAVIGATION_POSITION,4);
+                intent.putExtra(MainActivity.PUPIL_ID, mPupil.getId());
+                startActivity(intent);
+                getActivity().finish();
+                break;
+            case R.id.isActive:
+                setDialogDeleteDevoir(mPupil);
+                break;
+            case R.id.call1 :
+                intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:"+((TextView)mContentView.findViewById(R.id.tel1)).getText().toString()));
+                startActivity(intent);
+                break;
+            case R.id.call2 :
+                intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:"+((TextView)mContentView.findViewById(R.id.tel2)).getText().toString()));
+                startActivity(intent);
+                break;
+            case R.id.goTo :
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q="+((TextView)mContentView.findViewById(R.id.adress)).getText().toString());
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
+                break;
+        }
+    }
+
+    /**
+     * Utils
+     */
     public void setDialogDeleteDevoir(final Pupil pupil) {
 
         LayoutInflater factory = LayoutInflater.from(getActivity());
@@ -214,7 +201,7 @@ public class FragmentDetailsPupil extends Fragment implements View.OnClickListen
                 pupilsBDD.open();
                 pupilsBDD.updatePupil(mPupil.getId(),mPupil);
                 pupilsBDD.close();
-                mCVActivePupil.setBackgroundColor(finalColor);
+                mContentView.findViewById(R.id.isActive).setBackgroundColor(finalColor);
                 createDialog.dismiss();
             }
         });
@@ -230,57 +217,8 @@ public class FragmentDetailsPupil extends Fragment implements View.OnClickListen
 
     }
 
-    // Interface
-
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.isActive:
-                setDialogDeleteDevoir(mPupil);
-                break;
-            case R.id.cancel :
-                mListener.goBack();
-                break;
-            case R.id.edit :
-                getFragmentManager().beginTransaction().replace(R.id.default_container, FragmentAddOrEditPupil.newInstance(mPupil.getId())).commit();
-                break;
-            case R.id.suivi :
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.putExtra(MainActivity.NAVIGATION_POSITION,4);
-                intent.putExtra(MainActivity.PUPIL_ID, mPupil.getId());
-                startActivity(intent);
-                getActivity().finish();
-                break;
-            case R.id.call1 :
-                intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+mTextViewTel1.getText().toString()));
-                startActivity(intent);
-                break;
-            case R.id.call2 :
-                intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+mTextViewTel2.getText().toString()));
-                startActivity(intent);
-                break;
-            case R.id.call :
-                intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+mTextViewTel1.getText().toString()));
-                startActivity(intent);
-                break;
-            case R.id.goTo :
-                Uri gmmIntentUri = Uri.parse("geo:0,0?q="+mTextViewAdress.getText().toString());
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                startActivity(mapIntent);
-                break;
-        }
-    }
-
-
-    // Interface
 
     public interface PupilDetailsInterface{
         void goBack();
     }
-
-
 }

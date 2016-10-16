@@ -10,7 +10,7 @@
     <android.support.v7.widget.CardView style="@style/CardViewInformation">
 
 
-    <LinearLayout style="@style/CardViewContainer">
+        <LinearLayout style="@style/CardViewContainer">
 
             <!-- HEADER -->
             <LinearLayout style="@style/CardViewLayoutTitle">
@@ -253,8 +253,7 @@
 
     <android.support.v7.widget.CardView style="@style/CardViewInformation">
 
-
-    <LinearLayout style="@style/CardViewContainer">
+        <LinearLayout style="@style/CardViewContainer">
 
             <!-- HEADER -->
             <LinearLayout style="@style/CardViewLayoutTitle">
@@ -324,11 +323,7 @@
                     <Switch style="@style/SwitchNotification" android:id="@+id/swDatabaseUpdate"/>
                 </LinearLayout>
 
-                <RadioGroup
-                    android:id="@+id/rGroupFrequenceUpdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                <RadioGroup style="@style/RadioGroupStyle" android:id="@+id/rGroupFrequenceUpdate">
                     <RadioButton style="@style/RadioButtonReminder" android:id="@+id/rb10days" android:text="10 jours" android:enabled="false"/>
                     <RadioButton style="@style/RadioButtonReminder" android:id="@+id/rb7days" android:text="1 semaine" android:enabled="false"/>
                     <RadioButton style="@style/RadioButtonReminder" android:id="@+id/rb3days" android:text="3 jours" android:enabled="false"/>

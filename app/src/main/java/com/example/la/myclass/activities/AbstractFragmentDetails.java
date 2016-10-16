@@ -1,42 +1,22 @@
 package com.example.la.myclass.activities;
 
-import android.app.DatePickerDialog;
 import android.app.Fragment;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.la.myclass.R;
-import com.example.la.myclass.adapters.SpinnerPupilWithPixAdapter;
-import com.example.la.myclass.beans.Pupil;
-import com.example.la.myclass.database.PupilsBDD;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 /**
- * 02/10/2016.
+ * 16/10/2016.
  */
-public abstract class AbstractFragmentAddOrEdit extends Fragment implements View.OnClickListener,
-        DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+
+public abstract class AbstractFragmentDetails extends Fragment implements View.OnClickListener {
 
     /**
      * Common views
@@ -45,12 +25,6 @@ public abstract class AbstractFragmentAddOrEdit extends Fragment implements View
     protected LinearLayout mContentView;
     protected LinearLayout mLeftAction, mRightAction;
     protected TextView mLeftActionLabel, mLeftActionIcon, mRightActionLabel, mRightActionIcon;
-
-    /**
-     * Variables de classe
-     */
-    protected DatePickerDialog mDatePickerDialog;
-    protected TimePickerDialog mTimePickerDialog;
 
     /**
      * Fragment Life cycle
@@ -73,7 +47,6 @@ public abstract class AbstractFragmentAddOrEdit extends Fragment implements View
 
     /**
      * Utils methods
-     * @param view
      */
     protected void getAllViews(View view){
         mScrollView = (ScrollView) view.findViewById(R.id.scrollViewContent);
@@ -87,14 +60,6 @@ public abstract class AbstractFragmentAddOrEdit extends Fragment implements View
         mRightAction.setOnClickListener(this);
     }
     protected abstract View setContent(Context context, ViewGroup container);
-    public void fillSpinnerPupils(final Spinner spinner, AdapterView.OnItemSelectedListener listener, int textColor){
-        PupilsBDD pupilsBDD = new PupilsBDD(getActivity());
-        pupilsBDD.open();
-        List<Pupil> listPupils = pupilsBDD.getActivePupils();
-        pupilsBDD.close();
-        spinner.setAdapter(new SpinnerPupilWithPixAdapter(getActivity(), listPupils, true, textColor));
-        spinner.setOnItemSelectedListener(listener);
-    }
     protected abstract void setLeftAction(LinearLayout leftLayout, TextView leftLabel, TextView leftIcon);
     protected abstract void setRightAction(LinearLayout rightLayout, TextView rightLabel, TextView rightIcon);
 }

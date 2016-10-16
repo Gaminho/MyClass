@@ -77,7 +77,7 @@ public class FragmentAddOrEditPupil extends AbstractFragmentAddOrEdit implements
         mPupil = new Pupil();
 
         if (getArguments() != null && getArguments().getInt(ActivityPupil.PUPIL_ID,-1) != -1){
-            mPupil = FragmentDetailsPupil.getPupilWithID(getActivity(), getArguments().getInt(ActivityPupil.PUPIL_ID));
+            mPupil = PupilsBDD.getPupileWithId(getActivity(), getArguments().getInt(ActivityPupil.PUPIL_ID));
             mCurrentMod = EDITING;
         }
     }
@@ -86,7 +86,6 @@ public class FragmentAddOrEditPupil extends AbstractFragmentAddOrEdit implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         setContent(getActivity(), mScrollView);
-
         return view;
     }
 

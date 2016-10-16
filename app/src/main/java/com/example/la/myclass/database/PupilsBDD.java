@@ -121,6 +121,14 @@ public class PupilsBDD {
         return cursorToPupil(c);
     }
 
+    public static Pupil getPupileWithId(Context context, int pupilID){
+        PupilsBDD pupilsBDD = new PupilsBDD(context);
+        pupilsBDD.open();
+        Pupil pupil = pupilsBDD.getPupilWithId(pupilID);
+        pupilsBDD.close();
+        return pupil;
+    }
+
     public List<Pupil> getPupilsWithCriteria(String criteria) {
         Cursor c = bdd.query(TABLE_PUPILS, PUPILS_FIELDS, criteria, null, null, null, COL_CLASS);
         return cursorToListPupils(c);
