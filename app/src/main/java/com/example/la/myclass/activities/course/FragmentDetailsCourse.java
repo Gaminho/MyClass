@@ -27,6 +27,7 @@ public class FragmentDetailsCourse extends Fragment implements View.OnClickListe
     /**
      * BUNDLE VARIABLES
      */
+    // TODO : make it extend @AbstractFragmentDetails
     static final String COURSE_ID = "course_id";
 
     // Views
@@ -69,7 +70,7 @@ public class FragmentDetailsCourse extends Fragment implements View.OnClickListe
 
         View view = inflater.inflate(R.layout.course_fragment_details, container, false);
         getAllViews(view);
-
+//      TODO : clean up xml view
         if(mCourse != null)
             fillCourseDetails(mCourse);
 
