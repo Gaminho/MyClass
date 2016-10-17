@@ -3,6 +3,7 @@ package com.example.la.myclass.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +71,7 @@ public class RecyclerViewCourses extends RecyclerView.Adapter<RecyclerViewCourse
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ActivityCourse.class);
-                intent.putExtra(COURSE_ID, mCourse.getId());
+                intent.putExtra(ActivityCourse.COURSE_ID, mCourse.getId());
                 mContext.startActivity(intent);
             }
         });

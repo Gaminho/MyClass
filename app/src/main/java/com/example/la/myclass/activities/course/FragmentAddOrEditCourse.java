@@ -31,6 +31,7 @@ import com.example.la.myclass.database.PupilsBDD;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Léa on 28/09/2015.
@@ -43,7 +44,6 @@ public class FragmentAddOrEditCourse extends AbstractFragmentAddOrEdit implement
     /**
      * BUNDLE VARIABLES
      */
-    protected static final String COURSE_ID = "course_id";
     public static final String TIME_IN_MILLIS = "time_in_millis";
 
     /**
@@ -77,7 +77,7 @@ public class FragmentAddOrEditCourse extends AbstractFragmentAddOrEdit implement
     public static FragmentAddOrEditCourse newInstance(int courseID) {
         FragmentAddOrEditCourse fragmentAddOrEditCourse = new FragmentAddOrEditCourse();
         Bundle args = new Bundle();
-        args.putInt(COURSE_ID, courseID);
+        args.putInt(ActivityCourse.COURSE_ID, courseID);
         fragmentAddOrEditCourse.setArguments(args);
         return fragmentAddOrEditCourse;
     }
@@ -99,8 +99,8 @@ public class FragmentAddOrEditCourse extends AbstractFragmentAddOrEdit implement
             if(getArguments().getLong(TIME_IN_MILLIS,-1) != -1)
                 mCalendar.setTimeInMillis(getArguments().getLong(TIME_IN_MILLIS));
 
-            if (getArguments().getInt(COURSE_ID,-1) != -1){
-                mCourse = FragmentDetailsCourse.getCourseWithId(getActivity(), getArguments().getInt(COURSE_ID));
+            if (getArguments().getInt(ActivityCourse.COURSE_ID,-1) != -1){
+                mCourse = CoursesBDD.getCourseWithId(getActivity(), getArguments().getInt(ActivityCourse.COURSE_ID));
                 mCalendar.setTimeInMillis(mCourse.getDate());
                 mCurrentMod = EDITING;
             }
@@ -143,7 +143,7 @@ public class FragmentAddOrEditCourse extends AbstractFragmentAddOrEdit implement
         if(mCurrentMod == EDITING) {
             spinner.setSelection(((SpinnerPupilWithPixAdapter) spinner.getAdapter()).getSelectionWithPupilID(mCourse.getPupilID()));
             EditText editText = ((EditText) view.findViewById(R.id.money));
-            editText.setText(String.format("%2.2f €", mCourse.getMoney()));
+            editText.setText(String.format(Locale.FRANCE,"%2.2f €", mCourse.getMoney()));
             editText = ((EditText) view.findViewById(R.id.memo));
             editText.setText(mCourse.getMemo());
             editText = ((EditText) view.findViewById(R.id.theme));
@@ -362,7 +362,7 @@ public class FragmentAddOrEditCourse extends AbstractFragmentAddOrEdit implement
             if (radioButtonID == R.id.rb60)
                 mCourse.setDuration(Course.DURATION_1H);
 
-            ((EditText) mContentView.findViewById(R.id.money)).setText(String.format("%.2f", foressenPrice()));
+            ((EditText) mContentView.findViewById(R.id.money)).setText(String.format(Locale.FRANCE,"%.2f", foressenPrice()));
             ((TextView) mContentView.findViewById(R.id.hour)).setText(mCourse.getHoursSlot());
         }
     }
@@ -372,7 +372,7 @@ public class FragmentAddOrEditCourse extends AbstractFragmentAddOrEdit implement
         if(adapterView.getId() == R.id.spinnerPupils) {
             Pupil pupil = (Pupil) adapterView.getAdapter().getItem(i);
             mCourse.setPupilID(pupil.getId());
-            ((EditText) mContentView.findViewById(R.id.money)).setText(String.format("%.2f", foressenPrice()));
+            ((EditText) mContentView.findViewById(R.id.money)).setText(String.format(Locale.FRANCE,"%.2f", foressenPrice()));
         }
     }
 
