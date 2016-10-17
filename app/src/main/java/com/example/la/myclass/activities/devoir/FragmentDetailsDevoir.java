@@ -73,7 +73,6 @@ public class FragmentDetailsDevoir extends AbstractFragmentDetails {
     protected View setContent(Context context, ViewGroup container) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.devoir_fragment_details, container, false);
-        // TODO : clean up view
         ((TextView) view.findViewById(R.id.pupilName)).setText(mDevoir.getPupil().getFullName());
         ((TextView) view.findViewById(R.id.date)).setText(C.formatDate(mDevoir.getDate(), C.DAY_DATE_D_MONTH_YEAR));
 

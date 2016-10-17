@@ -5,298 +5,53 @@
     android:layout_height="match_parent"
     android:background="@color/them100">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <!-- Actions -->
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/them700"
-            android:padding="5dp"
-            android:elevation="3dp">
-
-            <!-- Edit Devoir -->
-            <LinearLayout
-                android:id="@+id/edit"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <com.joanzapata.iconify.widget.IconTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="{fa-edit} "
-                    android:textColor="@color/unthem300"
-                    android:gravity="center_vertical"
-                    android:layout_marginLeft="5dp"
-                    android:textSize="25dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Modifier"
-                    android:textColor="@color/white"
-                    android:gravity="center_vertical"
-                    android:textSize="20dp"/>
-
+    <!-- Informations générales  -->
+    <android.support.v7.widget.CardView style="@style/CardViewInformation" android:layout_marginTop="0dp">
+        <LinearLayout style="@style/CardViewContainer" android:padding="10dp">
+            <!-- HEADER -->
+            <LinearLayout style="@style/CardViewLayoutTitle" android:padding="0dp">
+                <TextView style="@style/CardViewLayoutTitleText" android:text="Informations générales"/>
             </LinearLayout>
-
+            <!-- NOMS -->
+            <TextView style="@style/CardViewTitle3" android:text="Elève"/>
+            <TextView style="@style/PupilInfo" android:id="@+id/pupilName" android:text="Wael Herzi"/>
+            <!-- DATE -->
+            <TextView style="@style/CardViewTitle3" android:text="Date"/>
+            <TextView style="@style/PupilInfo" android:id="@+id/date" android:text="Vendredi 14 Octobre 2016"/>
         </LinearLayout>
+    </android.support.v7.widget.CardView>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="9"
-            android:layout_marginBottom="5dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <!-- Informations générales  -->
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <!-- LABEL -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12dp"
-                            android:layout_marginBottom="8dp"
-                            android:paddingLeft="0dp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:text="Informations générales"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"/>
-
-                        <!-- PupilName-->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="10dp"
-                                android:text="Elève"
-                                android:textColor="@color/them700"/>
-
-                            <TextView
-                                android:id="@+id/pupilName"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="16dp"
-                                android:text="Adrien Fleury"
-                                android:textColor="@color/textColor"/>
-
-                        </LinearLayout>
-
-                        <!-- Date -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginTop="2dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="10dp"
-                                android:text="Date"
-                                android:textColor="@color/them700"
-                                android:id="@+id/textView" />
-
-                            <TextView
-                                android:id="@+id/date"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="16dp"
-                                android:text="Dimanche 31 janvier 2016"
-                                android:textColor="@color/textColor"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <!-- Informations générales  -->
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginBottom="8dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <!-- LABEL -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12dp"
-                            android:layout_marginBottom="8dp"
-                            android:paddingLeft="0dp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:text="Informations sur le devoir"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"/>
-
-                        <!-- Chapitre -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginTop="2dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="10dp"
-                                android:text="Chapitre"
-                                android:textColor="@color/them700"/>
-
-                            <TextView
-                                android:id="@+id/theme"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="16dp"
-                                android:text="Dérivation"
-                                android:textColor="@color/textColor"/>
-
-                        </LinearLayout>
-
-                        <!-- Type de devoir -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginTop="2dp">
-
-                            <!-- LABEL -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="10dp"
-                                android:text="Type de devoir"
-                                android:textColor="@color/them700"
-                                android:id="@+id/textView2" />
-
-                            <TextView
-                                android:id="@+id/bareme"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="16dp"
-                                android:text="Devoir sur table"
-                                android:textColor="@color/textColor"/>
-
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <!-- Remarques  -->
-                <android.support.v7.widget.CardView
-                    android:id="@+id/remarquesCV"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginBottom="8dp">
-
-                    <LinearLayout
-                        android:id="@+id/remarque"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <!-- Remarques -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12dp"
-                            android:layout_marginBottom="4dp"
-                            android:paddingLeft="0dp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:text="Notes et résultats"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"/>
-
-                        <!-- Note -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginTop="2dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="10dp"
-                                android:text="Note"
-                                android:textColor="@color/them700"/>
-
-                            <TextView
-                                android:id="@+id/note"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="16dp"
-                                android:text="12.5/20"
-                                android:textColor="@color/textColor"/>
-
-                        </LinearLayout>
-
-
-                        <!-- Remarques -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="10dp"
-                            android:text="Remarques"
-                            android:textColor="@color/them700"
-                            android:paddingTop="2dp"/>/>
-
-                        <TextView
-                            android:id="@+id/memo"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="16dp"
-                            android:textColor="@color/textColor"
-                            android:text="Remarques"/>
-
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
+    <!-- Info Devoir -->
+    <android.support.v7.widget.CardView style="@style/CardViewInformation">
+        <LinearLayout style="@style/CardViewContainer" android:padding="10dp">
+            <!-- HEADER -->
+            <LinearLayout style="@style/CardViewLayoutTitle" android:padding="0dp">
+                <TextView style="@style/CardViewLayoutTitleText" android:text="Informations sur le devoir"/>
             </LinearLayout>
+            <!-- CHAPITRE -->
+            <TextView style="@style/CardViewTitle3" android:text="Chapitre"/>
+            <TextView style="@style/PupilInfo" android:id="@+id/theme" android:text="Dérivation et convexité"/>
+            <!-- TYPE DE DEVOIR -->
+            <TextView style="@style/CardViewTitle3" android:text="Type de devoir"/>
+            <TextView style="@style/PupilInfo" android:id="@+id/bareme" android:text="Devoir sur table"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView> <!-- 99 / 38 -->
 
-        </ScrollView>
-
-    </LinearLayout>
-
+    <!-- Remarques  -->
+    <android.support.v7.widget.CardView style="@style/CardViewInformation" android:layout_marginBottom="8dp">
+        <LinearLayout style="@style/CardViewContainer" android:padding="10dp">
+            <!-- HEADER -->
+            <LinearLayout style="@style/CardViewLayoutTitle" android:padding="0dp">
+                <TextView style="@style/CardViewLayoutTitleText" android:text="Notes et résultats"/>
+            </LinearLayout>
+            <!-- NOTE -->
+            <TextView style="@style/CardViewTitle3" android:text="Note"/>
+            <TextView style="@style/PupilInfo" android:id="@+id/note" android:text="12.5/20"/>
+            <!-- REMARQUES -->
+            <TextView style="@style/CardViewTitle3" android:text="Remarques"/>
+            <TextView style="@style/PupilInfo" android:id="@+id/memo" android:text="Remarques"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView> <!-- 168 / 54 -->
 
 </LinearLayout>
+ <!-- 302 / 57 -->

@@ -3,22 +3,20 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/them100">
+    android:background="@color/them100"
+    android:paddingBottom="8dp">
 
     <!-- Informations générales  -->
     <android.support.v7.widget.CardView style="@style/CardViewInformation" android:layout_marginTop="0dp">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <!-- INFOS -->
             <LinearLayout style="@style/CardViewContainer" android:padding="10dp">
                 <!-- HEADER -->
                 <LinearLayout style="@style/CardViewLayoutTitle" android:padding="0dp">
                     <TextView style="@style/CardViewLayoutTitleText" android:text="Informations générales"/>
                 </LinearLayout>
-
                 <LinearLayout style="@style/CardViewInfoContent">
                     <!-- LEFT PANEL -->
                     <LinearLayout
@@ -47,7 +45,6 @@
                         <TextView style="@style/PupilInfo" android:id="@+id/since" android:text="Depuis Septembre 2012"/>
                     </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
             <!-- ACTIF -->
             <android.support.v7.widget.CardView
@@ -58,9 +55,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 app:cardBackgroundColor="@color/green500"/>
-
         </RelativeLayout>
-
     </android.support.v7.widget.CardView>
 
     <!-- Coordonnees -->
@@ -89,11 +84,10 @@
                 <com.joanzapata.iconify.widget.IconTextView style="@style/CardViewHorizontalItemRightText" android:id="@+id/goTo" android:layout_marginRight="10dp" android:text="{fa-map}" android:textSize="20dp" android:textColor="@color/unthem800"/>
             </LinearLayout>
         </LinearLayout>
-
     </android.support.v7.widget.CardView>
 
     <!-- Argent  -->
-    <android.support.v7.widget.CardView style="@style/CardViewInformation">
+    <android.support.v7.widget.CardView style="@style/CardViewInformation" android:layout_marginBottom="8dp">
         <LinearLayout style="@style/CardViewContainer" android:padding="10dp">
             <!-- HEADER -->
             <LinearLayout style="@style/CardViewLayoutTitle" android:padding="0dp">
