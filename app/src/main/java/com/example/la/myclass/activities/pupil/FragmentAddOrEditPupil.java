@@ -422,12 +422,12 @@ public class FragmentAddOrEditPupil extends AbstractFragmentAddOrEdit implements
             switch(radioButtonID){
                 case R.id.rbMale:
                     mPupil.setSex(Pupil.SEXE_MALE);
-                    if(mCurrentMod == ADDING || "".equals(mPupil.getImgPath()))
+                    if(mContentView != null && (mCurrentMod == ADDING || "".equals(mPupil.getImgPath())))
                         ((ImageView) mContentView.findViewById(R.id.avatar)).setImageDrawable(getResources().getDrawable(R.drawable.man));
                     break;
                 case R.id.rbFemale:
                     mPupil.setSex(Pupil.SEXE_FEMALE);
-                    if(mCurrentMod == ADDING || "".equals(mPupil.getImgPath()))
+                    if(mContentView != null && (mCurrentMod == ADDING || "".equals(mPupil.getImgPath())))
                         ((ImageView) mContentView.findViewById(R.id.avatar)).setImageDrawable(getResources().getDrawable(R.drawable.woman));
                     break;
             }
