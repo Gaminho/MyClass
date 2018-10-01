@@ -17,10 +17,13 @@ import android.widget.TextView;
 import com.example.la.myclass.R;
 import com.example.la.myclass.activities.AbstractFragmentList;
 import com.example.la.myclass.adapters.RecyclerViewCourses;
+import com.example.la.myclass.adapters.RecyclerViewPupil;
 import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.beans.Pupil;
 import com.example.la.myclass.database.CoursesBDD;
+import com.example.la.myclass.database.PupilsBDD;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -85,14 +88,12 @@ public class FragmentListCourse extends AbstractFragmentList implements AdapterV
         List<Course> list = coursesBDD.getAllCourses();
         coursesBDD.close();
 
-        if(list.size() > 0)
-            recyclerView.setAdapter(new RecyclerViewCourses(getActivity(), list));
+        boolean isEmpty = list.size() > 0;
+        list = !isEmpty ? list : new ArrayList<Course>();
+        recyclerView.setAdapter(new RecyclerViewCourses(getActivity(), list));
 
-        else{
-            recyclerView.setVisibility(View.GONE);
-            textViewNoItem.setVisibility(View.VISIBLE);
-            textViewNoItem.setText("Aucun cours");
-        }
+        recyclerView.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+        textViewNoItem.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
     }
 
     @Override

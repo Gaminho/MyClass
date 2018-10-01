@@ -15,11 +15,14 @@ import android.widget.TextView;
 
 import com.example.la.myclass.R;
 import com.example.la.myclass.activities.AbstractFragmentList;
+import com.example.la.myclass.adapters.RecyclerViewCourses;
 import com.example.la.myclass.adapters.RecyclerViewDevoirs;
+import com.example.la.myclass.beans.Course;
 import com.example.la.myclass.beans.Devoir;
 import com.example.la.myclass.beans.Pupil;
 import com.example.la.myclass.database.DevoirBDD;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,12 +79,12 @@ public class FragmentListDevoir extends AbstractFragmentList implements AdapterV
         List<Devoir> devoirList = devoirBDD.getAllDevoirs();
         devoirBDD.close();
 
-        if (devoirList.size() > 0) {
-            recyclerView.setAdapter(new RecyclerViewDevoirs(getActivity(), devoirList));
-        } else {
-            recyclerView.setVisibility(View.GONE);
-            textViewNoItem.setVisibility(View.VISIBLE);
-        }
+        boolean isEmpty = devoirList.size() > 0;
+        devoirList = !isEmpty ? devoirList : new ArrayList<Devoir>();
+        recyclerView.setAdapter(new RecyclerViewDevoirs(getActivity(), devoirList));
+
+        recyclerView.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+        textViewNoItem.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
     }
 
     @Override

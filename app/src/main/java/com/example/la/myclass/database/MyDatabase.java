@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class MyDatabase extends SQLiteOpenHelper {
 
-    public static final int VERSION_BDD = 30;
+    public static final int VERSION_BDD = 31;
     public static final String DB_NAME = "myclassdb";
     private static final String TABLE_PUPILS = "pupils_table";
     private static final String TABLE_PUPILS_2 = "pupils_table_2";
@@ -66,12 +66,17 @@ public class MyDatabase extends SQLiteOpenHelper {
             + COL_TEL_1 + " LONG DEFAULT 0, " + COL_TEL_2 + " LONG DEFAULT 0, "
             + COL_IMG_PATH + " TEXT );";
 
-    private static final String CREATE_COURSES_BDD = "CREATE TABLE " + TABLE_COURSES + " ("
-            + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_PUPIL_NAME + " TEXT NOT NULL, "
-            + COL_DATE + " LONG, " + COL_DURATION + " INTEGER, "
-            + COL_STATE + " INTEGER, " + COL_MONEY + " DOUBLE, "
-            + COL_THEME + " TEXT, " + COL_MEMO + " TEXT, "
-            + COL_PUPIL_ID + " INTEGER );";
+//    private static final String CREATE_COURSES_BDD = "CREATE TABLE " + TABLE_COURSES + " ("
+//            + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_PUPIL_NAME + " TEXT NOT NULL, "
+//            + COL_DATE + " LONG, " + COL_DURATION + " INTEGER, "
+//            + COL_STATE + " INTEGER, " + COL_MONEY + " DOUBLE, "
+//            + COL_THEME + " TEXT, " + COL_MEMO + " TEXT, "
+//            + COL_PUPIL_ID + " INTEGER );";
+
+    private static final String CREATE_COURSES_BDD_2 = "CREATE TABLE " + TABLE_COURSES + " ("
+            + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_DATE + " LONG, "
+            + COL_DURATION + " INTEGER, " + COL_STATE + " INTEGER, " + COL_MONEY + " DOUBLE, "
+            + COL_THEME + " TEXT, " + COL_MEMO + " TEXT, " + COL_PUPIL_ID + " INTEGER NOT NULL);";
 
     private static final String CREATE_DEVOIRS_BDD = "CREATE TABLE " + TABLE_DEVOIRS + " ("
             + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_THEME + " TEXT NOT NULL, "
@@ -86,7 +91,7 @@ public class MyDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_PUPILS_BDD);
-        db.execSQL(CREATE_COURSES_BDD);
+        db.execSQL(CREATE_COURSES_BDD_2);
         db.execSQL(CREATE_DEVOIRS_BDD);
     }
 
@@ -110,17 +115,17 @@ public class MyDatabase extends SQLiteOpenHelper {
              * Algorithme pour supprimer une colonne
              */
 
-            /*
-            db.execSQL(CREATE_DEVOIRS_BDD_2);
-            db.execSQL("INSERT INTO " + TABLE_DEVOIRS_2 + " SELECT " + COL_ID + "," + COL_THEME + "," + COL_DATE + ","
-                    + COL_NOTE + "," + COL_COMMENTAIRE + "," + COL_STATE + "," + COL_PUPIL_ID + " FROM " + TABLE_DEVOIRS);
-            db.execSQL("DROP TABLE " + TABLE_DEVOIRS);
-            db.execSQL(CREATE_DEVOIRS_BDD);
-            db.execSQL("INSERT INTO " + TABLE_DEVOIRS + " SELECT " + COL_ID + "," + COL_THEME + "," + COL_DATE + ","
-                    + COL_NOTE + "," + COL_COMMENTAIRE + "," + COL_STATE + "," + COL_PUPIL_ID + " FROM " + TABLE_DEVOIRS_2);
+
+//            db.execSQL(CREATE_PUPILS_BDD_2);
+//            db.execSQL("INSERT INTO " + TABLE_PUPILS_2 + " SELECT " + COL_ID + "," + COL_THEME + "," + COL_DATE + ","
+//                    + COL_NOTE + "," + COL_COMMENTAIRE + "," + COL_STATE + "," + COL_PUPIL_ID + " FROM " + TABLE_DEVOIRS);
+            db.execSQL("DROP TABLE " + TABLE_COURSES);
+            db.execSQL(CREATE_COURSES_BDD_2);
+//            db.execSQL("INSERT INTO " + TABLE_DEVOIRS + " SELECT " + COL_ID + "," + COL_THEME + "," + COL_DATE + ","
+//                    + COL_NOTE + "," + COL_COMMENTAIRE + "," + COL_STATE + "," + COL_PUPIL_ID + " FROM " + TABLE_DEVOIRS_2);
 
             Log.e("BDD", "OK");
-            */
+
 
         }
         //onCreate(db);

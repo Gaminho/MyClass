@@ -19,6 +19,7 @@ import com.example.la.myclass.adapters.RecyclerViewPupil;
 import com.example.la.myclass.beans.Pupil;
 import com.example.la.myclass.database.PupilsBDD;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,12 +70,13 @@ public class FragmentListPupil extends AbstractFragmentList implements AdapterVi
         List<Pupil> pupilList = pupilsBDD.getAllPupils();
         pupilsBDD.close();
 
-        if (pupilList.size() > 0) {
-            recyclerView.setAdapter(new RecyclerViewPupil(getActivity(), pupilList));
-        } else {
-            recyclerView.setVisibility(View.GONE);
-            textViewNoItem.setVisibility(View.VISIBLE);
-        }
+        boolean isEmpty = pupilList.size() > 0;
+
+        pupilList = !isEmpty ? pupilList : new ArrayList<Pupil>();
+        recyclerView.setAdapter(new RecyclerViewPupil(getActivity(), pupilList));
+
+        recyclerView.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+        textViewNoItem.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -134,7 +136,8 @@ public class FragmentListPupil extends AbstractFragmentList implements AdapterVi
             criteria += " AND " + PupilsBDD.COL_STATE + " != " + Pupil.DESACTIVE;
 
         Log.e("Criteria", criteria);
-        return pupilsBDD.getPupilsWithCriteria(criteria);
+        List<?> ans = pupilsBDD.getPupilsWithCriteria(criteria) != null ? pupilsBDD.getPupilsWithCriteria(criteria) : new ArrayList<>();
+        return ans;
     }
 
     @Override
